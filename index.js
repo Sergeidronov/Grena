@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 const client = new Discord.Client();
     
 client.on(`ready`, (ABC)=>{
@@ -12,4 +12,4 @@ client.on(`messageCreate`, (message) =>{
     message.channel.send("pong");
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login("OTI4NjIxNzY5ODI3NDQyNzA4.Ydbcag.f9wJmyrtPAksJFbwYB1UNUEJmHQ");
