@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "ascii-table": "^0.0.9",
+    "discord.js": "^13.6.0",
+    "glob": "^7.2.0",
+    "ms": "^2.1.3"
+  },
+  "name": "grena",
+  "version": "1.0.0",
+  "main": "./Structures/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sergeidronov/Grena.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sergeidronov/Grena/issues"
+  },
+  "homepage": "https://github.com/Sergeidronov/Grena#readme",
+  "description": ""
+}
