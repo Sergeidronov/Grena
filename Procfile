@@ -1,1 +1,1 @@
-worker: no
+worker: ./Structures/index.js
