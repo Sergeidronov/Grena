@@ -2,5 +2,23 @@
   "dependencies": {
     "discord.js": "^13.6.0",
     "install": "^0.13.0"
-  }
+  },
+  "name": "grena",
+  "version": "1.0.0",
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sergeidronov/Grena.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sergeidronov/Grena/issues"
+  },
+  "homepage": "https://github.com/Sergeidronov/Grena#readme",
+  "description": ""
 }
