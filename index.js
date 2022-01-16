@@ -1,10 +1,7 @@
-const Discord = require('discord.js'),
-    config = require('./config.json');
+const Discord = require('discord.js'),  
 const client = new Discord.Client();
-config.cfg.intents = new Discord.Intents(config.cfg.intents);
     
-const bot = new Discord.Client(config.cfg);
-client.login(process.env.BOT_TOKEN);
+
 
 bot.on(`ready`, (ABC)=>{
     console.log("Ready");
@@ -16,3 +13,5 @@ bot.on(`messageCreate`, (message) =>{
 
     message.channel.send("pong");
 });
+
+client.login(process.env.BOT_TOKEN);
