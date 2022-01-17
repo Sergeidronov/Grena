@@ -30,7 +30,7 @@ module.exports = {
         }]
     },
         {
-            name: "unmute",
+            name: "remove",
             description: "Снятие мута с пользователя.",
             type: "SUB_COMMAND",
             options: [{
