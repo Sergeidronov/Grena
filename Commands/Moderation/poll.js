@@ -31,7 +31,7 @@ module.exports = {
 
         const pollEmbed = new MessageEmbed()
             .setColor("AQUA")
-            .setTitle("Poll 📊")
+            .setTitle("Голосование 📊")
             .setDescription(poll)
             .setFooter("Please react with the 👍, 👎,🤷‍♂️based on your opinion.")
             .setTimestamp()
