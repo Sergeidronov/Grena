@@ -7,7 +7,7 @@ module.exports = {
     usage: "/mute",
     permission: "ADMINISTRATOR",
     options: [{
-        name: "mute",
+        name: "add",
         description: "Выдача мута.",
         type: "SUB_COMMAND",
         options: [{
