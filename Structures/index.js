@@ -22,5 +22,5 @@ client.commands = new Collection();
 
 
  client.login(process.env.BOT_TOKEN);
- //client.login(token);
+ // client.login(token);
 
