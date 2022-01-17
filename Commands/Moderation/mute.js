@@ -1,49 +1,54 @@
-const { CommandInteraction,  MessageEmbed} = require("discord.js");
-const  ms= require("ms");
+const {
+    CommandInteraction,
+    MessageEmbed
+} = require("discord.js");
+const 
+    ms
+= require("ms");
 
 module.exports = {
-    name: "mute",
+    name: "timeout",
     description: "Mute System",
-    usage: "/mute",
-    permission: "ADMINISTRATOR",
+    usage: "/timeout",
+    permission: "MANAGE_MESSAGES",
     options: [{
-        name: "add",
-        description: "Выдача мута.",
+        name: "mute",
+        description: "Timeout A User",
         type: "SUB_COMMAND",
         options: [{
             name: "user",
-            description: "Выберите пользователя.",
+            description: "Provide A User To The Timeout.",
             type: "USER",
             required: true
         },
         {
             name: "length",
-            description: "Укажите время наказания. ",
+            description: "Provide Length For Timeout... [ 1 Second Up To 28 Days ]  ",
             type: "STRING",
             required: true
         },
         {
             name: "reason",
-            description: "Выберите причину снятия мута.",
+            description: "Provide A Reason For The Timeout",
             type: "STRING",
-            required: true
+            required: false
         }]
     },
         {
-            name: "remove",
-            description: "Снятие мута с пользователя.",
+            name: "unmute",
+            description: "Untimeout A User",
             type: "SUB_COMMAND",
             options: [{
                 name: "user",
-                description: "Выберите пользователя.",
+                description: "Provide A User To Untimeout.",
                 type: "USER",
                 required: true
             },
             {
                 name: "reason",
-                description: "Выберите причину снятия мута.",
+                description: "Provide A Reason For The Untimeout",
                 type: "STRING",
-                required: true
+                required: false
             }
             ]
         }
