@@ -1,6 +1,6 @@
 const { Client } = require("discord.js")
-const mongoose = require('mongoose');
-const {Database} = require("../../package.json");
+const mongoose = require("mongoose");
+const {Database} = require("../../../Grena/Structures/config.json");
 
 module.exports = {
     name: "ready",
