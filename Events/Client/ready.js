@@ -1,5 +1,5 @@
 const { Client } = require("discord.js")
-const mongoose = require('./mongoose');
+const mongoose = require('mongoose');
 const {Database} = require("../../package.json");
 
 module.exports = {
