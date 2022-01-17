@@ -1,7 +1,7 @@
 const { MessageEmbed, Message } = require("discord.js");
 
 module.exports = {
-  name: "say",
+  name: "saying",
   description: "Отправьте сообщение на определенный канал.",
   permission: "ADMINISTRATOR",
   usage: "/say",
