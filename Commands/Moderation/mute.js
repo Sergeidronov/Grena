@@ -13,25 +13,25 @@ module.exports = {
     permission: "MANAGE_MESSAGES",
     options: [{
         name: "mute",
-        description: "Timeout A User",
+        description: "Выдача мута.",
         type: "SUB_COMMAND",
         options: [{
             name: "user",
-            description: "Provide A User To The Timeout.",
+            description: "Выбор пользователя.",
             type: "USER",
             required: true
         },
         {
             name: "length",
-            description: "Provide Length For Timeout... [ 1 Second Up To 28 Days ]  ",
+            description: "Выбор времени наказания... [ 1 Second Up To 28 Days ]  ",
             type: "STRING",
             required: true
         },
         {
             name: "reason",
-            description: "Provide A Reason For The Timeout",
+            description: "Выбор причины наказания",
             type: "STRING",
-            required: false
+            required: true
         }]
     },
         {
@@ -40,7 +40,7 @@ module.exports = {
             type: "SUB_COMMAND",
             options: [{
                 name: "user",
-                description: "Provide A User To Untimeout.",
+                description: "Выбор пользователя.",
                 type: "USER",
                 required: true
             },
@@ -48,7 +48,7 @@ module.exports = {
                 name: "reason",
                 description: "Provide A Reason For The Untimeout",
                 type: "STRING",
-                required: false
+                required: true
             }
             ]
         }

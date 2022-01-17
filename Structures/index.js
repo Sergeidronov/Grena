@@ -8,6 +8,7 @@ const Ascii = require("ascii-table");
 const { Permissions } = require('discord.js');
 const DiscordDB = require('simple-discord.db');
 const fs = require('fs');
+const ms = require(`ms`);
 
 
 
