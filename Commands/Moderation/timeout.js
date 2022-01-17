@@ -2,7 +2,7 @@ const { CommandInteraction,  MessageEmbed} = require("discord.js");
 const  ms= require("ms");
 
 module.exports = {
-    name: "mute",
+    name: "timeout",
     description: "Mute System",
     usage: "/mute",
     permission: "ADMINISTRATOR",
