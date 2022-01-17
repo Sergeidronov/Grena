@@ -6,6 +6,8 @@ const { glob } = require("glob");
 const PG = promisify(glob);
 const Ascii = require("ascii-table");
 const { Permissions } = require('discord.js');
+const DiscordDB = require('simple-discord.db');
+
 
 
 
@@ -17,5 +19,7 @@ client.commands = new Collection();
     require(`./Handlers/${handler}`)(client, PG, Ascii);
 });
 
-//client.login(process.env.BOT_TOKEN);
-client.login(token);
+
+client.login(process.env.BOT_TOKEN);
+// client.login(token);
+

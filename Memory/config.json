@@ -1,0 +1,18 @@
+{
+	"autoStart": false,
+	"autoStartSchems": {
+		"guilds": null,
+		"users": null,
+		"members": null
+	},
+	"backUp": {
+		"enable": false,
+		"time": 3600000,
+		"count": 2
+	},
+	"autoSave": {
+		"enable": false,
+		"lastRefresh": 1642410027953,
+		"time": 600000
+	}
+}
