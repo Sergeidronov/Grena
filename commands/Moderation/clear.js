@@ -1,78 +1,59 @@
-const { CommandInteraction, MessageEmbed } = require(`discord.js`);
+const { CommandInteraction, MessageEmbed } = require("discord.js");
+
+
 
 module.exports = {
     name: "clear",
-    description:"Удаляет указанное количество сообщений из канала или целевого объекта",
-	permission: "ADMINISTRATOR",
+    description: "Deletes a specified number of messages from a channel or a target.",
     options: [
         {
             name: "amount",
-            description: "Выберите количество сообщений для удаления из канала или целевого объекта",
+            description: "Select the amount of messages to delete from a channel or a target.",
             type: "NUMBER",
             required: true
         },
         {
-            name: "target",
-            description: "Выберите цель, чтобы очистить их сообщения",
+            name: "target",description: "Select a target to clear their messages.",
             type: "USER",
-            require: false
+            required: false
         }
     ],
     /**
-     * 
-     * @param {CommandInteraction} interaction 
+     * @param {CommandInteraction} interaction
      */
     async execute(interaction) {
         const { channel, options } = interaction;
+
         const Amount = options.getNumber("amount");
         const Target = options.getMember("target");
-        const per = this.permission
-        const reason2 = "Invalid Permissions"
+
         const Messages = await channel.messages.fetch();
-        const user = interaction.member
-		const name = interaction.commandName
-
-
-
-        const Embed1 = new MessageEmbed()
-
-        .setTitle("❌ Недостаточно прав ❌")
-			.setColor("RED")
-
-            if (!user.permissions.has("ADMINISTRATOR"))
-			return interaction.reply({
-				embeds: [Embed1],
-				ephemeral: true
-			}).catch((err) => {
-				console.log(err)
-			});
 
         const Response = new MessageEmbed()
-        .setColor("LUMINOUS_VIVID_PINK");
+        .setColor("RANDOM");
 
+        if(Amount > 100 || Amount <= 0) {
+            Response.setDescription(`Amount cannot exceed 100, and cannot be under 1.`)
+            return interaction.reply({embeds: [Response]})
+        }
         if(Target) {
             let i = 0;
             const filtered = [];
             (await Messages).filter((m) => {
-            if(m.author.id === Target.id && Amount > i)  {
-                   filtered.push(m);
-                   i++;
-            }
+                if(m.author.id === Target.id && Amount > i) {
+                    filtered.push(m);i++;
+                }
             })
 
-        await channel.bulkDelete(filtered, true).then(messages => {
-            Response.setDescription(`✅ Удалено ${messages.size} сообщений в этом канале${Target}.`);
-            interaction.reply({embeds:[Response]});
-
-        })
-
-       } else {
-           await channel.bulkDelete(Amount,true).then(messages => {
-            Response.setDescription(`✅ Удалено ${messages.size} сообщений в этом канале.`);
-            interaction.reply({embeds:[Response]});
-
-           })
-       }
+            await channel.bulkDelete(filtered, true).then(messages => {
+                Response.setDescription(`🧹 Cleared ${messages.size} from ${target.id}.`);
+                interaction.reply({embeds: [Response]})
+            })
+        } else {
+            await channel.bulkDelete(Amount, true).then(messages => {
+                Response.setDescription(`🧹 Cleared ${messages.size} from this channel.`);
+                interaction.reply({ embeds: [Response] })
+            })
+        }
     }
 }
-
