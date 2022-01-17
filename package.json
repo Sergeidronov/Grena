@@ -4,14 +4,11 @@
     "discord.js": "^13.6.0",
     "glob": "^7.2.0",
     "ms": "^2.1.3",
-    "node": "^17.3.1",
     "engines": { "node": "16.x" }
-
   },
   "name": "grena",
   "version": "1.0.0",
-  "main": "./Structures/index.js",
-  
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,7 +22,5 @@
     "url": "https://github.com/Sergeidronov/Grena/issues"
   },
   "homepage": "https://github.com/Sergeidronov/Grena#readme",
-  "devDependencies": {},
-  "keywords": [],
   "description": ""
 }
