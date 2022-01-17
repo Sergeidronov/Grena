@@ -17,4 +17,5 @@ client.commands = new Collection();
     require(`./Handlers/${handler}`)(client, PG, Ascii);
 });
 
-client.login(process.env.BOT_TOKEN);
+//client.login(process.env.BOT_TOKEN);
+client.login(token);
