@@ -73,7 +73,7 @@ module.exports = {
 
       interaction.editReply({embeds: [Embed.setDescription(`**Sending dm to all users with the role ${role}**\n\n> Successful DMs: ${successfulMembers}\n\n> Failed DMs: ${failedMembers}\n\n> Latest member: ${member}`).setFooter({text: "Thank you for using my code. | M4HD1#6336"})]})
     
-      await delay(3000)) //This waits 3 seconds before DMing the next member. If you want to change it it is in milliseconds so 3000 = 3 seconds.
+      await delay(3000)
     }
     const failedMembersMapped = failedMembersList.map((m) => m).join(", ") || "None";
     const successfulMembersMapped = successfulMembersList.map((m) => m).join(", ") || "None"
