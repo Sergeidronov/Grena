@@ -1,3 +1,4 @@
+const { Client, Collection, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageSelectMenu } = require("discord.js");;
 module.exports = {
     name: "menu",
     aliases: ["mn", "img"],
