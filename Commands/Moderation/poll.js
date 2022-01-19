@@ -33,13 +33,12 @@ module.exports = {
             .setColor("AQUA")
             .setTitle("Голосование 📊")
             .setDescription(poll)
-            .setFooter("Please react with the 👍, 👎,🤷‍♂️based on your opinion.")
+            .setFooter("Please react with the 👍, 👎based on your opinion.")
             .setTimestamp()
 
         const sendMessage = await client.channels.cache.get(gChannel.id).send({embeds: [pollEmbed]});
         sendMessage.react("👍")
         sendMessage.react("👎")
-        sendMessage.react("🤷‍♂️️")
 
         interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`The poll was successfully sent to ${gChannel} ✅`)],ephemeral: true})
     }
