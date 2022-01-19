@@ -1,5 +1,6 @@
 const { CommandInteraction, MessageEmbed, Message } = require("discord.js");
 const Discord = require("discord.js");
+const pagination = require("discord.js-pagination")
 
 module.exports = {
     name: "helper",
@@ -8,7 +9,7 @@ module.exports = {
     /**
      * @param {CommandInteraction} interaction
      */
-    async execute(interaction, client, bot, args ,message) {
+    async execute(interaction, client, bot, args ,message, inter) {
         
         const { options } = interaction;
 
@@ -17,21 +18,40 @@ module.exports = {
 
         const helperEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
-        .setTitle('Some title')
-        .setURL('https://discord.js.org/')
-        .setAuthor({ name: 'Some name', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
-        .setDescription('Some description here')
-        .setThumbnail('https://i.imgur.com/AfFp7pu.png')
-        .addFields(
-            { name: 'Regular field title', value: 'Some value here' },
-            { name: '\u200B', value: '\u200B' },
-            { name: 'Inline field title', value: 'Some value here', inline: true },
-            { name: 'Inline field title', value: 'Some value here', inline: true },
+        .setTitle('Prefix - `/`')
+        .setAuthor(`Command List`)
+        .addFields({ 
+            name: `/changelog `,
+            value: `Команда для просмотра измений бота`,
+        },
+        {
+            name: `/poll`,
+            value: `Команда для создания голосований`,
+        },
+        {
+            name: `/say`,
+            value: `Команда для отправки сообщений от имени бота`,
+        },
+        { 
+            name: `/clear `,
+            value: `Команда для удаления сообщений`,
+        },
+        { 
+            name: `/timeout mute `,
+            value: `Команда для выдачи мута человеку`,
+        },
+        { 
+            name: `/timeout unmute `,
+            value: `Команда для снятия мута человеку`,
+        },
+        {
+            name: `/emitt`,
+            value: `Команда для добавления логов выхода/входа пользователей`
+        }
         )
-        .addField('Inline field title', 'Some value here', true)
-        .setImage('https://i.imgur.com/AfFp7pu.png')
-        .setTimestamp()
-        .setFooter({ text: 'Some footer text here', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
+        
+
+
         const sendMessage = await client.channels.cache.get(gChannel.id).send({embeds: [helperEmbed]});
 
 
