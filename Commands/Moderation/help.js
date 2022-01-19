@@ -12,13 +12,6 @@ module.exports = {
           type: "STRING",
           required: true
       }, 
-      {
-        name: "channel",
-        description: "Describe the help you want to make.",
-        type: "STRING",
-        required: true
-    }, 
-      
     ],
     /**
      * @param {CommandInteraction} interaction
