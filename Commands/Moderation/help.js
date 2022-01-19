@@ -5,14 +5,28 @@ module.exports = {
     name: "help",
     description: "Create a help",
     usage: "/help",
-
+    options: [
+      {
+          name: "help",
+          description: "Describe the help you want to make.",
+          type: "STRING",
+          required: true
+      }, 
+    ],
     /**
      * @param {CommandInteraction} interaction
      */
-    async execute(interaction, client, bot, message, args) {
-        const help = new Discord.MessageEmbed()
+    async execute(interaction, client) {
+        
+        const { options } = interaction;
+
+        const help = options.getString("hel p");
+        const gChannel = options.getChannel("channel") || interaction.channel;
+
+        const helpEmbed = new Discord.MessageEmbed()
             .setColor("AQUA")
             .setTitle("Тест")
+            .setDescription(help)
             .setTimestamp()
             .addFields(
                 { name: 'Regular field title', value: 'Some value here' },
@@ -22,7 +36,7 @@ module.exports = {
             )
             .addField('Inline field title', 'Some value here', true)
 
-        message.channel.send(help)
+        const sendMessage = await client.channels.cache.get(gChannel.id).send({embeds: [helpEmbed]});
 
         interaction.reply({embeds: [new MessageEmbed()
             .setColor("GREEN")
