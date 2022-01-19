@@ -34,6 +34,7 @@ module.exports = {
         .setFooter({ text: 'Some footer text here', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
         const sendMessage = await client.channels.cache.get(gChannel.id).send({embeds: [helperEmbed]});
 
+
         interaction.reply({embeds: [new MessageEmbed()
             .setColor("GREEN")
             .setDescription(`The help was successfully`)],ephemeral: true})
