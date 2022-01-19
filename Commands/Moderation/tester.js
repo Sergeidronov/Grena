@@ -2,35 +2,25 @@ const { CommandInteraction, MessageEmbed, Message } = require("discord.js");
 const Discord = require("discord.js");
 
 module.exports = {
-    name: "help",
+    name: "helper",
     description: "Create a help",
-    usage: "/help",
-    options: [
-      {
-          name: "help",
-          description: "Describe the help you want to make.",
-          type: "STRING",
-          required: true
-      }, 
-      
-    ],
+
     /**
      * @param {CommandInteraction} interaction
      */
-    async execute(interaction, client) {
+    async execute(interaction, client, bot, args ,message) {
         
         const { options } = interaction;
 
-        const help = options.getString("help");
+        const helper = options.getString("helper");
         const gChannel = options.getChannel("channel") || interaction.channel;
 
-        const helpEmbed = new Discord.MessageEmbed()
+        const helperEmbed = new Discord.MessageEmbed()
             .setColor("AQUA")
             .setTitle("Тест")
-            .setDescription(help)
             .setTimestamp()
 
-        const sendMessage = await client.channels.cache.get(gChannel.id).send({embeds: [helpEmbed]});
+        const sendMessage = await client.channels.cache.get(gChannel.id).send({embeds: [helperEmbed]});
 
         interaction.reply({embeds: [new MessageEmbed()
             .setColor("GREEN")
