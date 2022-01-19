@@ -5,14 +5,6 @@ module.exports = {
     name: "help",
     description: "Create a help",
     usage: "/help",
-    options: [
-      {
-          name: "help",
-          description: "Describe the help you want to make.",
-          type: "STRING",
-          required: true
-      }, 
-    ],
     /**
      * @param {CommandInteraction} interaction
      */
