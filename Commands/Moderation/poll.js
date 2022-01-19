@@ -3,7 +3,7 @@ const { CommandInteraction, MessageEmbed, Message } = require("discord.js");
 module.exports = {
     name: "poll",
     description: "Create a poll",
-    usage: "/poll",
+    usage: "/poll ",
     permission: "ADMINISTRATOR",
     options: [
       {

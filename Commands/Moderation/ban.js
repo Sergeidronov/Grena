@@ -1,32 +1,124 @@
-const { MessageEmbed } = require('discord.js')
+const {
+	CommandInteraction,
+	MessageEmbed
+} = require("discord.js");
+
 
 module.exports = {
-  name: 'ban',
-  description: 'Ban A User',
-  usage: 'ban <user> <reason>',
-  clientPerms: ['BAN_MEMBERS',  'SEND_MESSAGES',  'EMBED_LINKS'],
-  userPerms: ['BAN_MEMBERS'],
-  run: async (client, message, args) => {
-    const member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
-    if(!member)
-    return message.channel.send(`<:Error:911472103834927145> Please Mention A Valid User Or Provide Valid User ID!`)
-    if(member === message.member)
-    return message.channel.send(`<:Error:911472103834927145> Cannot Ban Yourself!`)
-    if(member.roles.highest.position >= message.member.roles.highest.position)
-    return message.channel.send(`<:Error:911472103834927145> You Cannot Ban Semeone With An Equal Higher Role!`)
-    if(!member.bannable)
-    return message.channel.send(`<:Error:911472103834927145> Provided Member Is Not Bannable!`);
-    let reason = args.slice(1).join(' ');
-    if(!reason) reason = '`None`';
-    if(reason.lenght > 1024) reason = reason.slice(0, 1021) + '...';
-    await member.ban ({ reason: reason });
-    const embed = new MessageEmbed()
-    .setTitle('Ban Member!')
-    .setDescription(`<:Check:910671475969777694> ${member} Was Successfully Banned`)
-    .addField('Reason', `${reason}`)
-    .setFooter(message.member.displayName, message.author.displayAvatarURL({dynamic: true}))
-    .setTimestamp()
-    .setColor('#F871A0');
-    message.channel.send({ embeds: [embed] })
-  }
+	name: "ban",
+	description: "Bans Target",
+	permission: "BAN_MEMBERS",
+	usage: "/ban [Target] [REASON] [MESSAGES]",
+	options: [{
+			name: "user",
+			description: "Provide A User To Ban.",
+			type: "USER",
+			required: true
+		},
+		{
+			name: "reason",
+			description: "Provide A Reason For The Ban.",
+			type: "STRING",
+			required: true
+		},
+		{
+			name: "messages",
+			description: "Provide A Number Of Days For Their To Messages To Be Deleted Up To.",
+			type: "STRING",
+			required: true,
+			choices: [{
+					name: "Don't Delete Any",
+					value: "0"
+				},
+				{
+					name: "Delete Up To Seven Days",
+					value: "7"
+				}
+			]
+		}
+	],
+	/**
+	 * @param {CommandInteraction} interaction
+	 */
+	async execute(interaction) {
+		const options = interaction.options
+		const target = options.getMember("user");
+		const user = interaction.member
+		const name = interaction.commandName
+		const reason2 = "Invalid Permissions"
+		const per = this.permission
+
+		const Embed1 = new MessageEmbed()
+			.setTitle("❌ Error Running Command ❌")
+			.setColor("RED")
+			.setTimestamp()
+			.addFields({
+				name: "Command:",
+				value: name
+			}, {
+				name: "Reason:",
+				value: reason2
+			}, {
+				name: "Needed Permissions:",
+				value: per
+			})
+
+		if (!user.permissions.has("BAN_MEMBERS"))
+			return interaction.reply({
+				embeds: [Embed1],
+				ephemeral: true
+			}).catch((err) => {
+				console.log(err)
+			});
+
+
+		if (target.id === interaction.member.id)
+			return interaction.reply({
+				embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
+					.setDescription("Why Are You Trying To Ban Yourself??").setTimestamp()
+				],
+				ephemeral: true
+			});
+
+		if (target.permissions.has("BAN_MEMBERS"))
+			return interaction.reply({
+				embeds: [new MessageEmbed().setColor("RED").setDescription("❌ You Can't Ban An Admin ❌")]
+			});
+
+
+		const reason = options.getString("reason");
+
+		if (reason.length > 512)
+			return interaction.reply({
+				embeds: [new MessageEmbed().setTitle("❌ Can't Run Code With The Strings Given ❌").setColor("RED")
+					.setDescription("Reason Can't Be More Than 512 Characters").setTimestamp()
+				],
+				ephemeral: true
+			});
+		target.send(
+			new MessageEmbed()
+			.setTitle(`You've Been Kicked From ${interaction.guild.name}!`)
+			.setColor("RED")
+			.setTimestamp()
+			.addFields({
+				name: "Reason For Ban:",
+				value: reason
+			}, {
+				name: "Banned By:",
+				value: interaction.member.user.tag
+			})
+		)
+		const Amount = options.getString("messages")
+
+		target.ban({
+			days: Amount,
+			reason: reason
+		})
+
+		interaction.reply({
+			embeds: [new MessageEmbed().setColor("GREEN").setDescription(`🟢 **${target.user.username}** Has Been Banned From ${interaction.guild.name} 🟢`)],
+			ephemeral: true
+
+		})
+	}
 }
