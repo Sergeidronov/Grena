@@ -12,6 +12,13 @@ module.exports = {
           type: "STRING",
           required: true
       }, 
+      {
+        name: "channel",
+        description: "Describe the help you want to make.",
+        type: "STRING",
+        required: true
+    }, 
+      
     ],
     /**
      * @param {CommandInteraction} interaction
@@ -20,7 +27,7 @@ module.exports = {
         
         const { options } = interaction;
 
-        const help = options.getString("hel p");
+        const help = options.getString("help");
         const gChannel = options.getChannel("channel") || interaction.channel;
 
         const helpEmbed = new Discord.MessageEmbed()
@@ -28,13 +35,6 @@ module.exports = {
             .setTitle("Тест")
             .setDescription(help)
             .setTimestamp()
-            .addFields(
-                { name: 'Regular field title', value: 'Some value here' },
-                { name: '\u200B', value: '\u200B' },
-                { name: 'Inline field title', value: 'Some value here', inline: true },
-                { name: 'Inline field title', value: 'Some value here', inline: true },
-            )
-            .addField('Inline field title', 'Some value here', true)
 
         const sendMessage = await client.channels.cache.get(gChannel.id).send({embeds: [helpEmbed]});
 
