@@ -13,7 +13,6 @@ module.exports = {
         const help = new Discord.MessageEmbed()
             .setColor("AQUA")
             .setTitle("Тест")
-            .setDescription(help)
             .setTimestamp()
             .addFields(
                 { name: 'Regular field title', value: 'Some value here' },
