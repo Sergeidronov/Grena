@@ -1,6 +1,9 @@
 {
-    "clientId": "928621769827442708",
-	"staff": "312043937932247041",
+	"EVERYONEID": "928627916718370856",
+	"PARENTID": "932130342008143903",
+	"OPENTICKET": "933674050864164894",
+	"TRANSCRIPTSID": "933674050864164894",
+	"clientId": "928621769827442708",
 	"guildId": "928627916718370856",
 	"token": "OTI4NjIxNzY5ODI3NDQyNzA4.Ydbcag.f9wJmyrtPAksJFbwYB1UNUEJmHQ",
 	"Database": "mongodb+srv://Grenka:Sergei2006@botgrenka.4b8cy.mongodb.net/Grenka?retryWrites=true&w=majority"
