@@ -37,7 +37,7 @@ module.exports = {
         const Embed = new MessageEmbed()
         .setColor("RED")
         .setAuthor(user.tag, user.displayAvatarURL({dynamic: true}))
-        .addField(
+        .addFields(
             {name: "Suggestion:", value: Suggestion, inline: false},
             {name: "Type:", value: Type, inline: true},
             {name: "Status:", value: "Pending", inline: true}
