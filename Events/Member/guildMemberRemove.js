@@ -1,4 +1,5 @@
-const { MessageEmbed, WebhookClient, GuildMember } = require("discord.js"); 
+const { MessageEmbed, GuildMember } = require("discord.js");
+const LeaveSetupData = require("../../Memory/Schems/LeaveSetupDB");
 
 module.exports = {
     name: "guildMemberRemove",
@@ -6,22 +7,33 @@ module.exports = {
      * 
      * @param {GuildMember} member 
      */
-    execute(member) {       
-        const { user, guild } = member;
+    async execute(member) {
+        const { guild, user } = member;
 
-        const Loger = new WebhookClient({
-            id:"930787466196168725",
-            token:"1h1J6QbcN0Sm-s_C_PmpkZgP2OYEEDrAU1KIVWPrVMS6k3wnnDd6sba6660sj00vdIhi"
-        });
+        const Data = await LeaveSetupData.findOne({ GuildID: guild.id})
+        if(!Data) return;
 
-        const Welcome = new MessageEmbed()
+        const LeaveEmbed = new MessageEmbed()
         .setColor("RED")
-        .setAuthor(user.avatarURL({dynamic: true, size: 512}))
-        .setThumbnail(user.avatarURL({dynamic: true, size: 512}))
-        .setDescription(`
-        ${member} покинул нас\n
-        Присоединился: <t:${parseInt(member.joinedTimestamp / 1000)}:R>\nпоследнее количество участников: **${guild.memberCount}**`)
-        .setFooter(`ID: ${user.id}`)
-        Loger.send({embeds: [Welcome]})
+        .setAuthor({
+            name: user.tag,
+            iconURL: user.displayAvatarURL({
+                dynamic: true
+            }),
+        })
+        .setThumbnail(user.displayAvatarURL({dynamic: true}))
+        .setDescription(
+        `${member} has left the community\n
+        **Joined**: <t:${parseInt(member.joinedTimestamp / 1000)}:R>\n
+        **Account ID**: || ${user.id} || \n
+        **Latest Member Count**: **${guild.memberCount}**`
+        
+        )
+        
+        
+
+        await guild.channels.cache
+            .get(Data.Logs)
+            .send({ embeds: [LeaveEmbed] });
     }
 }

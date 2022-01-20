@@ -5,7 +5,7 @@ const pagination = require("discord.js-pagination")
 module.exports = {
     name: "helper",
     description: "Create a help",
-
+    permission: "ADMINISTRATOR",
     /**
      * @param {CommandInteraction} interaction
      */

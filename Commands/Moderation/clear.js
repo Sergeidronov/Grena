@@ -2,9 +2,14 @@ const { CommandInteraction, MessageEmbed } = require("discord.js");
 
 
 
+
 module.exports = {
     name: "clear",
     description: "Deletes a specified number of messages from a channel or a target.",
+    permissions: "ADMINISTRATOR",
+        /**
+     * @param {CommandInteraction} interaction
+     */
     options: [
         {
             name: "amount",
@@ -18,10 +23,8 @@ module.exports = {
             required: false
         }
     ],
-    /**
-     * @param {CommandInteraction} interaction
-     */
     async execute(interaction) {
+        
         const { channel, options } = interaction;
 
         const Amount = options.getNumber("amount");

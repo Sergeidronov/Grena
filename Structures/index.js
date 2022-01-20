@@ -21,7 +21,11 @@ client.commands = new Collection();
 });
 
 
-
+// Logging System client
+const logs = require('discord-logs');
+logs(client, {
+    debug: true
+}); // thats all jk
 
 
  //client.login(process.env.BOT_TOKEN);

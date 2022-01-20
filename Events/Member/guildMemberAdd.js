@@ -1,27 +1,61 @@
-const { MessageEmbed, WebhookClient, GuildMember } = require("discord.js"); 
+const { MessageEmbed, GuildMember } = require("discord.js");
+
+const WelcomeSetupData = require("../../Memory/Schems/WelcomeSetupDB"); /* Change {CHANGEME} to whatever you name the database */
 
 module.exports = {
-    name: "guildMemberAdd",
-    /**
-     * 
-     * @param {GuildMember} member 
-     */
-    execute(member) {
+  name: "guildMemberAdd",
+  /**
+   *
+   * @param {GuildMember} member
+   */
+  async execute(member) {
+    const { user, guild } = member;
+
+    const Data = await WelcomeSetupData.findOne({ GuildID: guild.id });
+    if (!Data) return;
+
+    member.roles.add(`${Data.Role}`).catch((err) => {
+      console.log(err);
+    });
+
+    const WelcomeEmbed = new MessageEmbed()
+      .setColor("RANDOM")
+      .setAuthor({
+        name: `${user.tag}`,
+        iconURL: user.displayAvatarURL({
+          dynamic: true,
+        }),
+      })
+      .setThumbnail(
+        user.displayAvatarURL({
+          dynamic: true,
+          size: 512,
+        })
         
-        const { user, guild } = member;
+      )
+      .setDescription(
+        `
+        **Welcome** ${member} to **${guild.name}**!\n
+        **Account Created**: <t:${parseInt(user.createdTimestamp / 1000)}:R>\n
+		**Account ID**: || ${user.id} || \n
+        **Latest Member Count**: \`${guild.memberCount}\``
+      )
+      .addFields(
+        {
+          name: "General",
+          value: `<#${Data.GeneralChannel}>`,
+          inline: true,
+        },
+        {
+          name: "Rules",
+          value: `<#${Data.RulesChannel}>`,
+          inline: true,
+        }
 
-        member.roles.add("930786853823602689");
+      );
 
-        const Welcomer = new WebhookClient({
-            id:"930787466196168725",
-            token:"1h1J6QbcN0Sm-s_C_PmpkZgP2OYEEDrAU1KIVWPrVMS6k3wnnDd6sba6660sj00vdIhi"
-        });
-
-        const Welcome = new MessageEmbed()
-        .setColor("AQUA")
-        .setDescription(`
-        ${member} посетил нас \n
-        Аккаунт создан <t:${parseInt(user.createdTimestamp / 1000)}:R>\nПоследнее посещение: **${user.memberCount}**`)
-        Welcomer.send({embeds: [Welcome]})
-    }
-}
+    await guild.channels.cache
+      .get(Data.WelcomeChannel)
+      .send({ embeds: [WelcomeEmbed] });
+  },
+};
