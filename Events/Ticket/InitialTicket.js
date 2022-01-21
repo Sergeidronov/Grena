@@ -34,7 +34,8 @@ module.exports = {
                     deny: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]
                 },
             ],
-        }).then(async(channel) => {
+        })
+        .then(async(channel) => {
             await DB.create({
                 GuildID: guild.id,
                 MemberID: member.id,
@@ -76,20 +77,24 @@ module.exports = {
             channel.send({ 
              embeds: [Embed], 
              components: [Buttons]});
-             await channel.
-             send({content: `${member} Here choto`})
-             .then((m =>{
+                
+             await channel
+             .send({content: `${member} Here choto`})
+             .then((m) =>{
                  setTimeout(() => {
                      m.delete().catch(() => {});
                  }, 1 * 5000);
 
                  
-             }));
-    
-             interaction.reply({content: `${member} your ticket has been created ${channel}`, ephemeral: true})
+             });
+
+             interaction.reply({
+              content: `${member} your ticket has been created ${channel}`, 
+              ephemeral: true, 
+            });
         });
 
 
-    }
-}
+    },
+};
 
