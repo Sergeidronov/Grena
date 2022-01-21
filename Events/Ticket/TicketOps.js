@@ -50,20 +50,26 @@ module.exports = {
                         });
                         await DB.updateOne({ChannelID: channel.id } , {Closed: true});
 
-                        const MEMBER = guild.member.cache.get(docs.MemberID);
-                        const Message = await guild.channels.get(TRANSCRIPTSID).send({
+                        const MEMBER = guild.members.cache.get(docs.MemberID);
+                        const Message = await guild.channels.cache.get(TRANSCRIPTSID).send({
                             embeds: [
                                 Embed.setAuthor(
                                     MEMBER.user.tag, 
-                                    MEMBER.user.displayAvatarURL({dynamic: true}
-                                        ).setTitle(`Transcript Type: ${docs.Type}\nID: ${docs.TicketID}`))
+                                    MEMBER.user.displayAvatarURL({dynamic: true})
+                                        ).setTitle(`Transcript Type: ${docs.Type}\nID: ${docs.TicketID}`),
                                     ],
                                     files: [attachment],
                         });
-                        interaction.reply({embeds: [Embed.setDescription(`The transcript is now saved [TRANSCRIPT](${Message.url})`)]})
-                        setTimeout(function () {
-                            channel.delete()
-                        }, 10* 1000);
+                        interaction.reply({
+                            embeds: [
+                                Embed.setDescription(`The transcript is now saved [TRANSCRIPT](${Message.url})`
+                                ),
+                            ],
+                        });
+
+                        setTimeout(() => {
+                            channel.delete();
+                        }, 10 * 1000);
                     
             }
         });

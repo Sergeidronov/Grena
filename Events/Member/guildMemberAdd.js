@@ -1,6 +1,6 @@
 const { MessageEmbed, GuildMember } = require("discord.js");
 
-const WelcomeSetupData = require("../../Memory/Schemas/WelcomeSetupDB"); /* Change {CHANGEME} to whatever you name the database */
+const WelcomeSetupData = require("../../Memory/Schems/WelcomeSetupDB"); /* Change {CHANGEME} to whatever you name the database */
 
 module.exports = {
   name: "guildMemberAdd",

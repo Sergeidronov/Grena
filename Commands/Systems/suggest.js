@@ -1,5 +1,5 @@
 const {CommandInteraction, MessageEmbed, MessageActionRow, MessageButton} = require("discord.js");
-const DB = require("../../Memory/Schemas/suggestdbs");
+const DB = require("../../Memory/Schems/suggestdbs");
 
 module.exports = {
     name: "suggest",
