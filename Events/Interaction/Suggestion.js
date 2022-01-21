@@ -8,6 +8,7 @@ module.exports = {
      */
     async execute(interaction) {
         if(!interaction.isButton()) return;
+        if (!["suggest-accept", "suggest-decline"].includes(customId)) return;
         if(!interaction.member.permissions.has("ADMINISTRATOR"))
         return interaction.reply({content: "You cannot use the button", ephemeral: true});
 
@@ -18,7 +19,7 @@ module.exports = {
             if(!data) return interaction.reply({content: "No data was found in the database",  ephemeral: true});
 
             const Embed = message.embeds[0];
-            if (!["suggest-accept", "suggest-decline"].includes(customId)) return;
+            
             if(!Embed) return;
 
             switch(customId) {
