@@ -8,7 +8,6 @@ module.exports = {
      */
     async execute(interaction) {
         if(!interaction.isButton()) return;
-        if (!["suggest-accept", "suggest-decline"].includes(customId)) return;
         if(!interaction.member.permissions.has("ADMINISTRATOR"))
         return interaction.reply({content: "You cannot use the button", ephemeral: true});
 
