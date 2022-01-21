@@ -86,7 +86,7 @@ module.exports = {
                  
              }));
     
-             interaction.reply({content: `${member} your ticket has been created ${channel}`})
+             interaction.reply({content: `${member} your ticket has been created ${channel}`, ephemeral: true})
         });
 
 
