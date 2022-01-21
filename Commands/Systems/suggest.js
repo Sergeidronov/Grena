@@ -36,7 +36,7 @@ module.exports = {
         
         const Embed = new MessageEmbed()
         .setColor("RED")
-        .setAuthor({ name: 'Some name', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+        .setAuthor(user.tag, user.displayAvatarURL({dynamic: true}))
         .addFields(
             {name: "Suggestion:", value: Suggestion, inline: false},
             {name: "Type:", value: Type, inline: true},
