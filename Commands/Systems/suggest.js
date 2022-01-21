@@ -53,8 +53,8 @@ module.exports = {
 
         try {
 
-            const M = interaction.reply({embeds: [Embed], components: [Buttons], fetchReply: true});
-
+            const M = await interaction.reply({embeds: [Embed], components: [Buttons], fetchReply: true});
+            
             await DB.create({GuildID: guildId, MessageID: M.id, Details: [
                 {
                     MemberID: member.id,
