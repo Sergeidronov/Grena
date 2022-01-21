@@ -1,6 +1,6 @@
 const {ButtonInteraction, MessageEmbed} =require("discord.js");
 const {createTranscript} = require("discord-html-transcripts");
-const   {TRANSCRIPTSID } = require("../../Structures/config.json");
+const { TRANSCRIPTSID } = require("../../Structures/config.json");
 const DB = require("../../Memory/Schems/Tickets");
 
 module.exports = {
@@ -18,7 +18,8 @@ module.exports = {
 
         DB.findOne({ ChannelID: channel.id}, async(err, docs) => {
             if(err) throw err;
-            if(!docs) return interaction.reply({content: "No data was found", ephemeral: true});
+            if(!docs)
+             return interaction.reply({content: "No data was found", ephemeral: true});
             switch(customId) {
                 case "lock" :
                     if(docs.Locked == true)

@@ -15,7 +15,7 @@ module.exports = {
 
     async execute(interaction) {
         if(!interaction.isButton()) return;
-        const { guild, member, customId} = interaction
+        const { guild, member, customId, channel} = interaction
 
         if(!["player", "bug", "other"].includes(customId)) return;
 
@@ -58,7 +58,7 @@ module.exports = {
             Buttons.addComponents(
                 new MessageButton()
                 .setCustomId("close")
-                .setLabel("Save")
+                .setLabel("Save & Close Ticket  ")
                 .setStyle("PRIMARY")
                 .setEmoji("😀"),
                 new MessageButton()
