@@ -1,5 +1,5 @@
 const { CommandInteraction, MessageEmbed } = require("discord.js");
-const DB = require("../../Memory/Schems/LeaveSetupDB");
+const DB = require("../../Memory/Schemas/LeaveSetupDB");
 
 module.exports = {
     name: "leavesetup",

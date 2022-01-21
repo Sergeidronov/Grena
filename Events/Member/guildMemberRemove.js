@@ -1,5 +1,5 @@
 const { MessageEmbed, GuildMember } = require("discord.js");
-const LeaveSetupData = require("../../Memory/Schems/LeaveSetupDB");
+const LeaveSetupData = require("../../Memory/Schemas/LeaveSetupDB");
 
 module.exports = {
     name: "guildMemberRemove",

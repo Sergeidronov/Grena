@@ -1,5 +1,5 @@
 const {ButtonInteraction} = require("discord.js");
-const DB = require("../../Memory/Schems/SuggestDB");
+const DB = require("../../Memory/Schemas/SuggestDB");
 
 module.exports = {
     name: "interactionCreate",
