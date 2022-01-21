@@ -43,7 +43,7 @@ module.exports = {
                 ChannelID: channel.id,
                 Closed: false,
                 Locked: false,
-                type: customId,
+                Type: customId,
             });
 
             const Embed = new MessageEmbed()
