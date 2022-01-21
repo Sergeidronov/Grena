@@ -88,10 +88,6 @@ module.exports = {
                  }, 1 * 5000);
              });
 
-             interaction.reply({
-              content: `${member} your ticket has been created ${channel}`, 
-              ephemeral: true, 
-            });
         });
     },
 };
