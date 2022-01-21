@@ -7,7 +7,7 @@ const {
 const { OPENTICKET } = require("../../Structures/config.json");
 
 module.exports = {
-    name: "ticket",
+    name: "ticketsetup",
     description: "Setup ticket",
     /**
      * @param {CommandInteraction} interaction
