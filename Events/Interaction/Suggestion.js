@@ -9,9 +9,11 @@ module.exports = {
     async execute(interaction) {
         if(!interaction.isButton()) return;
         if(!interaction.member.permissions.has("ADMINISTRATOR"))
-        return interaction.reply({content: "You cannot use the button", ephemeral: true});
+        return interaction.reply({content: "You cannot use the button", ephemeral: true})
+        ;
 
         const   {guildId, customId, message} = interaction;
+        if (!["suggest-accept", "suggest-decline"].includes(customId)) return;
 
         DB.findOne({GuildID: guildId, MessageID: message.id},  async(err,data) => {
             if(err) throw err;
