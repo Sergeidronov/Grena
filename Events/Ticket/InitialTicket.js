@@ -4,7 +4,7 @@ const {
     MessageActionRow,
     MessageButton
 } = require("discord.js");
-const DB = require("../../Memory/Schemas/Ticket");
+const DB = require("../../Memory/Schemas/tickets");
 const {PARENTID, EVERYONEID} = require("../../Structures/config.json");
 
 module.exports = {
@@ -76,7 +76,9 @@ module.exports = {
     
             channel.send({ 
              embeds: [Embed], 
-             components: [Buttons]});
+             components: [Buttons]
+            });
+
                 
              await channel
              .send({content: `${member} Here choto`})
