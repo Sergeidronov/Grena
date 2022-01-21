@@ -10,7 +10,7 @@ const {PARENTID, EVERYONEID} = require("../../Structures/config.json");
 module.exports = {
     name: "interactionCreate",
     /**
-     * @param {ButtonInteraction}
+     * @param {ButtonInteraction} interaction
      */
 
     async execute(interaction) {
@@ -27,11 +27,11 @@ module.exports = {
             permissionOverwrites: [
                 {
                     id: member.id,
-                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]
+                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"],
                 },
                 {
                     id: EVERYONEID,
-                    deny: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]
+                    deny: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"],
                 },
             ],
         })
@@ -58,17 +58,17 @@ module.exports = {
             Buttons.addComponents(
                 new MessageButton()
                 .setCustomId("close")
-                .setLabel("player report")
+                .setLabel("Save")
                 .setStyle("PRIMARY")
                 .setEmoji("😀"),
                 new MessageButton()
                 .setCustomId("lock")
-                .setLabel("bug")
+                .setLabel("Lock")
                 .setStyle("SECONDARY")
                 .setEmoji("😇"),
                 new MessageButton()
                 .setCustomId("unlock")
-                .setLabel("Bug")
+                .setLabel("Unlock")
                 .setStyle("SUCCESS")
                 .setEmoji("😈"),
     
@@ -76,7 +76,7 @@ module.exports = {
     
             channel.send({ 
              embeds: [Embed], 
-             components: [Buttons]
+             components: [Buttons],
             });
 
                 
@@ -86,8 +86,6 @@ module.exports = {
                  setTimeout(() => {
                      m.delete().catch(() => {});
                  }, 1 * 5000);
-
-                 
              });
 
              interaction.reply({
@@ -95,8 +93,6 @@ module.exports = {
               ephemeral: true, 
             });
         });
-
-
     },
 };
 
