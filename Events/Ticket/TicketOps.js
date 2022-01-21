@@ -1,7 +1,7 @@
 const {ButtonInteraction, MessageEmbed} =require("discord.js");
 const {createTranscript} = require("discord-html-transcripts");
 const   {TRANSCRIPTSID } = require("../../Structures/config.json");
-const DB = require("../../Memory/Schemas/tickets");
+const DB = require("../../Memory/Schemas/Tickets");
 
 module.exports = {
     name: "interactionCreate",
