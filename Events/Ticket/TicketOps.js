@@ -63,10 +63,22 @@ module.exports = {
                     const MEMBER = guild.members.cache.get(docs.MemberID);
                     const Message = await guild.channels.cache.get(TRANSCRIPTSID).send({
                         embeds: [
-                            Embed.setTitle(`Transcript Type: ${docs.Type}\nID: ${docs.TicketID}`),
+                            Embed
+                            .setAuthor(
+                                MEMBER.user.tag,
+                                MEMBER.user.displayAvatarURL({dynamic: true})
+                            )
+                            .setTitle(`Transcript Type: ${docs.Type}\nID: ${docs.TicketID}`),
                         ],
                         files: [attachment],
                     });
+
+                    interaction.reply({
+                        embeds: [Embed.setDescription(
+                            `The transcripts save [TRANSCRIPTS](${Message.url})`
+                        ),
+                    ]
+                    })
 
                     setTimeout(() => {
                         channel.delete();

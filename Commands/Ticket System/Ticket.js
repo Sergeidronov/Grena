@@ -4,7 +4,7 @@ const DB = require("../../Memory/Schems/Tickets");
 module.exports = {
     name: "ticket",
     description: "Ticket Actions.",
-    permissions: "ADMINISTRATOR",
+    permission: "ADMINISTRATOR",
     options: [
         {
             name: "action",
@@ -12,8 +12,8 @@ module.exports = {
             description: "Add or Remove a member",
             required: true,
             choices: [
-                {name: "Add", value: "Add"},
-                {name: "Remove", value: "Remove"},
+                {name: "Add", value: "add"},
+                {name: "Remove", value: "remove"},
             ]
         },
         {name: "member",
@@ -29,14 +29,14 @@ module.exports = {
         const {guildId, options, channel} = interaction;
 
         const Action = options.getString("action");
-        const Memory = options.getMember("member");
+        const Member = options.getMember("member");
 
         const Embed = new MessageEmbed();
 
         switch(Action) {
             case "add":
                 DB.findOne(
-                    {GuildID: guild.id, ChannelID: channel.id},
+                    { GuildID: guildId, СhannelID: channel.id},
                     async (err, docs) => {
                         if(err) throw err;
                         if(!docs)
@@ -46,18 +46,18 @@ module.exports = {
                                     "⛔ | This channel is not ticket"
                                 )
                             ],
-                            ephemeral: true
+                            ephemeral: true,
                         });
-                        if(docs.MemberID.includes(Member.id))
+                        if (docs.MembersID.includes(Member.id))
                         return interaction.reply({
                             embeds: [
                                 Embed.setColor("RED").setDescription(
                                     "⛔ | This member is added ticket"
                                 ),
                             ],
-                            ephemeral: true
+                            ephemeral: true,
                         });
-                        docs.MemberID.push(Member.id);
+                        docs.MembersID.push(Member.id);
 
                         channel.permissionOverwrites.edit(Member.id, {
                             SEND_MESSAGES: true,
@@ -65,8 +65,10 @@ module.exports = {
                             READ_MESSAGE_HISTORY: true,
                         });
 
-                        interaction.reply({embeds: [Embed.setColor("GREEN").setDescription(
-                            `✅${member} Has been added`)
+                        interaction.reply({
+                            embeds: [Embed.setColor("GREEN")
+                            .setDescription(
+                            `✅ | ${Member} Has been added`)
                         ]
                     }
                             )
@@ -79,7 +81,7 @@ module.exports = {
                 break;
                 case "remove":
                     DB.findOne(
-                        {GuildID: guild.id, ChannelID: channel.id},
+                        {GuildID: guildId, ChannelID: channel.id},
                         async (err, docs) => {
                             if(err) throw err;
                             if(!docs)
@@ -89,25 +91,25 @@ module.exports = {
                                         "⛔ | This channel is not ticket"
                                     )
                                 ],
-                                ephemeral: true
+                                ephemeral: true,
                             });
-                            if(docs.MemberID.includes(Member.id))
+                            if (docs.MembersID.includes(Member.id))
                             return interaction.reply({
                                 embeds: [
                                     Embed.setColor("RED").setDescription(
                                         "⛔ | This member is not in this ticket"
                                     ),
                                 ],
-                                ephemeral: true
+                                ephemeral: true,
                             });
-                            docs.MemberID.remove(Member.id);
+                            docs.MembersID.remove(Member.id);
     
                             channel.permissionOverwrites.edit(Member.id, {
                                 VIEW_CHANNEL: false,
                             });
     
                             interaction.reply({embeds: [Embed.setColor("GREEN").setDescription(
-                                `✅${member} Has been remove from this ticket`
+                                `✅ | ${Member} Has been remove from this ticket`
                                 ),
                             ]
                         });
