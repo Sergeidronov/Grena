@@ -15,7 +15,7 @@ module.exports = {
 
     async execute(interaction) {
         if(!interaction.isButton()) return;
-        const { guild, member, customId, channel} = interaction
+        const { guild, member, customId} = interaction
 
         if(!["player", "bug", "other"].includes(customId)) return;
 

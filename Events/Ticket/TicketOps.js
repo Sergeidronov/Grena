@@ -14,6 +14,7 @@ module.exports = {
         const {guild, customId, channel, member} = interaction;
         if(!["close", "lock", "unlock"].includes(customId)) return;
 
+
         const Embed = new MessageEmbed().setColor("BLUE");
 
         DB.findOne({ ChannelID: channel.id}, async(err, docs) => {
