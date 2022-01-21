@@ -13,9 +13,9 @@ module.exports = {
         ;
 
         const   {guildId, customId, message} = interaction;
-        
         if (!["suggest-accept", "suggest-decline"].includes(customId)) return;
-        if (!["close", "lock", "unlock"].includes(customId)) return;
+        
+
         
 
         DB.findOne({GuildID: guildId, MessageID: message.id},  async(err,data) => {
