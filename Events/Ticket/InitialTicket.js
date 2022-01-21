@@ -19,7 +19,7 @@ module.exports = {
 
         if(!["player", "bug", "other"].includes(customId)) return;
 
-        const ID = Math.Floor(Math.random() * 90000) + 10000;
+        const ID = Math.floor(Math.random() * 90000) + 10000;
 
         await guild.channels.create(`${customId + "-" + ID}`, {
             type: "GUILD_TEXT",
@@ -27,11 +27,11 @@ module.exports = {
             permissionOverwrites: [
                 {
                     id: member.id,
-                    allow: ["SEND_MESSAGE", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]
+                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]
                 },
                 {
                     id: EVERYONEID,
-                    deny: ["SEND_MESSAGE", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]
+                    deny: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]
                 },
             ],
         }).then(async(channel) => {
