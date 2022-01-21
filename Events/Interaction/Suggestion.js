@@ -16,8 +16,8 @@ module.exports = {
 
         DB.findOne({GuildID: guildId, MessageID: message.id},  async(err,data) => {
             if(err) throw err;
-            if(!data) return interaction.reply({content: "No data was found in the database",  ephemeral: true});
-            if (!["suggest-accept", "suggest-decline"].includes(customId)) return;
+            if(!data) return interaction.reply({content: "No data was found in the database", ephemeral: true});
+            
 
             const Embed = message.embeds[0];
             
