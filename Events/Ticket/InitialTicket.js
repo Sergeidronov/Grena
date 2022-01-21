@@ -4,7 +4,7 @@ const {
     MessageActionRow,
     MessageButton
 } = require("discord.js");
-const DB = require("../../Memory/Schemas/Tickets");
+const DB = require("../../Memory/Schems/Tickets");
 const {PARENTID, EVERYONEID} = require("../../Structures/config.json");
 
 module.exports = {
