@@ -79,11 +79,11 @@ module.exports = {
 
 
         try {
-            const Channel = options.getString("channel");
-            const Category = options.getString("category");
-            const Transcripts = options.getString("transcripts");
-            const Handlers = options.getString("handlers");
-            const Everyone = options.getString("everyone");
+            const Channel = options.getChannel("channel");
+            const Category = options.getChannel("category");
+            const Transcripts = options.getChannel("transcripts");
+            const Handlers = options.getRole("handlers");
+            const Everyone = options.getRole("everyone");
 
             const Description = options.getString("description");
 
@@ -92,8 +92,8 @@ module.exports = {
             const Button3 = options.getString("thirdbutton").split(",");
 
             const Emoji1 = Button1[1];
-            const Emoji2 = Button2[2];
-            const Emoji3 = Button3[3];
+            const Emoji2 = Button2[1];
+            const Emoji3 = Button3[1];
 
 
 
@@ -105,8 +105,8 @@ module.exports = {
                       Transcripts: Transcripts.id,
                        Handlers: Handlers.id,
                        Everyone: Everyone.id,
-                       Description: Description.id,
-                       Buttons: [Button1[0], Button1[0], Button3[0]],
+                       Description: Description,
+                       Buttons: [Button1[0], Button2[0], Button3[0]],
                     },
                     {
                         new: true,
@@ -139,10 +139,11 @@ module.exports = {
                     const Embed = new MessageEmbed() 
                     .setAuthor({
                         name: guild.name + " | Ticketing System",
-                        iconURL: guild.iconURL ({dynamic: true})
+                        iconURL: guild.iconURL ({dynamic: true}),
+                    })
                     .setDescription(Description)
-                    .setColor("RED")
-                    });
+                    .setColor("RED");
+                    
 
                     await guild.channels.cache.get(Channel.id)
                     .send({embeds: [Embed], components: [Buttons]});
