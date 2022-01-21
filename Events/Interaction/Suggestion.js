@@ -18,6 +18,7 @@ module.exports = {
             if(!data) return interaction.reply({content: "No data was found in the database",  ephemeral: true});
 
             const Embed = message.embeds[0];
+            if (!["suggest-accept", "suggest-decline"].includes(customId)) return;
             if(!Embed) return;
 
             switch(customId) {
