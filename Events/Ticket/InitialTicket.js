@@ -99,6 +99,8 @@ module.exports = {
              components: [Buttons],
             });
 
+
+
                 
              await channel
              .send({content: `${member} test`})
@@ -110,14 +112,16 @@ module.exports = {
 
 
              const Embed1 = new MessageEmbed()
-
-             .setAuthor({ name: 
+            .setAuthor({ name: 
                 `${guild.name} | Ticket: ${ID}`,
                 iconURL: guild.iconURL({dynamic: true})},
             )
+            .setDescription("Please wait patiently for a response from the Staff")
+            .setFooter({text: "The button"})
 
 
-            channel.send({ 
+             interaction.reply({
+                 content: "Test",
                 embeds: [Embed1], 
                 ephemeral: true, 
               });
