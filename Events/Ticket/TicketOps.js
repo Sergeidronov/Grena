@@ -24,7 +24,7 @@ module.exports = {
 
         if (!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
         return interaction.editReply ({ 
-            content: "You cannot use these buttons.",
+            content: "You cannot use these.",
             ephemeral: true,
 });
     
