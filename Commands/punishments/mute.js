@@ -8,45 +8,45 @@ const
 
 module.exports = {
     name: "timeout",
-    description: "Mute System",
+    description: "Мут система",
     usage: "/timeout",
     permission: "MANAGE_MESSAGES",
     options: [{
-        name: "mute",
+        name: "add",
         description: "Выдача мута.",
         type: "SUB_COMMAND",
         options: [{
-            name: "user",
+            name: "пользователь",
             description: "Выбор пользователя.",
             type: "USER",
             required: true
         },
         {
-            name: "length",
+            name: "время",
             description: "Выбор времени наказания... [ 1 Second Up To 28 Days ]  ",
             type: "STRING",
             required: true
         },
         {
-            name: "reason",
-            description: "Выбор причины наказания",
+            name: "причина",
+            description: "Назовите причину наказания.",
             type: "STRING",
             required: true
         }]
     },
         {
-            name: "unmute",
-            description: "Untimeout A User",
+            name: "remove",
+            description: "Снятие мута",
             type: "SUB_COMMAND",
             options: [{
-                name: "user",
+                name: "пользователь",
                 description: "Выбор пользователя.",
                 type: "USER",
                 required: true
             },
             {
-                name: "reason",
-                description: "Provide A Reason For The Untimeout",
+                name: "причина",
+                description: "Назовите причину наказания.",
                 type: "STRING",
                 required: true
             }
@@ -58,97 +58,97 @@ module.exports = {
      */
      async execute(interaction) {
         const options = interaction.options
-        const target = options.getMember("user");
-        const length = options.getString("length");
-        const reason = options.getString("reason") || "No Reason Provided";
+        const target = options.getMember("пользователь");
+        const length = options.getString("время");
+        const reason = options.getString("причина") || "Причина не указана";
         const maxtime = ms("28d")
         if(length) timeInMs = ms(length);
 
         try {
             switch (options.getSubcommand()) {
-                case "mute": {
+                case "add": {
                     if (target.id === interaction.member.id)
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`Hey... ${interaction.user.username} Why Are You Trying To Mute Yourself....?`).setTimestamp()
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
+                          
                         ],
                         ephemeral: true
                 });
                     if (target.permissions.has("ADMINISTRATOR"))
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`${target.user.username} Is An Admin....?`).setTimestamp()
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
+                            .setDescription(`${target.user.username} является администратором.`).setTimestamp()
                         ],  
                         ephemeral: true    
                 });        
                     if(!timeInMs)
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription("Please Specify A Valid Time!").setTimestamp()
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
+                            .setDescription("Укажите правильное время.").setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if (timeInMs > maxtime )
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription("Please Specify A Time Between 1 Second, And 28 Days!").setTimestamp()
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
+                            .setDescription("Укажите время от 1 секунды до 28 дней.").setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if (reason.length > 512)
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription("Reason Can't Be More Than 512 Characters").setTimestamp()
+                            .setDescription("Причина не может содержать более 512 символов.").setTimestamp()
                         ],
                         ephemeral: true
                 });
                     target.timeout(timeInMs, reason);
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setColor("GREEN").setTitle(`Successfully Muted!`)
+                        embeds: [new MessageEmbed().setColor("GREEN").setTitle(`Мут был выдан!`)
                             .addFields({
-                            name: "User:",
+                            name: "Пользователь:",
                             value: `\`\`\`${target.user.username}\`\`\``
                         }, {
-                            name: "Reason:",
+                            name: "Причина:",
                             value: `\`\`\`${reason}\`\`\``
                         },{
-                            name: "Time Of Mute:",
+                            name: "Время наказания:",
                             value: `\`\`\`${length}\`\`\``
                         },
                         )
                         ],
-                        ephemeral: true
+                        
                 });
             }
-                case "unmute": {
+                case "remove": {
                     if (target.permissions.has("ADMINISTRATOR"))
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`${target.user.username} Is An Admin....?`).setTimestamp()
+                            .setDescription(`${target.user.username} является администратором.`).setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if(!target.communicationDisabledUntilTimestamp)
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`${target.user.username} Isn't Muted?`).setTimestamp()
+                            .setDescription(`${target.user.username} не имеет мута.`).setTimestamp()
                         ],
                         ephemeral: true
                 });
                         await target.timeout(null)
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setColor("GREEN").setTitle("Successfully Unmuted!")
+                        embeds: [new MessageEmbed().setColor("GREEN").setTitle("Мут был снят!")
                             .addFields({
-                            name: "User:",
+                            name: "Пользователь:",
                             value: `\`\`\`${target.user.username}\`\`\``
                         },
                         {
-                            name: "Reason:",
+                            name: "Причина:",
                             value: `\`\`\`${reason}\`\`\``
                         },
                         )
                         ],
-                        ephemeral: true
+                        
                 });
                 }
                 return;

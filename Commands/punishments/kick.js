@@ -1,6 +1,7 @@
 const {
 	CommandInteraction,
-	MessageEmbed
+	MessageEmbed,
+	GuildMember
 } = require("discord.js");
 
 
@@ -10,56 +11,44 @@ module.exports = {
 	permission: "KICK_MEMBERS",
 	usage: "/Kick [Target] [REASON] [MESSAGES]",
 	options: [{
-			name: "user",
-			description: "Provide A User To Kick.",
+			name: "пользователь",
+			description: "Выберите пользователя.",
 			type: "USER",
 			required: true
 		},
 		{
-			name: "reason",
-			description: "Provide A Reason For The Kick.",
+			name: "причина",
+			description: "Назовите причину наказания.",
 			type: "STRING",
 			required: true
 		},
-		{
-			name: "messages",
-			description: "Provide A Number Of Days For Their To Messages To Be Deleted Up To.",
-			type: "STRING",
-			required: true,
-			choices: [{
-					name: "Don't Delete Any",
-					value: "0"
-				},
-				{
-					name: "Delete Up To Seven Days",
-					value: "7"
-				}
-			]
-		}
 	],
 	/**
 	 * @param {CommandInteraction} interaction
 	 */
 	async execute(interaction) {
 		const options = interaction.options
-		const target = options.getMember("user");
+		const target = options.getMember("пользователь");
 		const user = interaction.member
 		const name = interaction.commandName
 		const reason2 = "Invalid Permissions"
 		const per = this.permission
 
 		const Embed1 = new MessageEmbed()
-			.setTitle("❌ Error Running Command ❌")
+			.setTitle("❌ Ошибка при выполнении команды ❌")
 			.setColor("RED")
 			.setTimestamp()
-			.addFields({
-				name: "Command:",
+			.addFields(
+			{
+				name: "Команда:",
 				value: name
-			}, {
-				name: "Reason:",
+			}, 
+			{
+				name: "Причина:",
 				value: reason2
-			}, {
-				name: "Needed Permissions:",
+			},
+			 {
+				name: "Необходимые права:",
 				value: per
 			})
 
@@ -74,39 +63,50 @@ module.exports = {
 
 		if (target.id === interaction.member.id)
 			return interaction.reply({
-				embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-					.setDescription("Why Are You Trying To Kick Yourself??").setTimestamp()
+				embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
 				],
 				ephemeral: true
 			});
 
 		if (target.permissions.has("KICK_MEMBERS"))
 			return interaction.reply({
-				embeds: [new MessageEmbed().setColor("RED").setDescription("❌ You Can't Kick An Admin ❌")]
+				embeds: [new MessageEmbed().setColor("RED").setDescription("❌ Вы не являетесь администратором ❌")]
 			});
 
 
-		const reason = options.getString("reason");
+		const reason = options.getString("причина");
 
 		if (reason.length > 512)
 			return interaction.reply({
-				embeds: [new MessageEmbed().setTitle("❌ Can't Run Code With The Strings Given ❌").setColor("RED")
-					.setDescription("Reason Can't Be More Than 512 Characters").setTimestamp()
+				embeds: [new MessageEmbed().setTitle("❌ Не удалось запустить код с заданными строками ❌").setColor("RED")
+					.setDescription("❌Причина не может содержать более 512 символов❌").setTimestamp()
 				],
 				ephemeral: true
 			});
 
 		const DMEmbed = new MessageEmbed()
-			.setTitle(`You've Been Kicked From ${interaction.guild.name}`)
+			.setTitle(`**Вы были кикнуты с сервера**`)
 			.setColor('RED')
 			.setTimestamp()
-			.addFields({
-				name: "Reason:",
-				value: reason
-			}, {
-				name: "Kicked By:",
-				value: interaction.member.user.tag
-			}, );
+			.addFields(
+				{
+				name: "Сервер:",
+				value: `${interaction.guild.name}`,
+				inline: true,
+				},
+				{
+				name: "Причина:",
+				value: reason,
+				inline: true,
+			},
+			{
+				name: "Наказание выдал:",
+				value: interaction.member.user.tag,
+				inline: true,
+			}, 
+
+			
+			);
 
 		await target.send({
 			embeds: [DMEmbed]
@@ -122,8 +122,8 @@ module.exports = {
 		})
 
 		interaction.reply({
-			embeds: [new MessageEmbed().setColor("GREEN").setDescription(`🟢 **${target.user.username}** Has Been Kicked From ${interaction.guild.name} 🟢`)],
-			ephemeral: true
+			embeds: [new MessageEmbed().setColor("RED").setDescription(`🔴 ${user} , пользователь **${target.user}** был кикнут с сервера 🔴`)],
+		
 		});
 
 	}
