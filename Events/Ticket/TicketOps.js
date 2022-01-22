@@ -61,6 +61,7 @@ module.exports = {
                             ephemeral: true,
                         });
                     await DB.updateOne({ ChannelID: channel.id }, { Locked: false });
+                    
                     Embed.setDescription("🔓 | This ticket is now unlocked");
                     docs.MembersID.forEach((m) => {
                         channel.permissionOverwrites.edit(m, {
@@ -84,14 +85,45 @@ module.exports = {
 
                     const MEMBER = guild.members.cache.get(docs.MemberID);
                     const Message = await guild.channels.cache
-                    .get(TicketSetup.Transcripts)
-                    .send({
-                        embeds: [
-                            Embed
-                            .setTitle(`Transcript Type: ${docs.Type}\nID: ${docs.TicketID}`),
-                        ],
-                        files: [attachment],
-                    });
+            .get(TicketSetup.Transcripts)
+            .send({
+              embeds: [
+                Embed.setTitle(`Ticket Closed`).addFields([
+                  {
+                    name: "Ticket ID",
+                    value: `${docs.TicketID}`,
+                    inline: true,
+                  },
+                  {
+                    name: "Type",
+                    value: `${docs.Type}`,
+                    inline: true,
+                  },
+                  {
+                    name: "Opened By",
+                    value: `<@!${docs.MembersID[0]}>`,
+                    inline: true,
+                  },
+                  {
+                    name: "Open Time",
+                    value: `<t:${docs.OpenTime}:R>`,
+                    inline: true,
+                  },
+                  {
+                    name: "Closed Time",
+                    value: `<t:${parseInt(Date.now() / 1000)}:R>`,
+                    inline: true,
+                  },
+                  {
+                    name: "Claimed By",
+                    value: `<@!${docs.ClaimedBy}>`,
+                    inline: true,
+                  },
+                ]),
+              ],
+              files: [attachment],
+            });
+            
 
                     interaction.reply({
                         embeds: [Embed.setDescription(

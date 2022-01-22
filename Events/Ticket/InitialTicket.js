@@ -32,22 +32,26 @@ module.exports = {
                     id: member.id,
                     allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"],
                 },
+                { 
+                    id: Data.Handlers,
+                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]  },
                 {
                     id: Data.Everyone,
                     deny: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"],
                 },
             ],
         })
-        .then(async(channel) => {
+        .then(async (channel) => {
             await DB.create({
-                GuildID: guild.id,
-                MembersID: member.id,
-                TicketID: ID,
-                ChannelID: channel.id,
-                Closed: false,
-                Locked: false,
-                Type: customId,
-                Claimed: false,
+              GuildID: guild.id,
+              MembersID: member.id,
+              TicketID: ID,
+              ChannelID: channel.id,
+              Closed: false,
+              Locked: false,
+              Type: customId,
+              Claimed: false,
+              OpenTime: parseInt(channel.createdTimestamp / 1000),
             });
 
             const Embed = new MessageEmbed()
@@ -57,9 +61,10 @@ module.exports = {
             )
             .setDescription("Please wait patiently for a response from the Staff")
             .setFooter({text: "The button"})
+
     
             const Buttons = new MessageActionRow();
-    
+            
             Buttons.addComponents(
                 new MessageButton()
                 .setCustomId("close")
