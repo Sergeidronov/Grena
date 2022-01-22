@@ -100,8 +100,18 @@ module.exports = {
             });
 
                 
-             
-              
+             await channel
+             .send({content: `${member} test`})
+             .then((m) =>{
+                 setTimeout(() => {
+                     m.delete().catch(() => {});
+                 }, 1 * 5000);
+             });
+
+             interaction.reply({
+                content: `${member} your ticket has been created ${channel}`, 
+                ephemeral: true, 
+              });
 
 
         });
