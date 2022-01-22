@@ -123,14 +123,14 @@ module.exports = {
                 case "remove": {
                     if (target.permissions.has("ADMINISTRATOR"))
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
                             .setDescription(`${target.user.username} является администратором.`).setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if(!target.communicationDisabledUntilTimestamp)
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
                             .setDescription(`${target.user.username} не имеет мута.`).setTimestamp()
                         ],
                         ephemeral: true
@@ -156,7 +156,7 @@ module.exports = {
         } catch (e) {
         const errorEmbed = new MessageEmbed()
             .setColor("RED")
-            .setDescription(`🛑 Error: ${e}`)
+            .setDescription(`🛑 Ошибка: ${e}`)
         return interaction.reply({
             embeds: [errorEmbed]
         })
