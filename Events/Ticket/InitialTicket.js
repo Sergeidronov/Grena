@@ -5,7 +5,8 @@ const {
     MessageButton
 } = require("discord.js");
 const DB = require("../../Memory/Schems/Tickets");
-const TicketSetupData = require("../../Memory/Schems/TicketSetup")
+const {PARENTID, EVERYONEID} = require("../../Structures/config.json");
+
 module.exports = {
     name: "interactionCreate",
     /**
@@ -16,59 +17,44 @@ module.exports = {
         if(!interaction.isButton()) return;
         const { guild, member, customId} = interaction
 
-        if(["players", "bug", "other"].includes(customId)) return;
-
-
-        const Data = await TicketSetupData.findOne({GuildID: guild.id});
-        if(!Data) return;
-
-        if(!Data.Buttons.includes (customId)) return;
+        if(!["player", "bug", "other"].includes(customId)) return;
 
         const ID = Math.floor(Math.random() * 90000) + 10000;
 
-        await guild.channels
-        .create(`${customId + "-" + ID}`, {
+        await guild.channels.create(`${customId + "-" + ID}`, {
             type: "GUILD_TEXT",
-            parent: Data.Category,
+            parent: PARENTID,
             permissionOverwrites: [
                 {
                     id: member.id,
                     allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"],
                 },
-                { 
-                    id: Data.Handlers,
-                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]  
-                },
                 {
-                    id: Data.Everyone,
+                    id: EVERYONEID,
                     deny: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"],
                 },
             ],
         })
-        .then(async (channel) => {
+        .then(async(channel) => {
             await DB.create({
-              GuildID: guild.id,
-              MembersID: member.id,
-              TicketID: ID,
-              ChannelID: channel.id,
-              Closed: false,
-              Locked: false,
-              Type: customId,
-              Claimed: false,
-              OpenTime: parseInt(channel.createdTimestamp / 1000),
+                GuildID: guild.id,
+                MembersID: member.id,
+                TicketID: ID,
+                ChannelID: channel.id,
+                Closed: false,
+                Locked: false,
+                Type: customId,
             });
 
             const Embed = new MessageEmbed()
-            .setAuthor({ name: 
-                `${guild.name} | Ticket: ${ID}`,
-                iconURL: guild.iconURL({dynamic: true})},
+            .setAuthor(`${guild.name} | Ticket: ${ID}`,
+            guild.iconURL({dynamic: true})
             )
             .setDescription("Please wait patiently for a response from the Staff")
-            .setFooter({text: "The button"})
-
+            .setFooter("The button")
     
             const Buttons = new MessageActionRow();
-            
+    
             Buttons.addComponents(
                 new MessageButton()
                 .setCustomId("close")
@@ -85,12 +71,6 @@ module.exports = {
                 .setLabel("Unlock")
                 .setStyle("SUCCESS")
                 .setEmoji("😈"),
-                new MessageButton()
-                .setCustomId("claim")
-                .setLabel("Claim")
-                .setStyle("PRIMARY")
-                .setEmoji("😈"),
-    
     
             );
     
@@ -101,7 +81,7 @@ module.exports = {
 
                 
              await channel
-             .send({content: `${member} test`})
+             .send({content: `${member} Here choto`})
              .then((m) =>{
                  setTimeout(() => {
                      m.delete().catch(() => {});
