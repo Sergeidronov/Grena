@@ -91,11 +91,10 @@ class   Command {
             }, []);
  
             await g.commands.permissions.set({
-                 fullPermissions })
+                 fullPermissions, })
         });
 
       })
 
-       
    });
 }
