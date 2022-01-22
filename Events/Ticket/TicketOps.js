@@ -14,16 +14,20 @@ module.exports = {
     async execute(interaction) {
         if (!interaction.isButton()) return;
         const { guild, customId, channel, member } = interaction;
+        if (!["close", "lock", "unlock", "claim"].includes(customId)) return;
  
         const TicketSetup = await TicketSetupData.findOne({GuildID: guild.id});
-        if(!TicketSetup)return interaction.reply({content: "The data for this system outdated"});
+        if(!TicketSetup)
+        return interaction.reply({
+            content: "The data for this system outdated",
+        });
 
         if (!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
-        return interaction.followUp({ 
-            content: "You cannot use the button.",
+        return interaction.editReply ({ 
+            content: "You cannot use these buttons.",
             ephemeral: true,
 });
-        if (!["close", "lock", "unlock", "claim"].includes(customId)) return;
+    
 
         const Embed = new MessageEmbed().setColor("BLURPLE");
         DB.findOne({ ChannelID: channel.id }, async(err, docs) => {
