@@ -16,6 +16,8 @@ module.exports = {
         if(!interaction.isButton()) return;
         const { guild, member, customId} = interaction
 
+        if(["players", "bug", "other"].includes(customId)) return;
+
 
         const Data = await TicketSetupData.findOne({GuildID: guild.id});
         if(!Data) return;
