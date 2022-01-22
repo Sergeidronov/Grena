@@ -20,7 +20,7 @@ module.exports = {
 
         if (!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
         return interaction.followUp({ 
-            content: "You cannot use button.",
+            content: "You cannot use the button.",
             ephemeral: true,
 });
         if (!["close", "lock", "unlock", "claim"].includes(customId)) return;
