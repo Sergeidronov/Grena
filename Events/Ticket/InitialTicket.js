@@ -34,7 +34,8 @@ module.exports = {
                 },
                 { 
                     id: Data.Handlers,
-                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]  },
+                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]  
+                },
                 {
                     id: Data.Everyone,
                     deny: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"],
