@@ -108,8 +108,17 @@ module.exports = {
                  }, 1 * 5000);
              });
 
-             interaction.reply({
-                content: `${member} your ticket has been created ${channel}`, 
+
+             const Embed1 = new MessageEmbed()
+
+             .setAuthor({ name: 
+                `${guild.name} | Ticket: ${ID}`,
+                iconURL: guild.iconURL({dynamic: true})},
+            )
+
+
+            channel.send({ 
+                embeds: [Embed1], 
                 ephemeral: true, 
               });
 
