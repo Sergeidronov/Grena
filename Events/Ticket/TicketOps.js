@@ -19,17 +19,18 @@ module.exports = {
         const TicketSetup = await TicketSetupData.findOne({GuildID: guild.id});
         if(!TicketSetup)
         return interaction.reply({
-            content: "The data for this system outdated",
+            content: "The data for this system is outdated",
         });
 
         if (!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
-        return interaction.editReply ({ 
+        return interaction.reply({ 
             content: "You cannot use these buttons.",
             ephemeral: true,
 });
     
 
-        const Embed = new MessageEmbed().setColor("BLURPLE");
+        const Embed = new MessageEmbed().setColor("BLUE");
+
         DB.findOne({ ChannelID: channel.id }, async(err, docs) => {
             if (err) throw err;
             if (!docs) return interaction.reply({
