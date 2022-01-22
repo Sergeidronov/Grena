@@ -95,19 +95,23 @@ module.exports = {
 				],
 				ephemeral: true
 			});
-		target.send(
-			new MessageEmbed()
-			.setTitle(`You've Been Kicked From ${interaction.guild.name}!`)
-			.setColor("RED")
+            const DMEmbed = new MessageEmbed()
+			.setTitle(`You've Been Banned From ${interaction.guild.name}`)
+			.setColor('RED')
 			.setTimestamp()
 			.addFields({
-				name: "Reason For Ban:",
+				name: "Reason:",
 				value: reason
 			}, {
 				name: "Banned By:",
 				value: interaction.member.user.tag
-			})
-		)
+			}, );
+
+		await target.send({
+			embeds: [DMEmbed]
+		}).catch((err) => {
+			console.log(err)
+		});
 		const Amount = options.getString("messages")
 
 		target.ban({
