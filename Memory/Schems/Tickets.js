@@ -10,6 +10,8 @@ module.exports = model(
     Closed: Boolean,
     Locked: Boolean,
     Type: String,
+    Client: Boolean,
+    ClaimedBy: String,
 
 })
 );
