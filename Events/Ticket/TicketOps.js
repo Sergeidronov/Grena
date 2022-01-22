@@ -19,7 +19,7 @@ module.exports = {
         if(!TicketSetup)return interaction.reply({content: "The data for this system outdated"});
 
         if (!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
-        return interaction.editReply({ 
+        return interaction.followUp({ 
             content: "You cannot use button.",
             ephemeral: true,
 });
