@@ -69,7 +69,7 @@ module.exports = {
                 case "add": {
                     if (target.id === interaction.member.id)
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED").setTimestamp()
                           
                         ],
                         ephemeral: true
@@ -77,28 +77,28 @@ module.exports = {
                     if (target.permissions.has("ADMINISTRATOR"))
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
-                            .setDescription(`${target.user.username} является администратором.`)
+                            .setDescription(`${target.user.username} является администратором.`).setTimestamp()
                         ],  
                         ephemeral: true    
                 });        
                     if(!timeInMs)
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
-                            .setDescription("Укажите правильное время.")
+                            .setDescription("Укажите правильное время.").setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if (timeInMs > maxtime )
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
-                            .setDescription("Укажите время от 1 секунды до 28 дней.")
+                            .setDescription("Укажите время от 1 секунды до 28 дней.").setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if (reason.length > 512)
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription("Причина не может содержать более 512 символов.")
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
+                            .setDescription("Причина не может содержать более 512 символов.").setTimestamp()
                         ],
                         ephemeral: true
                 });
@@ -124,14 +124,14 @@ module.exports = {
                     if (target.permissions.has("ADMINISTRATOR"))
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`${target.user.username} является администратором.`)
+                            .setDescription(`${target.user.username} является администратором.`).setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if(!target.communicationDisabledUntilTimestamp)
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`${target.user.username} не имеет мута.`)
+                            .setDescription(`${target.user.username} не имеет мута.`).setTimestamp()
                         ],
                         ephemeral: true
                 });
