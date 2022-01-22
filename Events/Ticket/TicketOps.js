@@ -16,12 +16,13 @@ module.exports = {
         const { guild, customId, channel, member } = interaction;
  
         const TicketSetup = await TicketSetupData.findOne({GuildID: guild.id});
-        if(!TicketSetup)return interaction.reply({content: "The data for this system outdated"});
+        if(!TicketSetup)return interaction.editReply ({content: "The data for this system outdated"});
 
-        if (!member.permissions.has("ADMINISTRATOR"))
+        if (!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
         return interaction.reply({ 
-            content: "You cannot user button.",
-    ephemeral: true,});
+            content: "You cannot use button.",
+            ephemeral: true,
+});
         if (!["close", "lock", "unlock", "claim"].includes(customId)) return;
 
         const Embed = new MessageEmbed().setColor("BLURPLE");
