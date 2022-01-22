@@ -99,8 +99,6 @@ module.exports = {
              components: [Buttons],
             });
 
-
-
                 
              await channel
              .send({content: `${member} test`})
@@ -110,19 +108,8 @@ module.exports = {
                  }, 1 * 5000);
              });
 
-
-             const Embed1 = new MessageEmbed()
-            .setAuthor({ name: 
-                `${guild.name} | Ticket: ${ID}`,
-                iconURL: guild.iconURL({dynamic: true})},
-            )
-            .setDescription("Please wait patiently for a response from the Staff")
-            .setFooter({text: "The button"})
-
-
              interaction.reply({
-                 content: "Test",
-                embeds: [Embed1], 
+                content: `${member} your ticket has been created ${channel}`, 
                 ephemeral: true, 
               });
 
