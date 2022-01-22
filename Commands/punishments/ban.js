@@ -123,6 +123,7 @@ module.exports = {
 			embeds: [new MessageEmbed().setColor("GREEN").setDescription(`🟢 **${target.user.username}** Has Been Banned From ${interaction.guild.name} 🟢`)],
 			ephemeral: true
 
+			
 		})
 	}
 }
