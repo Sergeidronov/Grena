@@ -77,28 +77,28 @@ module.exports = {
                     if (target.permissions.has("ADMINISTRATOR"))
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
-                            .setDescription(`${target.user.username} является администратором.`).setTimestamp()
+                            .setDescription(`${target.user.username} является администратором.`)
                         ],  
                         ephemeral: true    
                 });        
                     if(!timeInMs)
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
-                            .setDescription("Укажите правильное время.").setTimestamp()
+                            .setDescription("Укажите правильное время.")
                         ],
                         ephemeral: true
                 });
                     if (timeInMs > maxtime )
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
-                            .setDescription("Укажите время от 1 секунды до 28 дней.").setTimestamp()
+                            .setDescription("Укажите время от 1 секунды до 28 дней.")
                         ],
                         ephemeral: true
                 });
                     if (reason.length > 512)
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription("Причина не может содержать более 512 символов.").setTimestamp()
+                            .setDescription("Причина не может содержать более 512 символов.")
                         ],
                         ephemeral: true
                 });
@@ -124,14 +124,14 @@ module.exports = {
                     if (target.permissions.has("ADMINISTRATOR"))
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`${target.user.username} является администратором.`).setTimestamp()
+                            .setDescription(`${target.user.username} является администратором.`)
                         ],
                         ephemeral: true
                 });
                     if(!target.communicationDisabledUntilTimestamp)
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`${target.user.username} не имеет мута.`).setTimestamp()
+                            .setDescription(`${target.user.username} не имеет мута.`)
                         ],
                         ephemeral: true
                 });
