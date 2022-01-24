@@ -108,7 +108,7 @@ module.exports = {
                  }, 1 * 5000);
              });
 
-             interaction.followUp({
+             interaction.reply({
                 content: `${member} your ticket has been created ${channel}`, 
                 ephemeral: true, 
               });
