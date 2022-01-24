@@ -4,7 +4,7 @@ const DB = require("../../Memory/Schems/suggestdbs");
 module.exports = {
     name: "suggest",
     description: "Suggest",
-    permissions: "ADMINISTRATOR",
+    permission: "ADMINISTRATOR",
     options: [
         {
             name: "type",

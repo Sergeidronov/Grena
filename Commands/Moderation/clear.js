@@ -6,7 +6,7 @@ const { CommandInteraction, MessageEmbed } = require("discord.js");
 module.exports = {
     name: "clear",
     description: "Deletes a specified number of messages from a channel or a target.",
-    permissions: "ADMINISTRATOR",
+    permission: "ADMINISTRATOR",
         /**
      * @param {CommandInteraction} interaction
      */
