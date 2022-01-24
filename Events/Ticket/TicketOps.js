@@ -12,21 +12,12 @@ module.exports = {
      * @param {ButtonInteraction} interaction
      */
     async execute(interaction) {
-        if (!interaction.isButton()) return;
-        const { guild, customId, channel, member } = interaction;
-        if (!["close", "lock", "unlock", "claim"].includes(customId)) return;
- 
-        const TicketSetup = await TicketSetupData.findOne({GuildID: guild.id});
-        if(!TicketSetup)
-        return interaction.reply({
-            content: "The data for this system outdated",
-        });
+        if(!interaction.isButton()) return;
 
-        if (!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
-        return interaction.reply ({ 
-            content: "You cannot use these buttons.",
-            ephemeral: true,
-});
+        const {guild, customId, channel, member } = interaction;
+        
+        if(!member.permissions.has('MANAGE_MESSAGES')) return interaction.reply({content: 'You cant use that', ephemeral: true})
+        if(!['close', 'lock', 'unlock'].includes(customId)) return;
     
 
         const Embed = new MessageEmbed().setColor("BLURPLE");
