@@ -12,14 +12,17 @@ module.exports = {
      * @param {ButtonInteraction} interaction
      */
 
-     async execute(interaction) {
+    async execute(interaction) {
         if(!interaction.isButton()) return;
-        const { guild, member, customId } = interaction;
+        const { guild, member, customId} = interaction
 
-        const Data = await TicketSetupData.findOne({ GuildID: guild.id });
+        if(["players", "bug", "other"].includes(customId)) return;
+
+
+        const Data = await TicketSetupData.findOne({GuildID: guild.id});
         if(!Data) return;
 
-        if(!Data.Buttons.includes(customId)) return;
+        if(!Data.Buttons.includes (customId)) return;
 
         const ID = Math.floor(Math.random() * 90000) + 10000;
 
@@ -91,22 +94,27 @@ module.exports = {
     
             );
     
-            channel.send({
-                embeds: [Embed], 
-                components: [Buttons] 
+            channel.send({ 
+             embeds: [Embed], 
+             components: [Buttons],
             });
-            await channel
-                .send({ content: `${member} here is your ticket` })
-                .then((m) => { 
-                    setTimeout(() => { 
-                        m.delete().catch(() => {}) 
-                    }, 1 * 5000)})  
-                .catch(err => { console.log(err)});
+
                 
-            interaction.reply({ 
-                content: `${member} your ticket has been created: ${channel}`, 
-                ephemeral: true 
-            });
-          });
-    }
-}
+             await channel
+             .send({content: `${member} test`})
+             .then((m) =>{
+                 setTimeout(() => {
+                     m.delete().catch(() => {});
+                 }, 1 * 5000);
+             });
+
+             interaction.reply({
+                content: `${member} your ticket has been created ${channel}`, 
+                ephemeral: true, 
+              });
+
+
+        });
+    },
+};
+

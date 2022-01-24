@@ -10,21 +10,22 @@ module.exports = {
      * @param {ButtonInteraction} interaction 
      */
     async execute(interaction) {
-      if(!interaction.isButton()) return;
-      const { guild, customId, channel, member } = interaction;
-      if(!["close", "lock", "unlock", "claim"].includes(customId)) return;
+        if(!interaction.isButton()) return;
+        const { guild, customId, channel, member } = interaction;
 
-      const TicketSetup = await TicketSetupData.findOne({ GuildID: guild.id });
-      if(!TicketSetup)
-          return interaction.reply({
-              content: "The data for this system is outdated.",
-          });
+        if(!['close', 'lock', 'unlock', 'claim'].includes(customId)) return;
 
-      if(!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
-          return interaction.reply({
-              content: "You cannot use these buttons.",
-              ephemeral: true,
-          });
+        const TicketSetup = await TicketSetupData.findOne({ GuildID: guild.id });
+        if(!TicketSetup) 
+        return interaction.reply({
+            content: 'The data for this system is outdated.',
+        });
+
+        if (!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
+        return interaction.reply({
+            content: '❌ | You cannot use these buttons.',
+            ephemeral: true,
+        });
 
         const Embed = new MessageEmbed()
         .setColor('BLUE')
