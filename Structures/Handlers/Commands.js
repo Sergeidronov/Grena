@@ -1,100 +1,69 @@
-const {Perms} = require("../Validation/Permissions");
-const {Client} = require("discord.js");
-const { promisify } = require('util');
-const { glob } = require('glob');
-const PG = promisify(glob);
-const Ascii = require('ascii-table')
-
+const { Perms } = require("../Validation/Permissions");
+const { Client } = require("discord.js");
 
 /**
  * @param {Client} client
- * @param {string[]} args
- * @param {Discord.Message} client
  */
-function RunFunction(message, args, client) {}
+module.exports = async (client, PG, Ascii) => {
+  const Table = new Ascii("Commands Loaded");
 
-class   Command {
-    /**
-     * @typedef {{name: string, description: string, permission: Discord.PermissionString | string, run: RunFunction}} CommandOptions
-     * @param {CommandOptions} options
-     */
-     constructor(options) {
-         this.name = options.name;
-         this.description = options.description;
-         this.permission = options.permission;
-         this.run = options.run;
-     }
-}
+  CommandsArray = [];
 
+  (await PG(`${process.cwd()}/Commands/**/*.js`)).map(async (file) => {
+    const command = require(file);
 
- module.exports = async (client, PG, Ascii) => {
-     const Table = new Ascii("Command Loaded");
-
-     CommandsArray = [];
-
-     (await PG(`${process.cwd()}/Commands/*/*.js`)).map(async (file) => {
-        const command = require(file);
-        
- 
-        
-        if(!command)
-        return Table.addRow(file.split("/")[7], " Failed", "Missing a name")
- 
-        if(command.type !=="USER" && !command.description)
-        return Table.addRow(command.name, " Failed", "Missing a description")
- 
-        if(command.permission) {
-            if(Perms.includes(command.permission))
-            command.defaultPermission = false ;
-            else
-            return Table.addRow(command.name, " Failed", "Permissions is invalid")
-        }
-        client.commands.set(command.name, command);
-        CommandsArray.push(command);
-        
- 
-        await Table.addRow(command.name, " SUCCESSFUL")
-    });
-
+    if (!command.name)
+      return Table.addRow(file.split("/")[7], "🔸FAILED", "Missing a name.");
     
-     console.log(Table.toString());
+    if (!command.type && !command.description)
+      return Table.addRow(command.name, "🔸 FAILED", "missing a description.");
 
-     // PERMISSIONS CHECK //
+    if (command.permission) {
+      if (Perms.includes(command.permission))
+        command.defaultPermission = false;
+      else
+        return Table.addRow(command.name, "🔸FAILED", "Permission is invalid");
+    }
 
-     client.on("ready", async () => {
-      client.guilds.cache.forEach((g) =>{
-        g.commands.set(CommandsArray).then(async (command) => {
-            const Roles = (commandName) => {
-                const cmdPerms = CommandsArray.find((c) => c.name === commandName).permission;
-                if(!cmdPerms) return null;
- 
-                return g.roles.cache
-                .filter((r) => r.permissions.has(cmdPerms) && !r.managed)
-                .first(10);
-            };
-            const fullPermissions = command.reduce((accumulator, r) => {
-                const roles = Roles(r.name);
+    client.commands.set(command.name, command);
+    CommandsArray.push(command);
 
-                if(!roles) return accumulator;
-                
-                const permissions = roles.reduce((a, r) => {
-                    return [
-                        ...a, 
-                        {
-                            id: r.id,
-                             type: "ROLE", 
-                             permission: true}]
-                },
-                 []);
- 
-                return [...accumulator, {id: r.id, permissions}]
-            }, []);
- 
-            await g.commands.permissions.set({
-                 fullPermissions, })
-        });
+    await Table.addRow(command.name, "🔹 SUCCESSFUL");
+  });
 
-      })
+  console.log(Table.toString());
 
-   });
-}
+  // PERMISSIONS CHECK //
+
+  client.on("ready", async () => {
+    client.guilds.cache.forEach((g) => {
+      g.commands.set(CommandsArray).then(async (command) => {
+        const Roles = (commandName) => {
+          const cmdPerms = CommandsArray.find(
+            (c) => c.name === commandName
+          ).permission;
+          if (!cmdPerms) return null;
+
+          return g.roles.cache
+            .filter((r) => r.permissions.has(cmdPerms) && !r.managed)
+            .first(10);
+        };
+
+        const fullPermissions = command.reduce((accumulator, r) => {
+          const roles = Roles(r.name);
+          
+          if (!roles) return accumulator;
+
+          const permissions = roles.reduce((a, r) => {
+            return [...a, { id: r.id, type: "ROLE", permission: true }];
+          }, []);
+
+          return [...accumulator, { id: r.id, permissions }];
+        }, []);
+
+        await g.commands.permissions.set({ fullPermissions });
+      });
+    });
+  });
+};
+
