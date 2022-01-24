@@ -22,11 +22,9 @@ module.exports = {
             content: "The data for this system is outdated",
         });
 
-        if (!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
-        return interaction.reply({ 
-            content: "You cannot these buttons.",
-            ephemeral: true,
-});
+        if(!interaction.member.permissions.has("ADMINISTRATOR"))
+        return interaction.reply({content: "You cannot use the button", ephemeral: true})
+        ;
     
 
         const Embed = new MessageEmbed().setColor("BLUE");
