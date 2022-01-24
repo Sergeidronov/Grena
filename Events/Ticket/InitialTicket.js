@@ -1,18 +1,18 @@
-const { 
-    ButtonInteraction, 
-    MessageEmbed, 
-    MessageActionRow, 
-    MessageButton 
+const {
+    ButtonInteraction,
+    MessageEmbed,
+    MessageActionRow,
+    MessageButton
 } = require("discord.js");
 const DB = require("../../Memory/Schems/Tickets");
-const TicketSetupData = require("../../Memory/Schems/TicketSetup");
+const TicketSetupData = require("../../Memory/Schems/TicketSetup")
 module.exports = {
     name: "interactionCreate",
     /**
-     * 
-     * @param { ButtonInteraction } interaction
+     * @param {ButtonInteraction} interaction
      */
-    async execute(interaction) {
+
+     async execute(interaction) {
         if(!interaction.isButton()) return;
         const { guild, member, customId } = interaction;
 
@@ -32,56 +32,63 @@ module.exports = {
                     id: member.id,
                     allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"],
                 },
+                { 
+                    id: Data.Handlers,
+                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]  
+                },
                 {
                     id: Data.Everyone,
-                    deny: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] 
+                    deny: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"],
                 },
             ],
         })
         .then(async (channel) => {
             await DB.create({
-                GuildID: guild.id,
-                MembersID: member.id,
-                TicketID: ID,
-                ChannelID: channel.id,
-                Closed: false,
-                Locked: false,
-                Type: customId,
-                Claimed: false,
+              GuildID: guild.id,
+              MembersID: member.id,
+              TicketID: ID,
+              ChannelID: channel.id,
+              Closed: false,
+              Locked: false,
+              Type: customId,
+              Claimed: false,
+              OpenTime: parseInt(channel.createdTimestamp / 1000),
             });
 
             const Embed = new MessageEmbed()
-                .setAuthor({ 
-                name: `${guild.name} | Ticket: ${ID}`, 
-                iconURL: guild.iconURL({ dynamic: true })
-                })
-                .setDescription(
-                    "Please wait patiently for a response from the Staff team, in the mean while, describe your issue in as much detail as posible."
-                )
-                .setFooter({ text: "The buttons below are staff Only Buttons." });
+            .setAuthor({ name: 
+                `${guild.name} | Ticket: ${ID}`,
+                iconURL: guild.iconURL({dynamic: true})},
+            )
+            .setDescription("Please wait patiently for a response from the Staff")
+            .setFooter({text: "The button"})
+
     
             const Buttons = new MessageActionRow();
+            
             Buttons.addComponents(
-            new MessageButton()
+                new MessageButton()
                 .setCustomId("close")
-                .setLabel("Save & Close Ticket")
+                .setLabel("Save & Close Ticket  ")
                 .setStyle("PRIMARY")
-                .setEmoji("💾"),
-            new MessageButton()
+                .setEmoji("😀"),
+                new MessageButton()
                 .setCustomId("lock")
                 .setLabel("Lock")
                 .setStyle("SECONDARY")
-                .setEmoji("🔒"),
-            new MessageButton()
+                .setEmoji("😇"),
+                new MessageButton()
                 .setCustomId("unlock")
                 .setLabel("Unlock")
                 .setStyle("SUCCESS")
-                .setEmoji("🔓"),
-            new MessageButton()
+                .setEmoji("😈"),
+                new MessageButton()
                 .setCustomId("claim")
                 .setLabel("Claim")
                 .setStyle("PRIMARY")
-                .setEmoji("🛄")
+                .setEmoji("😈"),
+    
+    
             );
     
             channel.send({
