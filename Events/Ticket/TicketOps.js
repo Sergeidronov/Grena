@@ -94,32 +94,32 @@ module.exports = {
               embeds: [
                 Embed.setTitle(`Тикет закрыт`).addFields([
                   {
-                    name: "Ticket ID",
+                    name: "Тикет айди",
                     value: `${docs.TicketID}`,
                     inline: true,
                   },
                   {
-                    name: "Type",
+                    name: "Тип",
                     value: `${docs.Type}`,
                     inline: true,
                   },
                   {
-                    name: "Opened By",
+                    name: "Открыл",
                     value: `<@!${docs.MembersID[0]}>`,
                     inline: true,
                   },
                   {
-                    name: "Open Time",
+                    name: "Время открытия",
                     value: `<t:${docs.OpenTime}:R>`,
                     inline: true,
                   },
                   {
-                    name: "Closed Time",
+                    name: "Время закрытия",
                     value: `<t:${parseInt(Date.now() / 1000)}:R>`,
                     inline: true,
                   },
                   {
-                    name: "Claimed By",
+                    name: "Принял",
                     value: `<@!${docs.ClaimedBy}>`,
                     inline: true,
                   },
