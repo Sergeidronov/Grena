@@ -72,22 +72,22 @@ module.exports = {
             Buttons.addComponents(
                 new MessageButton()
                 .setCustomId("close")
-                .setLabel("Save & Close Ticket  ")
+                .setLabel("Сохранить & Закрыть тикет  ")
                 .setStyle("PRIMARY")
                 .setEmoji("💾"),
                 new MessageButton()
                 .setCustomId("lock")
-                .setLabel("Lock")
+                .setLabel("Закрыть")
                 .setStyle("SECONDARY")
                 .setEmoji("🔒"),
                 new MessageButton()
                 .setCustomId("unlock")
-                .setLabel("Unlock")
+                .setLabel("Открыть")
                 .setStyle("SUCCESS")
                 .setEmoji("🔓"),
                 new MessageButton()
                 .setCustomId("claim")
-                .setLabel("Claim")
+                .setLabel("Принять")
                 .setStyle("PRIMARY")
                 .setEmoji("🛄"),
     
