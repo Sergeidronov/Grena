@@ -18,9 +18,9 @@ client.on("guildMemberRoleAdd", (member, role) => {
 
     const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
     const MemberRoleAdd = new MessageEmbed()
-        .setTitle('User Got Role!')
+        .setTitle('Пользователь Получил Роль!')
         .setColor('#2F3136')
-        .setDescription(`**${member.user.tag}** got the role \`${role.name}\``);
+        .setDescription(`**${member.user.tag}** получил роль \`${role.name}\``);
 
     return LogChannel.send({
         embeds: [MemberRoleAdd]
@@ -33,9 +33,9 @@ client.on("guildMemberRoleRemove", (member, role) => {
 
     const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
     const MemberRoleRemove = new MessageEmbed()
-        .setTitle('User Lost Role!')
+        .setTitle('Пользователь потерял роль!')
         .setColor('#2F3136')
-        .setDescription(`**${member.user.tag}** lost the role \`${role.name}\``);
+        .setDescription(`**${member.user.tag}** потерял роль \`${role.name}\``);
 
     return LogChannel.send({
         embeds: [MemberRoleRemove]
@@ -48,9 +48,9 @@ client.on("guildMemberNicknameUpdate", (member, oldNickname, newNickname) => {
 
     const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
     const MemberNicknameUpdate = new MessageEmbed()
-        .setTitle('Nickname Updated')
+        .setTitle('Никнейм обновлен')
         .setColor('#2F3136')
-        .setDescription(`${member.user.tag} changed nickname from \`${oldNickname}\` to \`${newNickname}\``);
+        .setDescription(`${member.user.tag} сменил ник с \`${oldNickname}\` на \`${newNickname}\``);
 
     return LogChannel.send({
         embeds: [MemberNicknameUpdate]
@@ -63,9 +63,9 @@ client.on("guildMemberEntered", (member) => {
 
     const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
     const MemberJoined = new MessageEmbed()
-        .setTitle('User Joined')
+        .setTitle('Пользователь присоединился')
         .setColor('#2F3136')
-        .setDescription(`${member.user.tag} Joined!`);
+        .setDescription(`${member.user.tag} присоединился!`);
 
     return LogChannel.send({
         embeds: [MemberJoined]
@@ -78,9 +78,9 @@ client.on("userUsernameUpdate", (user, oldUsername, newUsername) => {
 
     const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
     const Username = new MessageEmbed()
-        .setTitle('Username Updated')
+        .setTitle('Никнейм обновлен')
         .setColor('#2F3136')
-        .setDescription(`${user.tag} updated thier username from ${oldUsername} to ${newUsername}`);
+        .setDescription(`${user.tag} обновил свой никнейм с ${oldUsername} на ${newUsername}`);
 
     return LogChannel.send({
         embeds: [Username]
@@ -88,97 +88,5 @@ client.on("userUsernameUpdate", (user, oldUsername, newUsername) => {
 
 })
 
-// Discriminator Updated
-client.on("userDiscriminatorUpdate", (user, oldDiscriminator, newDiscriminator) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const Discriminator = new MessageEmbed()
-        .setTitle('Discriminator Updated')
-        .setColor('#2F3136')
-        .setDescription(`${user.tag} updated thier discriminator from ${oldDiscriminator} to ${oldDiscriminator}`);
-
-    return LogChannel.send({
-        embeds: [Discriminator]
-    });
-
-})
-
-
-
-
-// VC Switch
-client.on("voiceChannelSwitch", (member, oldChannel, newChannel) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const VCSwitch = new MessageEmbed()
-        .setTitle('Voice Channel Switched')
-        .setColor('#2F3136')
-        .setDescription(member.user.tag + " left " + oldChannel.name + " and joined " + newChannel.name + "!");
-
-    return LogChannel.send({
-        embeds: [VCSwitch]
-    });
-
-})
-
-// VC Mute
-client.on("voiceChannelMute", (member, muteType) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const VCMute = new MessageEmbed()
-        .setTitle('User Muted')
-        .setColor('#2F3136')
-        .setDescription(member.user.tag + " became muted! (type: " + muteType + ")");
-
-    return LogChannel.send({
-        embeds: [VCMute]
-    });
-
-})
-
-// VC Unmute
-client.on("voiceChannelUnmute", (member, oldMuteType) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const VCUnmute = new MessageEmbed()
-        .setTitle('User Unmuted')
-        .setColor('#2F3136')
-        .setDescription(member.user.tag + " became unmuted!");
-
-    return LogChannel.send({
-        embeds: [VCUnmute]
-    });
-
-})
-
-// VC Defean
-client.on("voiceChannelDeaf", (member, deafType) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const VCDeafen = new MessageEmbed()
-        .setTitle('User Deafend')
-        .setColor('#2F3136')
-        .setDescription(member.user.tag + " become deafed!");
-
-    return LogChannel.send({
-        embeds: [VCDeafen]
-    });
-
-})
-
-// VC Undefean
-client.on("voiceChannelUndeaf", (member, deafType) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const VCUndeafen = new MessageEmbed()
-        .setTitle('User Undeafend')
-        .setColor('#2F3136')
-        .setDescription(member.user.tag + " become undeafed!");
-
-    return LogChannel.send({
-        embeds: [VCUndeafen]
-    });
-
-})
 
 
