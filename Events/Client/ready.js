@@ -11,28 +11,8 @@ module.exports = {
      * @param {Client} client 
      */
     execute (client) {
-        
 
         
-        const RPC = require(`discord-rpc`);
-        const rpc = new RPC.Client({
-            transport: `ipc`
-        });
-        rpc.on(`ready`, () =>{
-            rpc.setActivity({
-                details: "Создаю дискорд бота",
-                startTimestamp: new Date(),
-                largeImageKey: "bot_m",
-                largeImageText: "Типо дискорд лого",
-            });
-            console.log(`RPC is running`);
-        })
-        
-        rpc.login(
-            {
-                clientId: `928621769827442708`
-            }
-        )
     
         
 
