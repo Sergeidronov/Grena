@@ -56,18 +56,6 @@ module.exports = {
         required: true,
         type: "STRING", 
     },
-    {
-        name: "secondbutton", 
-        description: "Give your second button", 
-        required: true,
-        type: "STRING", 
-    },
-    {
-        name: "thirdbutton", 
-        description: "Give third first button", 
-        required: true,
-        type: "STRING", 
-    },
     
     ],
 
@@ -88,12 +76,9 @@ module.exports = {
             const Description = options.getString("description");
 
             const Button1 = options.getString("firstbutton").split(",");
-            const Button2 = options.getString("secondbutton").split(",");
-            const Button3 = options.getString("thirdbutton").split(",");
 
             const Emoji1 = Button1[1];
-            const Emoji2 = Button2[1];
-            const Emoji3 = Button3[1];
+
 
 
 
@@ -106,7 +91,7 @@ module.exports = {
                        Handlers: Handlers.id,
                        Everyone: Everyone.id,
                        Description: Description,
-                       Buttons: [Button1[0], Button2[0], Button3[0]],
+                       Buttons: [Button1[0], ],
                     },
                     {
                         new: true,
@@ -114,24 +99,14 @@ module.exports = {
                     });
                     
             
-                    const Buttons = new MessageActionRow()
+                    const Button = new MessageActionRow()
             
-                    Buttons.addComponents(
+                    Button.addComponents(
                         new MessageButton()
                         .setCustomId(Button1[0])
                         .setLabel(Button1[0])
                         .setStyle("PRIMARY")
                         .setEmoji(Emoji1),
-                        new MessageButton()
-                        .setCustomId(Button2[0])
-                        .setLabel(Button2[0])
-                        .setStyle("SECONDARY")
-                        .setEmoji(Emoji2),
-                        new MessageButton()
-                        .setCustomId(Button3[0])
-                        .setLabel(Button3[0])
-                        .setStyle("SUCCESS")
-                        .setEmoji(Emoji3),
             
                     );
 
@@ -146,7 +121,7 @@ module.exports = {
                     
 
                     await guild.channels.cache.get(Channel.id)
-                    .send({embeds: [Embed], components: [Buttons]});
+                    .send({embeds: [Embed], components: [Button]});
             
                     interaction.reply({content: "Done", ephemeral: true});
  
