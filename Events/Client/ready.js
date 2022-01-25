@@ -1,7 +1,6 @@
 const { Client } = require("discord.js")
 const mongoose = require("mongoose");
 const {Database} = require("../../Structures/config.json");
-const client = require('discord-rich-presence')('180984871685062656');
 
 module.exports = {
     name: "ready",
@@ -12,9 +11,6 @@ module.exports = {
      */
     execute (client) {
 
-        
-    
-        
 
         if (!Database) return;
         mongoose.connect(Database, {
