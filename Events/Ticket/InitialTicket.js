@@ -57,17 +57,6 @@ module.exports = {
               Claimed: false,
               OpenTime: parseInt(channel.createdTimestamp / 1000),
             });
-            if (Data)
-      return interaction.reply({
-        embeds: [
-          new MessageEmbed()
-            .setDescription(
-              `You have a ticket open already.`
-            )
-            .setColor("RED"),
-        ],
-        ephemeral: true,
-      });
 
             const Embed = new MessageEmbed()
             .setAuthor({ name: 
