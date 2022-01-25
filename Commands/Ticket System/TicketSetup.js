@@ -113,7 +113,7 @@ module.exports = {
 
                     const Embed = new MessageEmbed() 
                     .setAuthor({
-                        name: guild.name + " | Ticketing System",
+                        name: guild.name + " | Тикет система",
                         iconURL: guild.iconURL ({dynamic: true}),
                     })
                     .setDescription(Description)
@@ -129,11 +129,10 @@ module.exports = {
         } catch (err) {
             const errEmbed = new MessageEmbed()
             .setColor("RED")
-            .setDescription(`⛔ | An error occured while setting up your ticket system\n**what to make sure off?** 
-            1.Make sure none  of your button name are duplicated
-            2.Make sure you can use this formated for your button => Name, Emoji
-            3.Make sure your button name do not exceed 200 characted
-            4.Make sure your button emoji are actually emoji`
+            .setDescription(`⛔ | 1.Убедитесь, что ни одно из названий вашей кнопки не дублируется
+            2.Убедитесь, что вы можете использовать этот формат для своей кнопки => Имя, эмодзи
+            3.Убедитесь, что имя вашей кнопки не превышает 200 символов
+            4.Убедитесь, что эмодзи вашей кнопки на самом деле являются эмодзи`
             );
             console.log(err);
             interaction.reply({embeds: [errEmbed]});
