@@ -25,6 +25,13 @@ module.exports = {
         if(!Data.Buttons.includes (customId)) return;
 
         
+        const Dataa = await DB.findOne({
+            GuildID: guild.id,
+            MembersID: member.id,
+            Closed: false,
+          });
+
+        
 
         const ID = Math.floor(Math.random() * 90000) + 10000;
 
@@ -123,23 +130,17 @@ module.exports = {
                 ephemeral: true, 
               });
 
-              const Dataa = await DB.findOne({
-                GuildID: guild.id,
-                MembersID: member.id,
-                Closed: false,
-              });
               if (Dataa)
-                return interaction.reply({
-                  embeds: [
-                    new MessageEmbed()
-                      .setDescription(
-                        `You have a ticket open already.`
-                      )
-                      .setColor("RED"),
-                  ],
-                  ephemeral: true,
-                });
-
+      return interaction.reply({
+        embeds: [
+          new MessageEmbed()
+            .setDescription(
+              `You have a ticket open already.`
+            )
+            .setColor("RED"),
+        ],
+        ephemeral: true,
+      });
 
         });
     },
