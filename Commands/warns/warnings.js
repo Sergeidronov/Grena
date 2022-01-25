@@ -124,36 +124,85 @@ module.exports = {
                     data.Content.push(obj)
                 }
                 data.save()
-            })
+            });
 
             interaction.reply({embeds: [new MessageEmbed()
                 .setTitle("Warning System")
             .setColor("RED")
-        .setDescription(`Warn add ${Target.user.id} | || ${Target.id}||\n **Reason**: ${Reason}\n**Evidence**: ${Evidence}}`)]});
-
-
-
-
-
-
+        .setDescription(`Warn add ${Target.user.tag} | || ${Target.id}||\n **Reason**: ${Reason}\n**Evidence**: ${Evidence}}`)]});
 
 
 
         } else if(Sub === "check") {
+            db.findOne({GuildID: interaction.guildId, UserID: Target.id, UserTag: Target.user.tag}, async (err, data) => {
+                
 
+                if(err) throw err;
+                if(data) {
+                    interaction.reply({embeds: [new MessageEmbed()
+                        .setTitle("Warning System")
+                    .setColor("RED")
+                .setDescription(`${data.Content.map(
+                    (w, i) => `**ID**: ${i + 1}\n**By**: ${w.ExecuterTag}\n**Date**:${w.Date}\n**Reason**: ${w.Reason}\n**Evidence**:${w.Evidence}
+                    \n`
+                ).join(" ")}`)]});
+                } else {
+                    interaction.reply({embeds: [new MessageEmbed()
 
+                .setTitle("Warning System")
+                .setColor("RED")
+                 .setDescription(`${Target.user.tag} | || ${Target.id}|| has no warnings.`)]});
 
-
-
-
+                }
+            });
         } else if(Sub === "remove") {
+            db.findOne({GuildID: interaction.guildId, UserID: Target.id, UserTag: Target.user.tag}, async (err, data) => {
+                if(err) throw err;
+                if(data) {
+                    data.Content.splice(WarnId, 1)
+                    interaction.reply({embeds: [new MessageEmbed()
+                        .setTitle("Warning System")
+                        .setColor("RED")
+                         .setDescription(`${Target.user.tag}"s warning id: ${WarnId + 1} has been removed`)]});
+                         data.save()
+                    
+                } else {
+                    interaction.reply({embeds: [new MessageEmbed()
+
+                        .setTitle("Warning System")
+                        .setColor("RED")
+                         .setDescription(`${Target.user.tag} | || ${Target.id}|| has no warnings.`)]});
+
+                }
+
+            });
 
 
+        }else if(Sub === "clear") {
+
+            db.findOne({GuildID: interaction.guildId, UserID: Target.id, UserTag: Target.user.tag }, async (err, data) => {
+                if(err) throw err;
+                if(data) {
+                    await db.findOneAndDelete({GuildID: interaction.guildId, UserID: Target.id, UserTag: Target.user.tag})
+                    interaction.reply({embeds: [new MessageEmbed()
+
+                        .setTitle("Warning System")
+                        .setColor("RED")
+                         .setDescription(`${Target.user.tag}"s warnings were cleard. | || ${Target.id}|| has no warnings.`)]});
+                         
+                    
+                } else {
+                    interaction.reply({embeds: [new MessageEmbed()
+
+                        .setTitle("Warning System")
+                        .setColor("RED")
+                         .setDescription(`${Target.user.tag} | || ${Target.id}|| has no warnings.`)]});
+                }
+            })
+        }
+        
 
 
-
-
-        }else if(Sub === "clear") {}
 
 
 
