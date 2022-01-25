@@ -101,7 +101,7 @@ module.exports = {
 
                 
              await channel
-             .send({content: `${member} test`})
+             .send({content: `${member} вот ваш билет`})
              .then((m) =>{
                  setTimeout(() => {
                      m.delete().catch(() => {});
