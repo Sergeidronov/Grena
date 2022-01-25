@@ -1,5 +1,6 @@
 const { Client, Collection, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageSelectMenu } = require("discord.js");;
 const client = new Client({ intents: [32767] })
+module.exports = client;
 const { token } = require("./config.json");
 const { promisify } = require("util");
 const { glob } = require("glob");
@@ -15,12 +16,15 @@ const ms = require(`ms`);
 
 
 client.applicationCommands = [];
-
+client.aliases = new Collection()
 client.commands = new Collection();
 
 ["Events", "Commands"].forEach(handler => {
     require(`./Handlers/${handler}`)(client, PG, Ascii);
 });
+
+
+
 
 
 // Logging System client

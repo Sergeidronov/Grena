@@ -1,29 +1,43 @@
-const { MessageEmbed, Message, WebhookClient } = require("discord.js"); 
+const {MessageEmbed, Message} = require('discord.js');
+const client = require('../../Structures/index');
 
 module.exports = {
-    name: "messageUpdate",
+    name: 'messageUpdate',
     /**
      * 
-     * @param {Message} oldMessage
-     * @param {Message} newMessage
+     * @param {Message} oldMessage 
+     * @param {Message} newMessage 
      */
     execute(oldMessage, newMessage) {
+        let happen = Math.floor(new Date().getTime()/1000.0)
         if(oldMessage.author.bot) return;
 
         if(oldMessage.content === newMessage.content) return;
-        
+
         const Count = 1950;
 
         const Original = oldMessage.content.slice(0, Count) + (oldMessage.content.length > 1950 ? "..." : "");
-        const Edited = newMessage.content.slice(0, Count) + (newMessage.content.length > 1950 ? "..." : "");
+        const Edited = newMessage.content.slice(0, Count) + (oldMessage.content.length > 1950 ? "..." : "");
+        const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
 
         const Log = new MessageEmbed()
-        .setColor("#36393f")
-        .setDescription(`📘 Сообщение от ${newMessage.author} было **обновлено**.\n
-        **Оригинальное**:\n ${Original} \n**Измененное**:\n ${Edited}`)
-        .setFooter(`ID: ${newMessage.author.id}`)
-        .setTimestamp()
-        new WebhookClient({url: "https://discord.com/api/webhooks/931398196041744446/jqRPeZ5ZVBU6lQtOdHuu0Ky5vXzzRSpIlXJvQoHOIjqkEXPCPPQsGPdO2wFgGenL2Foq" })
-        .send({embeds: [Log]}).catch((err) => console.log(err))
-    } 
+        .setColor('#36393f')
+        .setDescription(` A message by ${newMessage.author} was edited in ${newMessage.channel}.`)
+        .addFields({
+            name: 'Original',
+            value: `\n${Original}`,
+            inline: false
+        },{
+            name: 'Edited',
+            value: `\n${Edited} `.slice("0", "4096"),
+            inline: false
+        }, {
+            name: 'Action performed',
+            value: `(<t:${happen}:R>)`,
+            inline: false
+        })
+        .setFooter(`Member ${newMessage.author.tag} | ID: ${newMessage.author.id}`)
+
+       LogChannel.send({embeds: [Log]})
+    }
 }
