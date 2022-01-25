@@ -1,7 +1,12 @@
 const DB = require("../../Memory/Schems/Tickets");
-const {   MessageEmbed,} = require("discord.js");
+const {MessageEmbed} = require("discord.js");
 
 module.exports = {
+    name: "interactionCreate",
+    /**
+     * 
+     * @param {ButtonInteraction} interaction
+     */
      async execute(interaction) {
 
 const Dataa = await DB.findOne({
