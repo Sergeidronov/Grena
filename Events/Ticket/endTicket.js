@@ -4,10 +4,12 @@ const {MessageEmbed} = require("discord.js");
 module.exports = {
     name: "interactionCreate",
     /**
-     * 
      * @param {ButtonInteraction} interaction
      */
-     async execute(interaction) {
+
+    async execute(interaction) {
+
+        const { guild, member} = interaction
 
 const Dataa = await DB.findOne({
     GuildID: guild.id,
@@ -24,7 +26,5 @@ const Dataa = await DB.findOne({
           .setColor("RED"),
       ],
       ephemeral: true,
-  
-     });
-}
-}
+    });
+ }}
