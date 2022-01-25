@@ -24,8 +24,9 @@ module.exports = {
 
         if(!Data.Buttons.includes (customId)) return;
 
-        const ID = Math.floor(Math.random() * 90000) + 10000;
         
+
+        const ID = Math.floor(Math.random() * 90000) + 10000;
 
         await guild.channels
         .create(`${customId + "-" + ID}`, {
@@ -58,7 +59,6 @@ module.exports = {
               Claimed: false,
               OpenTime: parseInt(channel.createdTimestamp / 1000),
             });
-            
 
             const Embed = new MessageEmbed()
             .setAuthor({ name: 
@@ -99,11 +99,13 @@ module.exports = {
             
             
             
+            
     
             channel.send({ 
              embeds: [Embed], 
              components: [Buttons],
             });
+
 
                 
              await channel
@@ -113,6 +115,8 @@ module.exports = {
                      m.delete().catch(() => {});
                  }, 1 * 5000);
              });
+
+             
 
              interaction.reply({
                 content: `${member} ваш тикет был создан ${channel}`, 

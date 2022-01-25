@@ -29,8 +29,6 @@ module.exports = {
 });
     
 
-
-
         const Embed = new MessageEmbed().setColor("BLUE");
 
         DB.findOne({ ChannelID: channel.id }, async(err, docs) => {
@@ -155,8 +153,6 @@ module.exports = {
                         interaction.reply({embeds: [Embed]});
                         
                         break;
-                    
-                        
             }
         });
     },
