@@ -149,7 +149,7 @@ module.exports = {
 
                         await DB.updateOne({ChannelID: channel.id}, {Claimed: true, ClaimedBy: member.id});
 
-                        Embed.setDescription(` | This thicket is now claimed by ${member}`);
+                        Embed.setDescription(`🛄 | Тикет был принят ${member}`);
                         interaction.reply({embeds: [Embed]});
                         
                         break;
