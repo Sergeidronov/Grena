@@ -9,7 +9,7 @@ const {
   module.exports = {
     name: "btnroles",
     description: "Reaction roles but buttons instead",
-    Perms: "ADMINISTRATOR", // Don't forget to change "Perms" to urs!
+    permission: "ADMINISTRATOR",
     usage: "/buttonroles [role1] [role2] [role3] [role4] [embed message]",
     options: [
       {

@@ -6,6 +6,7 @@ module.exports = {
   name: "helped",
   alias: [],
   description: "Отправьте сообщение на определенный канал.",
+  permission: "ADMINISTRATOR",
 
   async execute(interaction, client) {
     
