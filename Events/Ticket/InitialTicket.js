@@ -25,6 +25,7 @@ module.exports = {
         if(!Data.Buttons.includes (customId)) return;
 
         const ID = Math.floor(Math.random() * 90000) + 10000;
+        
 
         await guild.channels
         .create(`${customId + "-" + ID}`, {
@@ -57,6 +58,22 @@ module.exports = {
               Claimed: false,
               OpenTime: parseInt(channel.createdTimestamp / 1000),
             });
+            const Dataa = await DB.findOne({
+                GuildID: guild.id,
+                MembersID: member.id,
+                Closed: false,
+              });
+              if (Dataa)
+                return interaction.reply({
+                  embeds: [
+                    new MessageEmbed()
+                      .setDescription(
+                        `You have a ticket open already.`
+                      )
+                      .setColor("RED"),
+                  ],
+                  ephemeral: true,
+                });
 
             const Embed = new MessageEmbed()
             .setAuthor({ name: 
