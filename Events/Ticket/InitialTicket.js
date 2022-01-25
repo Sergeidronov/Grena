@@ -125,7 +125,7 @@ module.exports = {
                 Closed: false,
               });
               if (Dataa)
-                return interaction.editReply({
+                return interaction.reply({
                   embeds: [
                     new MessageEmbed()
                       .setDescription(
