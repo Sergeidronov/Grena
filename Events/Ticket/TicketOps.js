@@ -19,12 +19,12 @@ module.exports = {
         const TicketSetup = await TicketSetupData.findOne({GuildID: guild.id});
         if(!TicketSetup)
         return interaction.reply({
-            content: "The data for this system is outdated",
+            content: "Данные для этой системы устарели.",
         });
 
         if (!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
         return interaction.reply({ 
-            content: "You cannot these buttons.",
+            content: "Недостаточно прав для использования.",
             ephemeral: true,
 });
     
@@ -34,18 +34,18 @@ module.exports = {
         DB.findOne({ ChannelID: channel.id }, async(err, docs) => {
             if (err) throw err;
             if (!docs) return interaction.reply({
-                content: "No data was found related to this ticket, please delete manual",
+                content: "Никаких данных, связанных с этим билетом, найдено не было, пожалуйста, удалите руководство,",
                 ephemeral: true,
             });
             switch (customId) {
                 case "lock":
                     if (docs.Locked == true)
                         return interaction.reply({
-                            content: "This ticket is already locked",
+                            content: "Этот тикет уже закрыт",
                             ephemeral: true,
                         });
                     await DB.updateOne({ ChannelID: channel.id }, { Locked: true });
-                    Embed.setDescription("🔒 | This ticket is now locked");
+                    Embed.setDescription("🔒 | Тикет был закрыт");
                     
                     docs.MembersID.forEach((m) => {
                         channel.permissionOverwrites.edit(m, {
@@ -61,12 +61,12 @@ module.exports = {
                 case "unlock":
                     if (docs.Locked == false)
                         return interaction.reply({
-                            content: "This ticket is already unlocked",
+                            content: "Этот тикет уже открыт",
                             ephemeral: true,
                         });
                     await DB.updateOne({ ChannelID: channel.id }, { Locked: false });
                     
-                    Embed.setDescription("🔓 | This ticket is now unlocked");
+                    Embed.setDescription("🔓 | Тикет был открыт");
                     docs.MembersID.forEach((m) => {
                         channel.permissionOverwrites.edit(m, {
                             SEND_MESSAGES: true, 
@@ -78,7 +78,7 @@ module.exports = {
                 case "close":
                     if (docs.Closed == true)
                         return interaction.reply({
-                             content: "Ticket is already closed please wait!", 
+                             content: "Тикет уже закрыт, пожалуйста подождите", 
                              ephemeral: true, });
                     const attachment = await createTranscript(channel, {
                         limit: -1,
@@ -92,7 +92,7 @@ module.exports = {
             .get(TicketSetup.Transcripts)
             .send({
               embeds: [
-                Embed.setTitle(`Ticket Closed`).addFields([
+                Embed.setTitle(`Тикет закрыт`).addFields([
                   {
                     name: "Ticket ID",
                     value: `${docs.TicketID}`,
@@ -143,7 +143,7 @@ module.exports = {
 
                     case "claim":
                         if(docs.Claimed == true) 
-                            return interaction.reply({content: `This ticket has already been claimed by <@${docs.ClaimedBy}>`,
+                            return interaction.reply({content: `Этот тикет уже был принят <@${docs.ClaimedBy}>`,
                             ephemeral: true,
                         });
 

@@ -60,10 +60,10 @@ module.exports = {
 
             const Embed = new MessageEmbed()
             .setAuthor({ name: 
-                `${guild.name} | Ticket: ${ID}`,
+                `${guild.name} | Тикет: ${ID}`,
                 iconURL: guild.iconURL({dynamic: true})},
             )
-            .setDescription("Please wait patiently for a response from the Staff")
+            .setDescription("Пожалуйста ожидайте ответа от персонала")
             .setFooter({text: "The button"})
 
     
@@ -74,22 +74,22 @@ module.exports = {
                 .setCustomId("close")
                 .setLabel("Save & Close Ticket  ")
                 .setStyle("PRIMARY")
-                .setEmoji("😀"),
+                .setEmoji("💾"),
                 new MessageButton()
                 .setCustomId("lock")
                 .setLabel("Lock")
                 .setStyle("SECONDARY")
-                .setEmoji("😇"),
+                .setEmoji("🔒"),
                 new MessageButton()
                 .setCustomId("unlock")
                 .setLabel("Unlock")
                 .setStyle("SUCCESS")
-                .setEmoji("😈"),
+                .setEmoji("🔓"),
                 new MessageButton()
                 .setCustomId("claim")
                 .setLabel("Claim")
                 .setStyle("PRIMARY")
-                .setEmoji("😈"),
+                .setEmoji("🛄"),
     
     
             );
@@ -109,7 +109,7 @@ module.exports = {
              });
 
              interaction.reply({
-                content: `${member} your ticket has been created ${channel}`, 
+                content: `${member} ваш тикет был создан ${channel}`, 
                 ephemeral: true, 
               });
 
