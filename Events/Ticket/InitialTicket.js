@@ -18,6 +18,16 @@ module.exports = {
 
         if(["players", "bug", "other"].includes(customId)) return;
 
+        if (interaction.guild.channels.cache.find(channel => channel.name.startsWith(member.user.username))) 
+    return interaction.reply({
+        content: `${member} You have a ticket open already`,
+        ephemeral: true,
+    }).then(() => {
+        setTimeout(() => {
+            interaction.deleteReply().catch(() => {});
+        }, 3000);
+    })
+
 
         const Data = await TicketSetupData.findOne({GuildID: guild.id});
         if(!Data) return;
@@ -90,9 +100,41 @@ module.exports = {
                 .setLabel("Принять")
                 .setStyle("PRIMARY")
                 .setEmoji("🛄"),
-    
-    
+
             );
+
+            const purchaseEmbed = new MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle('Genera Support')
+        .setDescription(`${member}, WHATEVER YOU WANT`)
+      .setTimestamp()
+      .setFooter("WHATEVER YOU WANT");
+      
+      const bugEmbed = new MessageEmbed()
+      .setColor('#0099ff')
+      .setTitle('New Member Test')
+      .setDescription(`${member}, WHATEVER YOU WANT`)
+      .setFooter("WHATEVER YOU WANT");
+
+      const otherEmbed = new MessageEmbed()
+      .setColor('#0099ff')
+      .setTitle('Patreon')
+      .setDescription(`${member}, WHATEVER YOU WANT`)
+    .setTimestamp()
+    .setFooter("WHATEVER YOU WANT");
+        switch(customId) {
+          case "general": 
+            channel.send({ embeds: [purchaseEmbed], components: [Buttons] })
+          break;
+          case "newmembertest":
+            channel.send({ embeds: [bugEmbed], components: [Buttons] })
+          break;
+          case "patreon":
+            channel.send({ embeds: [otherEmbed], components: [Buttons] })
+          break;
+          default: 
+          break;
+          }
 
             
             
