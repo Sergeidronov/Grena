@@ -5,64 +5,13 @@ const {
 } = require('discord.js');
 
 
-    // Channel Permission Updating
-client.on("guildChannelPermissionsUpdate", (channel, oldPermissions, newPermissions) => {
 
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const PermissionUpdate = new MessageEmbed()
-        .setTitle('Permission Updated!')
-        .setColor('#2F3136')
-        .setDescription(`${channel.name}'s permissions updated!"`);
 
-    return LogChannel.send({
-        embeds: [PermissionUpdate]
-    });
 
-})
 
-// unhandled Guild Channel Update
-client.on("unhandledGuildChannelUpdate", (oldChannel, newChannel) => {
 
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const unhandledGuildChannelUpdate = new MessageEmbed()
-        .setTitle('Channel Updated!')
-        .setColor('#2F3136')
-        .setDescription("Channel '" + oldChannel.id + "' was edited but discord-logs couldn't find what was updated...");
 
-    return LogChannel.send({
-        embeds: [unhandledGuildChannelUpdate]
-    });
 
-});
-
-// Member Started Boosting
-client.on("guildMemberBoost", (member) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const MemberBoost = new MessageEmbed()
-        .setTitle('User Started Boosting!')
-        .setColor('#2F3136')
-        .setDescription(`**${member.user.tag}** has started boosting  ${member.guild.name}!`);
-    return LogChannel.send({
-        embeds: [MemberBoost]
-    });
-
-})
-
-// Member Unboosted
-client.on("guildMemberUnboost", (member) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const MemberUnboost = new MessageEmbed()
-        .setTitle('User Stoped Boosting!')
-        .setColor('#2F3136')
-        .setDescription(`**${member.user.tag}** has stopped boosting  ${member.guild.name}!`);
-
-    return LogChannel.send({
-        embeds: [MemberUnboost]
-    });
-
-})
 
 // Member Got Role
 client.on("guildMemberRoleAdd", (member, role) => {
@@ -124,130 +73,6 @@ client.on("guildMemberEntered", (member) => {
 
 })
 
-// Server Boost Level Up
-client.on("guildBoostLevelUp", (guild, oldLevel, newLevel) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const LevelUp = new MessageEmbed()
-        .setTitle('Server Boost Level Up')
-        .setColor('#2F3136')
-        .setDescription(`${guild.name} reached the boost level ${newLevel}`);
-
-    return LogChannel.send({
-        embeds: [LevelUp]
-    });
-
-})
-
-// Server Boost Level Down
-client.on("guildBoostLevelDown", (guild, oldLevel, newLevel) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const LevelDown = new MessageEmbed()
-        .setTitle('Server Boost Level Down')
-        .setColor('#2F3136')
-        .setDescription(`${guild.name} lost a level from ${oldLevel} to ${newLevel}`);
-
-    return LogChannel.send({
-        embeds: [LevelDown]
-    });
-
-})
-
-
-
-// Guild Vanity Add
-client.on("guildVanityURLAdd", (guild, vanityURL) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const VanityAdd = new MessageEmbed()
-        .setTitle('Vanity Link Added')
-        .setColor('#2F3136')
-        .setDescription(`${guild.name} has a vanity link ${vanityURL}`);
-
-    return LogChannel.send({
-        embeds: [VanityAdd]
-    });
-
-})
-
-// Guild Vanity Remove
-client.on("guildVanityURLRemove", (guild, vanityURL) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const VanityRemove = new MessageEmbed()
-        .setTitle('Vanity Link Removed')
-        .setColor('#2F3136')
-        .setDescription(`${guild.name} has removed its vanity URL ${vanityURL}`);
-
-    return LogChannel.send({
-        embeds: [VanityRemove]
-    });
-
-})
-
-// Guild Vanity Link Updated
-client.on("guildVanityURLUpdate", (guild, oldVanityURL, newVanityURL) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const VanityUpdated = new MessageEmbed()
-        .setTitle('Vanity Link Updated')
-        .setColor('#2F3136')
-        .setDescription(`${guild.name} has changed its vanity URL from ${oldVanityURL} to ${newVanityURL}!`);
-
-    return LogChannel.send({
-        embeds: [VanityUpdated]
-    });
-
-})
-
-// Message Pinned
-client.on("messagePinned", (message) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const MessagePinned = new MessageEmbed()
-        .setTitle('Message Pinned')
-        .setColor('#2F3136')
-        .setDescription("This message has been pinned : " + message);
-
-    return LogChannel.send({
-        embeds: [MessagePinned]
-    });
-
-})
-
-
-// Role Position Updated
-client.on("rolePositionUpdate", (role, oldPosition, newPosition) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const RolePositionUpdated = new MessageEmbed()
-        .setTitle('Role Position Updated')
-        .setColor('#2F3136')
-        .setDescription(role.name + " role was at position " + oldPosition + " and now is at position " + newPosition);
-
-    return LogChannel.send({
-        embeds: [RolePositionUpdated]
-    });
-
-})
-
-// Role Permission Updated
-client.on("rolePermissionsUpdate", (role, oldPermissions, newPermissions) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const RolePermissionUpdated = new MessageEmbed()
-        .setTitle('Role Permission Updated')
-        .setColor('#2F3136')
-        .setDescription(role.name + " had as permissions " + oldPermissions + " and now has as permissions " + newPermissions);
-
-    return LogChannel.send({
-        embeds: [RolePermissionUpdated]
-    });
-
-})
-
-
 // Username Updated
 client.on("userUsernameUpdate", (user, oldUsername, newUsername) => {
 
@@ -278,36 +103,8 @@ client.on("userDiscriminatorUpdate", (user, oldDiscriminator, newDiscriminator) 
 
 })
 
-// Joined VC
-client.on("voiceChannelJoin", (member, channel) => {
 
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const VCJoined = new MessageEmbed()
-        .setTitle('Voice Channel Joined')
-        .setColor('#2F3136')
-        .setDescription(member.user.tag + " joined " + `${channel}` + "!");
 
-        
-    return LogChannel.send({
-        embeds: [VCJoined]
-    });
-
-})
-
-// Left VC
-client.on("voiceChannelLeave", (member, channel) => {
-
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
-    const VCLeft = new MessageEmbed()
-        .setTitle('Voice Channel Left')
-        .setColor('#2F3136')
-        .setDescription(member.user.tag + " left " + `${channel}` + "!");
-
-    return LogChannel.send({
-        embeds: [VCLeft]
-    });
-
-})
 
 // VC Switch
 client.on("voiceChannelSwitch", (member, oldChannel, newChannel) => {
