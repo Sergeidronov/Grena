@@ -51,12 +51,14 @@ module.exports = {
 
             await channel.bulkDelete(filtered, true).then(messages => {
                 Response.setDescription(`🧹 Удалено ${messages.size} сообщений from ${Target}.`);
-                interaction.reply({embeds: [Response]})
+                interaction.reply({embeds: [Response],
+                ephemeral: true})
             })
         } else {
             await channel.bulkDelete(Amount, true).then(messages => {
                 Response.setDescription(`🧹 Удалено ${messages.size} сообщений`);
-                interaction.reply({ embeds: [Response] })
+                interaction.reply({ embeds: [Response],
+                ephemeral: true})
             })
         }
     }
