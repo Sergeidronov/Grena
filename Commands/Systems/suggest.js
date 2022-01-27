@@ -37,9 +37,9 @@ module.exports = {
         .setColor("RED")
         .setAuthor(user.tag, user.displayAvatarURL({dynamic: true}))
         .addFields(
-            {name: "Suggestion:", value: Suggestion, inline: false},
-            {name: "Type:", value: Type, inline: true},
-            {name: "Status:", value: "Pending", inline: true}
+            {name: "Предложение:", value: Suggestion, inline: false},
+            {name: "Тип:", value: Type, inline: true},
+            {name: "Статус:", value: "Рассматривается", inline: true}
         )
         .setTimestamp()
 

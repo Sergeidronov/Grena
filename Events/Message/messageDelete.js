@@ -10,7 +10,7 @@ module.exports = {
     execute(message) {
         if(message.author.bot) return;
         let happen = Math.floor(new Date().getTime()/1000.0)
-        const LogChannel = client.channels.cache.get('928629275010170921, 936118492019712024'); // Replace with your channel id
+        const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
 
         const Log = new MessageEmbed()
         .setColor('#36393f')
