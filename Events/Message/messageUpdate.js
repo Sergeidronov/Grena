@@ -18,7 +18,7 @@ module.exports = {
 
         const Original = oldMessage.content.slice(0, Count) + (oldMessage.content.length > 1950 ? "..." : "");
         const Edited = newMessage.content.slice(0, Count) + (oldMessage.content.length > 1950 ? "..." : "");
-        const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
+        const LogChannel = client.channels.cache.get("928629275010170921"); // Replace with your channel id
 
         const Log = new MessageEmbed()
         .setColor('#36393f')
