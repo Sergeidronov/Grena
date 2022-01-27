@@ -1,144 +1,85 @@
-const {
-    MessageEmbed,
-    CommandInteraction,
-    MessageActionRow,
-    MessageButton,
-} =require("discord.js");
-const DB = require("../../Memory/Schems/TicketSetup");
+const { MessageEmbed, CommandInteraction, MessageActionRow, MessageButton } = require('discord.js')
+const DB = require('../../Memory/Schems/TicketSetupDB')
 
 module.exports = {
-    name: "ticketsetup",
-    description: "Setup ticket",
-    permission: "ADMINISTRATOR",
-    options: [
-        {
-        name: "channel", 
-        description: "Выберите канал создания билета", 
-        required: true,
-        type: "CHANNEL", 
-        channelTypes: ["GUILD_TEXT"],
+  name: "ticket-setup",
+  description: "setup the ticket",
+  permission: "ADMINISTRATOR",
+  options: [
+    {
+      name: "channel",
+      description: "Channel To Send Ticket",
+      required: true,
+      type: "CHANNEL",
+      channelTypes: ["GUILD_TEXT"],
     },
     {
-        name: "category", 
-        description: "Выберите категорию создания билетов", 
-        required: true,
-        type: "CHANNEL", 
-        channelTypes: ["GUILD_CATEGORY"],
+      name: "category",
+      description: "Category To Send Ticket",
+      required: true,
+      type: "CHANNEL",
+      channelTypes: ["GUILD_CATEGORY"],
     },
     {
-        name: "transcripts", 
-        description: "Выберите transcripts", 
-        required: true,
-        type: "CHANNEL", 
-        channelTypes: ["GUILD_TEXT"],
+      name: "transcripts",
+      description: "Transcript To Send in Channel",
+      required: true,
+      type: "CHANNEL",
+      channelTypes: ["GUILD_TEXT"],
     },
     {
-        name: "handlers", 
-        description: "Выберите роль обработчиков билетов", 
-        required: true,
-        type: "ROLE", 
+      name: "handlers",
+      description: "Ticket Handlers",
+      required: true,
+      type: "ROLE",
     },
-    {
-        name: "everyone", 
-        description: "Предоставьте роль @everyone ", 
-        required: true,
-        type: "ROLE", 
-    },
-    {
-        name: "description", 
-        description: "Установите описание", 
-        required: true,
-        type: "STRING", 
-    },
-    {
-        name: "firstbutton", 
-        description: "Дайте свою первую кнопку", 
-        required: true,
-        type: "STRING", 
-    },
-    
-    ],
-
-    /**
+  ],
+   /**
      * @param {CommandInteraction} interaction
      */
-    async execute(interaction ) {
-        const {guild, options} = interaction;
+    async execute(interaction) {
+      const { guild, options } = interaction;
+
+    try {
+     const Channel = options.getChannel("channel")
+     const Category = options.getChannel("category") 
+     const Transcripts = options.getChannel("transcripts")
+     const Handlers = options.getRole("handlers")
+
+     await DB.findOneAndUpdate(
+     {GuildID: guild.id}, 
+     { 
+     Channel: Channel.id,
+     Category: Category.id,
+     Transcripts: Transcripts.id, 
+     Handlers: Handlers.id,
+     Everyone: guild.id,
+     },
+     {
+       new: true,
+       upsert: true
+     }
+     );
+     const Embed = new MessageEmbed()
+     .setAuthor({name: guild.name + " | Ticketing System ", iconURL: guild.iconURL({dynamic: true})})
+     .setDescription(`*To Create A Ticket React With*  📬`)
+     .setColor("#36393f")
+
+     const Buttons = new MessageActionRow()
+     .addComponents(
+       new MessageButton()
+       .setLabel("📬 Create Ticket")
+       .setCustomId("create")
+       .setStyle("SECONDARY")
+     )
+     await guild.channels.cache.get(Channel.id).send({embeds: [Embed], components: [Buttons]})
+
+     interaction.reply({content: `You Ticket Has Been Setup In <#${Channel.id}>`, ephemeral: true})
 
 
-        try {
-            const Channel = options.getChannel("channel");
-            const Category = options.getChannel("category");
-            const Transcripts = options.getChannel("transcripts");
-            const Handlers = options.getRole("handlers");
-            const Everyone = options.getRole("everyone");
-
-            const Description = options.getString("description");
-
-            const Button1 = options.getString("firstbutton").split(",");
-
-            const Emoji1 = Button1[1];
-
-
-
-
-            await DB.findOneAndUpdate(
-                {GuildID: guild.id},
-                 {
-                     Channel: Channel.id,
-                     Category: Category.id,
-                      Transcripts: Transcripts.id,
-                       Handlers: Handlers.id,
-                       Everyone: Everyone.id,
-                       Description: Description,
-                       Buttons: [Button1[0], ],
-                    },
-                    {
-                        new: true,
-                        upsert: true,
-                    });
-                    
-            
-                    const Button = new MessageActionRow()
-            
-                    Button.addComponents(
-                        new MessageButton()
-                        .setCustomId(Button1[0])
-                        .setLabel(Button1[0])
-                        .setStyle("PRIMARY")
-                        .setEmoji(Emoji1),
-            
-                    );
-
-
-                    const Embed = new MessageEmbed() 
-                    .setAuthor({
-                        name: guild.name + " | Тикет система",
-                        iconURL: guild.iconURL ({dynamic: true}),
-                    })
-                    .setDescription(Description)
-                    .setColor("RED");
-                    
-
-                    await guild.channels.cache.get(Channel.id)
-                    .send({embeds: [Embed], components: [Button]});
-            
-                    interaction.reply({content: "Done", ephemeral: true});
- 
-
-        } catch (err) {
-            const errEmbed = new MessageEmbed()
-            .setColor("RED")
-            .setDescription(`⛔ | 1.Убедитесь, что ни одно из названий вашей кнопки не дублируется
-            2.Убедитесь, что вы можете использовать этот формат для своей кнопки => Имя, эмодзи
-            3.Убедитесь, что имя вашей кнопки не превышает 200 символов
-            4.Убедитесь, что эмодзи вашей кнопки на самом деле являются эмодзи`
-            );
-            console.log(err);
-            interaction.reply({embeds: [errEmbed]});
-        }
-
-       
-    },
-};
-
+    } catch (err){
+ console.log(err)
+    }
+    
+    }
+}
