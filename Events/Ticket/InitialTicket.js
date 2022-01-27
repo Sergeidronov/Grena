@@ -117,22 +117,7 @@ module.exports = {
                 ephemeral: true, 
               });
 
-              const Dataa = await DB.findOne({
-                GuildID: guild.id,
-                MembersID: member.id,
-                Closed: false,
-              });
-              if (Dataa)
-                return interaction.reply({
-                  embeds: [
-                    new MessageEmbed()
-                      .setDescription(
-                        `You have a ticket open already.`
-                      )
-                      .setColor("RED"),
-                  ],
-                  ephemeral: true,
-                });
+              
 
 
         });
