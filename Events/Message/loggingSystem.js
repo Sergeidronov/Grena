@@ -1,5 +1,5 @@
 // ok now over here i already made a code and it is 500+ lines so... i will paste the code which i made here
-const client = require('../../Structures/index');
+const client = require('../../Structures/bot');
 const {
     MessageEmbed
 } = require('discord.js');

@@ -1,7 +1,7 @@
 const { Client } = require("discord.js")
 const mongoose = require("mongoose");
 const {Database} = require("../../Structures/config.json");
-const client = require('../../Structures/index');
+const client = require('../../Structures/bot');
 const arrayOfStatus = [
     'создание бота',
 ]

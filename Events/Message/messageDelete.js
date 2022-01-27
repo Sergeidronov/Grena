@@ -1,5 +1,5 @@
 const { MessageEmbed, Message } = require('discord.js');
-const client = require('../../Structures/index');
+const client = require('../../Structures/bot');
 
 module.exports = {
     name: 'messageDelete',

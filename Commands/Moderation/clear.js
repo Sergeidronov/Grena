@@ -35,9 +35,10 @@ module.exports = {
         const Response = new MessageEmbed()
         .setColor("RANDOM");
 
-        if(Amount > 100 || Amount <= 0) {
-            Response.setDescription(`Amount cannot exceed 100, and cannot be under 1.`)
-            return interaction.reply({embeds: [Response]})
+        if(Amount > 100 || Amount <= 4) {
+            Response.setDescription(`Невозможно удалить более 100, и менее 4.`)
+            return interaction.reply({embeds: [Response],
+            ephemeral: true})
         }
         if(Target) {
             let i = 0;
@@ -49,12 +50,12 @@ module.exports = {
             })
 
             await channel.bulkDelete(filtered, true).then(messages => {
-                Response.setDescription(`🧹 Cleared ${messages.size} from ${target.id}.`);
+                Response.setDescription(`🧹 Удалено ${messages.size} сообщений from ${Target}.`);
                 interaction.reply({embeds: [Response]})
             })
         } else {
             await channel.bulkDelete(Amount, true).then(messages => {
-                Response.setDescription(`🧹 Cleared ${messages.size} from this channel.`);
+                Response.setDescription(`🧹 Удалено ${messages.size} сообщений`);
                 interaction.reply({ embeds: [Response] })
             })
         }

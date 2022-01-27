@@ -1,2 +1,2 @@
-node ./Structures/index.js
+node ./Structures/bot.js
 pause
