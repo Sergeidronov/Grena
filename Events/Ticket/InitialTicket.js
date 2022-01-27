@@ -6,6 +6,7 @@ const {
 } = require("discord.js");
 const DB = require("../../Memory/Schems/Tickets");
 const TicketSetupData = require("../../Memory/Schems/TicketSetup")
+const { PARENTID,  EVERYONEID, ADMINID} = require("../../Structures/config.json");
 module.exports = {
     name: "interactionCreate",
     /**
@@ -17,6 +18,15 @@ module.exports = {
         const { guild, member, customId} = interaction
 
         if(["players", "bug", "other"].includes(customId)) return;
+        if (interaction.guild.channels.cache.find(channel => channel.name.startsWith(member.user.username))) 
+        return interaction.reply({
+            content: `${member} You have a ticket open already`,
+            ephemeral: true,
+        }).then(() => {
+            setTimeout(() => {
+                interaction.deleteReply().catch(() => {});
+            }, 3000);
+        })
 
 
         const Data = await TicketSetupData.findOne({GuildID: guild.id});
