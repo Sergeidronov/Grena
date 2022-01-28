@@ -62,13 +62,19 @@ if(h) return interaction.reply({content: "> **Warning:** Ticket limit reached, Y
             .setFooter({ text: `Patience Is A Key`})
             .setColor('#2C2F33')
     
+        
             const Buttons = new MessageActionRow();
             Buttons.addComponents(
                 new MessageButton()
                 .setCustomId('close')
                 .setLabel('Close')
-                .setStyle('SECONDARY')
+                .setStyle('PRIMARY')
                 .setEmoji('🔒'),
+                new MessageButton()
+                .setCustomId('claim')
+                .setLabel('Close')
+                .setStyle('SECONDARY')
+                .setEmoji('🔒')
             );
     await interaction.deferReply({ ephemeral: true });
 
