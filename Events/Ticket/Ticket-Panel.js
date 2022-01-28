@@ -20,11 +20,12 @@ module.exports = {
 
         const { guild, member, customId } = interaction;
         
-
         const Data = await TicketSetupData.findOne({GuildID: guild.id });
         if(!Data) return;
 
-     
+
+      if(!["create"].includes(customId)) return;
+
      const data = DB.findOne({ GuildID: guild.id })
 const ID = ((await data.countDocuments()) + 1).toString();    
 const h = await DB.findOne({ MembersID: member.id, GuildID: guild.id, Closed: false }) 
