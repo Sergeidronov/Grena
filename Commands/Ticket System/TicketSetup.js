@@ -61,20 +61,20 @@ module.exports = {
      }
      );
      const Embed = new MessageEmbed()
-     .setAuthor({name: guild.name + " | Ticketing System ", iconURL: guild.iconURL({dynamic: true})})
-     .setDescription(`*To Create A Ticket React With*  📬`)
+     .setAuthor({name: " | Система тикетов  ", iconURL: guild.iconURL({dynamic: true})})
+     .setDescription(`*Что бы создать тикет нажмите на*  📬`)
      .setColor("#36393f")
 
      const Buttons = new MessageActionRow()
      .addComponents(
        new MessageButton()
-       .setLabel("📬 Create Ticket")
+       .setLabel("📬 Создать тикет")
        .setCustomId("create")
        .setStyle("SECONDARY")
      )
      await guild.channels.cache.get(Channel.id).send({embeds: [Embed], components: [Buttons]})
 
-     interaction.reply({content: `You Ticket Has Been Setup In <#${Channel.id}>`, ephemeral: true})
+     interaction.reply({content: `Ваша тикет система создана в <#${Channel.id}>`, ephemeral: true})
 
 
     } catch (err){
