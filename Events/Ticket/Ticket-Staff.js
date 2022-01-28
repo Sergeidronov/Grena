@@ -81,17 +81,45 @@ module.exports = {
             });
 
 
+            setTimeout(() => {
+              channel.delete();
+            }, 5 * 1000);
+            break;
+          case 'claim':
+            if (docs.Claimed == true)
+              return interaction.reply({
+                content: `❌ | This ticket has alredy been claimed by <@${docs.ClaimeBy}>`,
+                ephemeral: true,
+              });
+  
+            await DB.updateOne(
+              { ChannelID: channel.id },
+              { Claimed: true, ClaimedBy: interaction.user.id }
+            );
+            Embed
+              .setAuthor(({ name: `${member.user.username}` }))
+              .setTitle('✅ | Claimed Ticket.')
+              .setColor('#2C2F33')
+              .setDescription(`${member} has claimed the ticket`)
+              .setFooter({ text: `${interaction.guild.name}` })
+  
+            interaction.reply({ embeds: [Embed] });
 
 
 
           interaction.reply({
-            embeds: [Embed.
-              setTitle('Ticket Closed 🔒'
+            embeds: [Embed.setTitle('Ticket Closed 🔒'
             )
-              .setDescription(`Ticket Closed `)
-              .setColor('#2C2F33') 
+              .setDescription(`Ticket Closed \n[TRANSCRIPTS](${Message.url})`)
+              .setColor('#2C2F33')
+              .setFooter({ text: `${interaction.guild.name}` })
             ]
           });
+
+
+        
+
+
 
 
           break;
