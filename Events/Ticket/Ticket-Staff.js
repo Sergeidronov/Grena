@@ -106,11 +106,11 @@ module.exports = {
             { Claimed: true, ClaimedBy: interaction.user.id }
           );
           Embed
-            .setAuthor(({ name: `${member.user.username}`, iconURL: `${member.displayAvatarURL({ dynamic: true })}` }))
+            .setAuthor(({ name: `${member.user.username}` }))
             .setTitle('✅ | Claimed Ticket.')
             .setColor('#2C2F33')
             .setDescription(`${member} has claimed the ticket`)
-            .setFooter({ text: `${interaction.guild.name}`, iconURL: `${interaction.guild.iconURL({ dynamic: true })}` })
+            .setFooter({ text: `${interaction.guild.name}` })
 
           interaction.reply({ embeds: [Embed] });
 
