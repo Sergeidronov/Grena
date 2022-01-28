@@ -117,20 +117,20 @@ module.exports = {
                         },
                         )
                         ],
-                        ephemeral: true
+                        ephemeral: false
                 });
             }
                 case "unmute": {
                     if (target.permissions.has("ADMINISTRATOR"))
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
                             .setDescription(`${target.user.username} Является Администратором`).setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if(!target.communicationDisabledUntilTimestamp)
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
                             .setDescription(`${target.user.username} и так не имеет мут`).setTimestamp()
                         ],
                         ephemeral: true
@@ -148,7 +148,7 @@ module.exports = {
                         },
                         )
                         ],
-                        ephemeral: true
+                        ephemeral: false
                 });
                 }
                 return;
