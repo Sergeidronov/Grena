@@ -141,24 +141,6 @@ client.on("guildMemberEntered", (member) => {
 })
 
 
-client.on("MessageEdited", (message, oldContent, newContent) => {
-
-    const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
-    const MessageEdited = new MessageEmbed()
-        .setTitle('Message Edited')
-        .setColor('#2F3136')
-        .setDescription(`Message Edited from \`${oldContent}\` to \`${newContent}\``);
- 
-        
-        return LogChannel.send({
-            embeds: [MessageEdited]
-        }
-        )
-}
-)
-
-
-
 // Username Updated
 client.on("userUsernameUpdate", (user, oldUsername, newUsername) => {
 
