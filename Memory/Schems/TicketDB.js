@@ -14,4 +14,3 @@ module.exports = model(
     OpenTime: String,
   })
 );
-
