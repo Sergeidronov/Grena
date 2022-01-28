@@ -7,4 +7,5 @@ module.exports = model("Ticket-Setup", new Schema({
     Transcripts : String,
     Handlers: String,
     Everyone: String,
+    Description: String,
 }))
