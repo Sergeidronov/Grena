@@ -26,9 +26,7 @@ module.exports = {
         
         interaction.reply({content: "Sending announcement..."})
 
-        const announcer = new WebhookClient({
-            url : "WEBHOOK URL HERE"
-        });
+    
 
         const title = interaction.options.getString("title");
         const info = interaction.options.getString("information");
