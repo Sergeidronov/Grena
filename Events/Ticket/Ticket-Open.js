@@ -28,10 +28,6 @@ module.exports = {
           .setCustomId('ticket')
           .setLabel('Открыть')
           .setStyle('DANGER'),
-        new MessageButton()
-          .setCustomId('rp1')
-          .setLabel('Отменить')
-          .setStyle('SECONDARY')
       );
       
       
@@ -40,9 +36,6 @@ module.exports = {
     content: "Вы уверены, что хотите открыть этот билет?", 
     components: [Buttons1],
     ephemeral: true})
-
-    if(!interaction.MessageButton("rp1")) return;
-    
 
   }
 }
