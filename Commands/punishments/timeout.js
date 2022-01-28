@@ -118,7 +118,34 @@ module.exports = {
                         )
                         ],
                         ephemeral: false
-                });
+
+                        
+                }
+                );
+                const DMEmbed = new MessageEmbed()
+			.setTitle(`Вам был выдан мут `)
+			.setColor('RED')
+			.setTimestamp()
+			.addFields({
+				name: "Причина:",
+				value: reason
+			}, 
+            {
+				name: "Время:",
+				value: length
+			},
+            {
+				name: "Выдал",
+				value: target.user.username
+			}, );
+
+		await target.send({
+			embeds: [DMEmbed]
+		}).catch((err) => {
+			console.log(err)
+		});
+
+        
             }
                 case "unmute": {
                     if (target.permissions.has("ADMINISTRATOR"))
