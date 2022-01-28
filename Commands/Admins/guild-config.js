@@ -1,5 +1,6 @@
 const { MessageEmbed, CommandInteraction } = require('discord.js');
 const db = require('quick.db');
+const client = require('../../Structures/bot');;
 
 module.exports = {
     name: 'guild-config',
@@ -140,7 +141,7 @@ client.on("guildMemberEntered", (member) => {
 })
 
 
-client.on("messageContentEdited", (message, oldContent, newContent) => {
+client.on("MessageEdited", (message, oldContent, newContent) => {
 
     const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
     const MessageEdited = new MessageEmbed()
