@@ -62,8 +62,8 @@ module.exports = {
        upsert: true
      }
      );
-     const Embed = new MessageEmbed()
-     .setAuthor({name: "Система тикетов  ", iconURL: guild.iconURL({dynamic: true})})
+     const Embed = new MessageEmbed() 
+     .setAuthor({name: "Система тикетов", iconURL: guild.iconURL({dynamic: true})})
      .setDescription(`*Что бы создать тикет нажмите на*  📬`)
      .setColor("#36393f")
      const Buttons = new MessageActionRow()

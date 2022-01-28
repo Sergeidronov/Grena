@@ -23,7 +23,14 @@ module.exports = {
             .setURL("https://discord.gg/7ZPcNJgtzy")
             .setLabel("Support Server")
             .setStyle("LINK"),
+            new MessageButton()
+            .setURL("https://discord.com/api/oauth2/authorize?client_id=928621769827442708&permissions=8&redirect_uri=http%3A%2F%2Flocalhost%3A53134&scope=bot%20applications.commands")
+            .setLabel("Invite link")
+            .setStyle("LINK"),
 
+
+
+            
         );
         interaction.reply({ embeds: [Invite], components: [row] });
     }
