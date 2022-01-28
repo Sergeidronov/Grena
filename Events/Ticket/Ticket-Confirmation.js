@@ -20,6 +20,8 @@ const {
       const { guild, member, customId, message, channel } = interaction;
   
       if (!["rip", "rp"].includes(customId)) return;
+      
+      
   
       const Buttons = new MessageActionRow();
       Buttons.addComponents(

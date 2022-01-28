@@ -39,12 +39,14 @@ module.exports = {
      */
     async execute(interaction) {
       const { guild, options } = interaction;
+      
 
     try {
      const Channel = options.getChannel("channel")
      const Category = options.getChannel("category") 
      const Transcripts = options.getChannel("transcripts")
      const Handlers = options.getRole("handlers")
+     
 
      await DB.findOneAndUpdate(
      {GuildID: guild.id}, 
@@ -64,7 +66,6 @@ module.exports = {
      .setAuthor({name: "Система тикетов  ", iconURL: guild.iconURL({dynamic: true})})
      .setDescription(`*Что бы создать тикет нажмите на*  📬`)
      .setColor("#36393f")
-
      const Buttons = new MessageActionRow()
      .addComponents(
        new MessageButton()

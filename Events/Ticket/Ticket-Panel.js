@@ -24,7 +24,7 @@ module.exports = {
         if(!Data) return;
 
 
-      if(!["create"].includes(customId)) return;
+      if(!["ticket"].includes(customId)) return;
 
      const data = DB.findOne({ GuildID: guild.id })
 const ID = ((await data.countDocuments()) + 1).toString();    
