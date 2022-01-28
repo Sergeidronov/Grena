@@ -41,7 +41,8 @@ module.exports = {
     components: [Buttons1],
     ephemeral: true})
 
-    
+    i
+    if (!["rp1"].isMessageButton()) return;
 
   }
 }
