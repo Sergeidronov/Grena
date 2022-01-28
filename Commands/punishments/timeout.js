@@ -31,7 +31,7 @@ module.exports = {
             name: "reason",
             description: "Provide A Reason For The Timeout",
             type: "STRING",
-            required: false
+            required: true
         }]
     },
         {
@@ -69,50 +69,50 @@ module.exports = {
                 case "mute": {
                     if (target.id === interaction.member.id)
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`Hey... ${interaction.user.username} Why Are You Trying To Mute Yourself....?`).setTimestamp()
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
+                            .setDescription(`${interaction.user.username} ты не можешь себя заглушить`).setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if (target.permissions.has("ADMINISTRATOR"))
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`${target.user.username} Is An Admin....?`).setTimestamp()
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
+                            .setDescription(`${target.user.username} Является Администратором.`).setTimestamp()
                         ],  
                         ephemeral: true    
                 });        
                     if(!timeInMs)
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription("Please Specify A Valid Time!").setTimestamp()
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
+                            .setDescription("Пожалуйста, укажите действительное время!").setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if (timeInMs > maxtime )
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription("Please Specify A Time Between 1 Second, And 28 Days!").setTimestamp()
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
+                            .setDescription("Пожалуйста, укажите время от 1 секунды до 28 дней!").setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if (reason.length > 512)
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription("Reason Can't Be More Than 512 Characters").setTimestamp()
+                        embeds: [new MessageEmbed().setTitle("❌ Ошибка ❌").setColor("RED")
+                            .setDescription("Причина не может содержать более 512 символов").setTimestamp()
                         ],
                         ephemeral: true
                 });
                     target.timeout(timeInMs, reason);
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setColor("GREEN").setTitle(`Successfully Muted!`)
+                        embeds: [new MessageEmbed().setColor("GREEN").setTitle(`Успешно выдан мут`)
                             .addFields({
-                            name: "User:",
+                            name: "Пользователь:",
                             value: `\`\`\`${target.user.username}\`\`\``
                         }, {
-                            name: "Reason:",
+                            name: "Причина:",
                             value: `\`\`\`${reason}\`\`\``
                         },{
-                            name: "Time Of Mute:",
+                            name: "Время мута:",
                             value: `\`\`\`${length}\`\`\``
                         },
                         )
@@ -124,26 +124,26 @@ module.exports = {
                     if (target.permissions.has("ADMINISTRATOR"))
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`${target.user.username} Is An Admin....?`).setTimestamp()
+                            .setDescription(`${target.user.username} Является Администратором`).setTimestamp()
                         ],
                         ephemeral: true
                 });
                     if(!target.communicationDisabledUntilTimestamp)
                         return interaction.reply({
                         embeds: [new MessageEmbed().setTitle("❌ Error ❌").setColor("RED")
-                            .setDescription(`${target.user.username} Isn't Muted?`).setTimestamp()
+                            .setDescription(`${target.user.username} и так не имеет мут`).setTimestamp()
                         ],
                         ephemeral: true
                 });
                         await target.timeout(null)
                         return interaction.reply({
-                        embeds: [new MessageEmbed().setColor("GREEN").setTitle("Successfully Unmuted!")
+                        embeds: [new MessageEmbed().setColor("GREEN").setTitle("Мут успешно снят")
                             .addFields({
-                            name: "User:",
+                            name: "Пользователь:",
                             value: `\`\`\`${target.user.username}\`\`\``
                         },
                         {
-                            name: "Reason:",
+                            name: "Причина:",
                             value: `\`\`\`${reason}\`\`\``
                         },
                         )
@@ -156,7 +156,7 @@ module.exports = {
         } catch (e) {
         const errorEmbed = new MessageEmbed()
             .setColor("RED")
-            .setDescription(`🛑 Error: ${e}`)
+            .setDescription(`🛑 Ошибка: ${e}`)
         return interaction.reply({
             embeds: [errorEmbed]
         })
