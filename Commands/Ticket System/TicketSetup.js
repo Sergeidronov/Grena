@@ -3,41 +3,42 @@ const DB = require('../../Memory/Schems/TicketSetupDB')
 
 module.exports = {
   name: "ticket-setup",
-  description: "setup the ticket",
+  description: "Установка тикет системы",
   permission: "ADMINISTRATOR",
   options: [
     {
       name: "channel",
-      description: "Channel To Send Ticket",
+      description: "Канал для тикет системы",
       required: true,
       type: "CHANNEL",
       channelTypes: ["GUILD_TEXT"],
     },
     {
       name: "category",
-      description: "Category To Send Ticket",
+      description: "Категория отправки тикетов",
       required: true,
       type: "CHANNEL",
       channelTypes: ["GUILD_CATEGORY"],
     },
     {
       name: "transcripts",
-      description: "Transcript To Send in Channel",
+      description: "Отправка транскрипций ",
       required: true,
       type: "CHANNEL",
       channelTypes: ["GUILD_TEXT"],
     },
     {
       name: "handlers",
-      description: "Ticket Handlers",
+      description: "Тикет хелперы",
       required: true,
       type: "ROLE",
     },
   ],
    /**
      * @param {CommandInteraction} interaction
+     * @param {Client} client
      */
-    async execute(interaction) {
+    async execute(interaction, client) {
       const { guild, options } = interaction;
 
     try {
@@ -45,6 +46,7 @@ module.exports = {
      const Category = options.getChannel("category") 
      const Transcripts = options.getChannel("transcripts")
      const Handlers = options.getRole("handlers")
+     const message = options.getString("message") || "none";
 
      await DB.findOneAndUpdate(
      {GuildID: guild.id}, 
@@ -60,10 +62,12 @@ module.exports = {
        upsert: true
      }
      );
-     const Embed = new MessageEmbed()
-     .setAuthor({name: guild.name + " | Ticketing System ", iconURL: guild.iconURL({dynamic: true})})
-     .setDescription(`*To Create A Ticket React With*  📬`)
-     .setColor("#36393f")
+     if (message === "none") {interaction.reply({embeds: [
+       new MessageEmbed()
+      .setColor("RED").setTitle("Error ❌")
+      .setDescription("Please set a message to be sent!")]})}; 
+    const sendMessage = await guild.channels.cache.get(Channel.id).send(message);
+
 
      const Buttons = new MessageActionRow()
      .addComponents(
@@ -72,9 +76,8 @@ module.exports = {
        .setCustomId("create")
        .setStyle("SECONDARY")
      )
-     await guild.channels.cache.get(Channel.id).send({embeds: [Embed], components: [Buttons]})
 
-     interaction.reply({content: `You Ticket Has Been Setup In <#${Channel.id}>`, ephemeral: true})
+     await guild.channels.cache.get(Channel.id).send({embeds: [MessageEmbed], components: [Buttons]})
 
 
     } catch (err){
