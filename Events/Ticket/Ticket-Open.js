@@ -41,7 +41,7 @@ module.exports = {
     components: [Buttons1],
     ephemeral: true})
 
-    
+    if(!interaction.MessageButton("rp1")) return;
     
 
   }
