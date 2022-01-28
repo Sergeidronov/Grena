@@ -14,7 +14,7 @@ module.exports = {
     if (!interaction.isButton()) return;
     const { guild, customId, channel, member, message } = interaction;
 
-    if (!['cl', 'oen', 'del' ].includes(customId)) return;
+    if (!['cl', 'oen', 'del', `claim` ].includes(customId)) return;
 
     const TicketSetup = await TicketSetupData.findOne({ GuildID: guild.id });
     if (!TicketSetup)
@@ -134,6 +134,23 @@ module.exports = {
           await interaction.reply({ embeds: [Embed.setDescription(`This Ticket Is Now Opened By ${interaction.user}`)] })
           setTimeout(() => { message.delete() }, 2);
           break;
+        case 'claim':
+          if (docs.Claimed == true)
+            return interaction.reply({
+              content: `❌ | This ticket has alredy been claimed by <@${docs.ClaimeBy}>`,
+              ephemeral: true,
+            });
+        
+          await DB.updateOne(
+            { ChannelID: channel.id },
+            { Claimed: true, ClaimedBy: interaction.user.id }
+          );
+          Embed
+            .setTitle('✅ | Ticket claimed')
+            .setColor('#2C2F33')
+            .setDescription(`${member} has claimed the ticket`)
+        
+          interaction.reply({ embeds: [Embed] });
 
       }
     });
