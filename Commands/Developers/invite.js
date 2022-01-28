@@ -12,8 +12,7 @@ module.exports = {
     async execute(interaction, client) {
 
         const Invite = new MessageEmbed()
-            .setTitle("Invite Me!")
-            .setDescription("I'm a cool Discord Bot, ain't I? Use the buttons below to invite me to your server or join our support server!\n\nStay Safe 👋")
+            .setDescription("Используйте кнопки ниже, чтобы пригласить меня на свой сервер или присоединиться к нашему серверу поддержки")
             .setColor("YELLOW")
             .setThumbnail(client.user.displayAvatarURL())
 
@@ -21,11 +20,11 @@ module.exports = {
 
             new MessageButton()
             .setURL("https://discord.gg/7ZPcNJgtzy")
-            .setLabel("Support Server")
+            .setLabel("Сервер поддержки")
             .setStyle("LINK"),
             new MessageButton()
             .setURL("https://discord.com/api/oauth2/authorize?client_id=928621769827442708&permissions=8&redirect_uri=http%3A%2F%2Flocalhost%3A53134&scope=bot%20applications.commands")
-            .setLabel("Invite link")
+            .setLabel("Приглашение бота")
             .setStyle("LINK"),
 
 
