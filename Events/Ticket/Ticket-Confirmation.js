@@ -38,12 +38,12 @@ const {
       );
       const YH = new MessageEmbed()
         .setColor("#36393f")
-        .setDescription('\`\`\`Команда поддержки контролирует тикет\`\`\`')
+        .setDescription('\`\`\`Панель контроля\`\`\`')
       const Embed = new MessageEmbed()
   
       DB.findOne({ ChannelID: channel.id }, async (err, data) => {
         if (err) throw err;
-        if (!data) return interaction.reply("No Data In Database")
+        if (!data) return interaction.reply("Нет данных в базе")
   
         switch (customId) {
           case "rip":
@@ -59,7 +59,7 @@ const {
   
     
             interaction.reply({embeds: [new MessageEmbed()
-              .setDescription(`This Ticket Is Now Closed By ${interaction.user}`)
+              .setDescription(`Этот билет закрыл ${interaction.user}`)
   ]}) 
   
     setTimeout(() => { message.delete() }, 2);
