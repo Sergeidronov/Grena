@@ -14,12 +14,6 @@ module.exports = {
       channelTypes: ["GUILD_TEXT"],
     },
     {
-      name: "message",
-      description: "Сообщение, которое вы хотите отправить.",
-      type: "STRING",
-      required: true,
-    },
-    {
       name: "category",
       description: "Категория отправки тикетов",
       required: true,
@@ -42,7 +36,6 @@ module.exports = {
   ],
    /**
      * @param {CommandInteraction} interaction
-     * @param {Client} client
      */
     async execute(interaction) {
       const { guild, options } = interaction;
