@@ -71,7 +71,7 @@ module.exports = {
      Handlers: Handlers.id,
      Description: Description,
      Everyone: guild.id,
-     Buttons: [Button1[0]],
+     Buttons: [Button1[0] ],
     },
      {
        new: true,

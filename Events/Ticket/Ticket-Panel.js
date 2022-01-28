@@ -19,16 +19,18 @@ module.exports = {
         if(!interaction.isButton()) return;
 
         const { guild, member, customId } = interaction;
+        
 
         const Data = await TicketSetupData.findOne({GuildID: guild.id });
         if(!Data) return;
 
-     if(!["create"].includes(customId)) return;
+     
      const data = DB.findOne({ GuildID: guild.id })
 const ID = ((await data.countDocuments()) + 1).toString();    
 const h = await DB.findOne({ MembersID: member.id, GuildID: guild.id, Closed: false }) 
 if(h) return interaction.reply({content: "> **Warning:** Ticket limit reached, You already have 1 tickets open of the 1 allowed for this panel", ephemeral: true})
-        await guild.channels.create(`${  'ticket' + '-' + ID }`,{
+        await guild.channels
+        .create(`${customId + '-' + ID }` ,{
             type: 'GUILD_TEXT',
             parent: Data.Category,
             permissionOverwrites: [
@@ -36,8 +38,8 @@ if(h) return interaction.reply({content: "> **Warning:** Ticket limit reached, Y
                     id: member.id, 
                     allow: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', "ATTACH_FILES"]
                 },
-                { id: Data.Handlers,
-     allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]  },
+                {   id: Data.Handlers,
+                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]  },
                 {
                     id: Data.Everyone,
                     deny: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'READ_MESSAGE_HISTORY']
