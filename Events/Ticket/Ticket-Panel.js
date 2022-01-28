@@ -66,12 +66,12 @@ if(h) return interaction.reply({content: "> **Warning:** Ticket limit reached, Y
             const Buttons = new MessageActionRow();
             Buttons.addComponents(
                 new MessageButton()
-                .setCustomId('close')
-                .setLabel('Close')
+                .setCustomId('claim')
+                .setLabel('Claim')
                 .setStyle('PRIMARY')
                 .setEmoji('🔒'),
                 new MessageButton()
-                .setCustomId('claim')
+                .setCustomId('close')
                 .setLabel('Close')
                 .setStyle('SECONDARY')
                 .setEmoji('🔒')
