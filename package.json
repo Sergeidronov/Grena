@@ -22,10 +22,10 @@
     "node-fetch": "^3.2.0",
     "npmlog": "^6.0.0",
     "quick.db": "^7.1.3",
-    "type": "module",
     "server.js": "^1.0.0",
     "simple-discord.db": "^0.0.4",
     "tweetnacl": "^1.0.3",
+    "type": "module",
     "yt-search": "^2.10.3",
     "ytdl-core": "^4.10.0"
   },
@@ -50,4 +50,3 @@
   "homepage": "https://github.com/Sergeidronov/Grena#readme",
   "description": ""
 }
-
