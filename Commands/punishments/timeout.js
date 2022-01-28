@@ -102,6 +102,33 @@ module.exports = {
                         ],
                         ephemeral: true
                 });
+
+                const DMEmbed = new MessageEmbed()
+			.setTitle(`Вам был выдан мут `)
+			.setColor('RED')
+			.setTimestamp()
+			.addFields({
+				name: "Причина:",
+				value: reason
+			}, 
+            {
+				name: "Время:",
+				value: length
+			},
+            {
+				name: "Выдал",
+				value: interaction.member.user.tag
+			}, );
+
+		await target.send({
+			embeds: [DMEmbed]
+		}).catch((err) => {
+			console.log(err)
+		});
+
+
+
+
                     target.timeout(timeInMs, reason);
                         return interaction.reply({
                         embeds: [new MessageEmbed().setColor("GREEN").setTitle(`Успешно выдан мут`)
@@ -117,35 +144,9 @@ module.exports = {
                         },
                         )
                         ],
-                        ephemeral: false
-
-                        
-                }
+                        ephemeral: false }
                 );
-                const DMEmbed = new MessageEmbed()
-			.setTitle(`Вам был выдан мут `)
-			.setColor('RED')
-			.setTimestamp()
-			.addFields({
-				name: "Причина:",
-				value: reason
-			}, 
-            {
-				name: "Время:",
-				value: length
-			},
-            {
-				name: "Выдал",
-				value: target.user.username
-			}, );
 
-		await target.send({
-			embeds: [DMEmbed]
-		}).catch((err) => {
-			console.log(err)
-		});
-
-        
             }
                 case "unmute": {
                     if (target.permissions.has("ADMINISTRATOR"))
