@@ -29,7 +29,7 @@ module.exports = {
      const data = DB.findOne({ GuildID: guild.id })
 const ID = ((await data.countDocuments()) + 1).toString();    
 const h = await DB.findOne({ MembersID: member.id, GuildID: guild.id, Closed: false }) 
-if(h) return interaction.reply({content: "> **Warning:** Ticket limit reached, You already have 1 tickets open of the 1 allowed for this panel", ephemeral: true})
+if(h) return interaction.reply({content: "> **Лимит билетов достигнут, у вас уже открыт 1 билет из 1 разрешенного для этой панели", ephemeral: true})
         await guild.channels
         .create(`${customId + '-' + ID }` ,{
             type: 'GUILD_TEXT',
@@ -56,13 +56,12 @@ if(h) return interaction.reply({content: "> **Warning:** Ticket limit reached, Y
                 Deleted: false,
                 Claimed: false,
                 OpenTime: parseInt(channel.createdTimestamp / 1000),
-                ClaimedBy: "No Body Claimed The Ticket"
+                ClaimedBy: "Никто не принял этот тикет"
             });
       
             const Embed = new MessageEmbed()
             .setAuthor(({name: `${member.user.username}`, iconURL: `${member.displayAvatarURL({ dynamic: true })}`}))
-            .setDescription(`Support will be with you shortly.\nTo close this ticket react with 🔒`)
-            .setFooter({ text: `Patience Is A Key`})
+            .setDescription(`Поддержка будет с вами в ближайшее время`)
             .setColor('#2C2F33')
     
         
@@ -70,19 +69,19 @@ if(h) return interaction.reply({content: "> **Warning:** Ticket limit reached, Y
             Buttons.addComponents(
                 new MessageButton()
                 .setCustomId('claim')
-                .setLabel('Claim')
+                .setLabel('Принять')
                 .setStyle('PRIMARY')
                 .setEmoji('🔒'),
                 new MessageButton()
                 .setCustomId('close')
-                .setLabel('Close')
+                .setLabel('Закрыть')
                 .setStyle('SECONDARY')
                 .setEmoji('🔒')
             );
     await interaction.deferReply({ ephemeral: true });
 
     await wait (1000)
-            channel.send({content: `${member} Welcome`, embeds: [Embed], components: [Buttons]});
+            channel.send({content: `${member} `, embeds: [Embed], components: [Buttons]});
     
            await interaction.editReply({content: `${member} ${channel}`, ephemeral: true})
 

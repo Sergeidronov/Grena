@@ -26,15 +26,15 @@ module.exports = {
       .addComponents(
         new MessageButton()
           .setCustomId('rip')
-          .setLabel('Close')
+          .setLabel('Закрыть')
           .setStyle('DANGER'),
         new MessageButton()
           .setCustomId('rp')
-          .setLabel('Cancel')
+          .setLabel('Отменить')
           .setStyle('SECONDARY')
       );
       
-    const Me = await interaction.reply({ content: "Are you sure you would like to close this ticket?", components: [Buttons] })
+    const Me = await interaction.reply({ content: "Вы уверены, что хотели бы закрыть этот билет?", components: [Buttons] })
 
 
   }

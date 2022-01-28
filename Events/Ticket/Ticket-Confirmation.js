@@ -25,20 +25,20 @@ const {
       Buttons.addComponents(
         new MessageButton()
           .setCustomId('oen')
-          .setLabel('Open')
+          .setLabel('Открыть')
           .setStyle('SECONDARY')
           .setEmoji('🔓'),
        
         new MessageButton()
           .setCustomId('del')
-          .setLabel('Delete')
+          .setLabel('Удалить')
           .setStyle('SECONDARY')
           .setEmoji('⛔'),
   
       );
       const YH = new MessageEmbed()
         .setColor("#36393f")
-        .setDescription('\`\`\`Support team ticket controls\`\`\`')
+        .setDescription('\`\`\`Команда поддержки контролирует тикет\`\`\`')
       const Embed = new MessageEmbed()
   
       DB.findOne({ ChannelID: channel.id }, async (err, data) => {
@@ -48,7 +48,7 @@ const {
         switch (customId) {
           case "rip":
             if (data.Closed == true)
-              return interaction.reply({ embeds: [Embed.setDescription("This Ticket Is Already Colsed")], ephemeral: true })
+              return interaction.reply({ embeds: [Embed.setDescription("Этот билет уже открыт")], ephemeral: true })
             await DB.updateOne({ ChannelID: channel.id }, { Closed: true })
             data.MembersID.forEach((m) => {
               channel.permissionOverwrites.edit(m, {

@@ -19,12 +19,12 @@ module.exports = {
     const TicketSetup = await TicketSetupData.findOne({ GuildID: guild.id });
     if (!TicketSetup)
       return interaction.reply({
-        content: 'The data for this system is outdated.',
+        content: 'Данные для этой системы устарели.',
       });
 
     if (!member.roles.cache.find((r) => r.id === TicketSetup.Handlers))
       return interaction.reply({
-        content: '❌ | You cannot use these buttons.',
+        content: '❌ | Вы не можете использовать эти кнопки.',
         ephemeral: true,
       });
 
@@ -33,7 +33,7 @@ module.exports = {
 
     DB.findOne({ ChannelID: channel.id }, async (err, docs) => {
       if (err) throw err;
-      if (!docs) return interaction.reply({ content: 'You cannot create another Ticket, please close the current one or use the same ticket.', ephemeral: true });
+      if (!docs) return interaction.reply({ content: 'Вы не можете создать другой тикет, пожалуйста, закройте текущий или используйте тот же билет.', ephemeral: true });
 
       switch (customId) {
         case 'del':
@@ -49,29 +49,29 @@ module.exports = {
             .get(TicketSetup.Transcripts)
             .send({
               embeds: [
-                Embed.setTitle(`Ticket Closed`).addFields([
+                Embed.setTitle(`Тикет закрыт`).addFields([
                   {
-                    name: "Ticket ID",
+                    name: "Тикет айди",
                     value: `${docs.TicketID}`,
                     inline: true,
                   },
                   {
-                    name: "Opened By",
+                    name: "Открыл",
                     value: `<@${docs.MembersID}>`,
                     inline: true,
                   },
                   {
-                    name: "Open Time",
+                    name: "Время открытия",
                     value: `<t:${docs.OpenTime}:R>`,
                     inline: true,
                   },
                   {
-                    name: "Closed Time",
+                    name: "Время закрытия",
                     value: `<t:${parseInt(Date.now() / 1000)}:R>`,
                     inline: true,
                   },
                   {
-                    name: "Claimed By",
+                    name: "Принял",
                     value: `<@${docs.ClaimedBy}>`,
                     inline: true,
                   },
@@ -82,9 +82,9 @@ module.exports = {
 
 
           interaction.reply({
-            embeds: [Embed.setTitle('Ticket Closed 🔒'
+            embeds: [Embed.setTitle('Тикет закрыт 🔒'
             )
-              .setDescription(`Ticket Closed \n[TRANSCRIPTS](${Message.url})`)
+              .setDescription(`Тикет закрыт \n[TRANSCRIPTS](${Message.url})`)
               .setColor('#2C2F33')
               .setFooter({ text: `${interaction.guild.name}` })
             ]
@@ -97,7 +97,7 @@ module.exports = {
         case 'cl':
           if (docs.Claimed == true)
             return interaction.reply({
-              content: `❌ | This ticket has alredy been claimed by <@${docs.ClaimeBy}>`,
+              content: `❌ | Этот билет уже был принят <@${docs.ClaimeBy}>`,
               ephemeral: true,
             });
 
@@ -107,9 +107,9 @@ module.exports = {
           );
           Embed
             .setAuthor(({ name: `${member.user.username}` }))
-            .setTitle('✅ | Claimed Ticket.')
+            .setTitle('✅ | Тикет принят.')
             .setColor('#2C2F33')
-            .setDescription(`${member} has claimed the ticket`)
+            .setDescription(`${member} принял тикет`)
             .setFooter({ text: `${interaction.guild.name}` })
 
           interaction.reply({ embeds: [Embed] });
@@ -117,7 +117,7 @@ module.exports = {
           break;
            case 'oen':
            if(docs.Closed == false)
-           return interaction.reply("This Ticket Is Already Opened")
+           return interaction.reply("Этот билет уже открыт")
 
           await DB.updateOne({ ChannelID: channel.id }, { Closed: false })
           docs.MembersID.forEach((m) => {
@@ -127,17 +127,17 @@ module.exports = {
           })
 
           const GD = new MessageEmbed()
-            .setDescription(`This Ticket Is Now Opened By ${interaction.user}`)
+            .setDescription(`Билет был открыт ${interaction.user}`)
 
 
 
-          await interaction.reply({ embeds: [Embed.setDescription(`This Ticket Is Now Opened By ${interaction.user}`)] })
+          await interaction.reply({ embeds: [Embed.setDescription(`Этот билет теперь открыт ${interaction.user}`)] })
           setTimeout(() => { message.delete() }, 2);
           break;
         case 'claim':
           if (docs.Claimed == true)
             return interaction.reply({
-              content: `❌ | This ticket has alredy been claimed by <@${docs.ClaimeBy}>`,
+              content: `❌ | Этот билет уже был принят <@${docs.ClaimeBy}>`,
               ephemeral: true,
             });
         
@@ -146,9 +146,9 @@ module.exports = {
             { Claimed: true, ClaimedBy: interaction.user.id }
           );
           Embed
-            .setTitle('✅ | Ticket claimed')
+            .setTitle('✅ | Тикет принят')
             .setColor('#2C2F33')
-            .setDescription(`${member} has claimed the ticket`)
+            .setDescription(`${member} принял этот тикет`)
         
           interaction.reply({ embeds: [Embed] });
 
