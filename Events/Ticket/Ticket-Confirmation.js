@@ -23,12 +23,6 @@ const {
   
       const Buttons = new MessageActionRow();
       Buttons.addComponents(
-         new MessageButton()
-          .setCustomId('cl')
-          .setLabel('Claim')
-          .setStyle('SECONDARY')
-          .setEmoji('🛄'),
-  
         new MessageButton()
           .setCustomId('oen')
           .setLabel('Open')

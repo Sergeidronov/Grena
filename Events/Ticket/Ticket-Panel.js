@@ -82,8 +82,7 @@ if(h) return interaction.reply({content: "> **Warning:** Ticket limit reached, Y
             channel.send({content: `${member} Welcome`, embeds: [Embed], components: [Buttons]});
     
            await interaction.editReply({content: `${member} ${channel}`, ephemeral: true})
- 
-                
+
         });
         
     },

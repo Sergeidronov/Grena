@@ -1,4 +1,4 @@
-const { ButtonInteraction, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { ButtonInteraction, MessageEmbed, MessageActionRow, MessageButton, Message } = require('discord.js');
 const { createTranscript } = require('discord-html-transcripts');
 
 const DB = require('../../Memory/Schems/TicketDB');
@@ -14,7 +14,7 @@ module.exports = {
     if (!interaction.isButton()) return;
     const { guild, customId, channel, member, message } = interaction;
 
-    if (!['cl', 'oen', 'del'].includes(customId)) return;
+    if (!['cl', 'del', `claim`].includes(customId)) return;
 
     const TicketSetup = await TicketSetupData.findOne({ GuildID: guild.id });
     if (!TicketSetup)
@@ -81,38 +81,46 @@ module.exports = {
             });
 
 
+            setTimeout(() => {
+              channel.delete();
+            }, 5 * 1000);
+            break;
+          case 'claim':
+            if (docs.Claimed == true)
+              return interaction.reply({
+                content: `❌ | This ticket has alredy been claimed by <@${docs.ClaimeBy}>`,
+                ephemeral: true,
+              });
+  
+            await DB.updateOne(
+              { ChannelID: channel.id },
+              { Claimed: true, ClaimedBy: interaction.user.id }
+            );
+            Embed
+              .setAuthor(({ name: `${member.user.username}` }))
+              .setTitle('✅ | Claimed Ticket.')
+              .setColor('#2C2F33')
+              .setDescription(`${member} has claimed the ticket`)
+              .setFooter({ text: `${interaction.guild.name}` })
+  
+            interaction.reply({ embeds: [Embed] });
+
+
+
           interaction.reply({
             embeds: [Embed.setTitle('Ticket Closed 🔒'
             )
-              .setDescription(`Ticket Closed \n[TRANSCRIPTS](${Message.url})`)
+              .setDescription(`Ticket Closed `)
               .setColor('#2C2F33')
               .setFooter({ text: `${interaction.guild.name}` })
             ]
           });
 
-          setTimeout(() => {
-            channel.delete();
-          }, 5 * 1000);
-          break;
-        case 'cl':
-          if (docs.Claimed == true)
-            return interaction.reply({
-              content: `❌ | This ticket has alredy been claimed by <@${docs.ClaimeBy}>`,
-              ephemeral: true,
-            });
 
-          await DB.updateOne(
-            { ChannelID: channel.id },
-            { Claimed: true, ClaimedBy: interaction.user.id }
-          );
-          Embed
-            .setAuthor(({ name: `${member.user.username}` }))
-            .setTitle('✅ | Claimed Ticket.')
-            .setColor('#2C2F33')
-            .setDescription(`${member} has claimed the ticket`)
-            .setFooter({ text: `${interaction.guild.name}` })
+        
 
-          interaction.reply({ embeds: [Embed] });
+
+
 
           break;
            case 'oen':
