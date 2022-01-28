@@ -150,7 +150,7 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
  
         
         return LogChannel.send({
-            embeds: [MessageDelete]
+            embeds: [MessageEdited]
         }
         )
 }
