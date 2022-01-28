@@ -18,7 +18,7 @@ module.exports = {
    
   
  const int = new MessageEmbed()
-      .setAuthor(({ name: `${member.user.username}`, iconURL: `${member.displayAvatarURL({ dynamic: true })}` }))
+      .setAuthor(({ name: `${member.user.username}` }))
       .setColor('BLUE')
     
 
@@ -34,7 +34,7 @@ module.exports = {
           .setStyle('SECONDARY')
       );
       
-    const Me = await interaction.reply({ content: "Are you sure you would like to close this ticket?", components: [Buttons] })
+    const Me = await interaction.followUp({ content: "Are you sure you would like to close this ticket?", components: [Buttons] })
 
 
   }
