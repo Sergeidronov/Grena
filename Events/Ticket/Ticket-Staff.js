@@ -97,29 +97,22 @@ module.exports = {
               { Claimed: true, ClaimedBy: interaction.user.id }
             );
             Embed
-              .setAuthor(({ name: `${member.user.username}` }))
-              .setTitle('✅ | Claimed Ticket.')
+              .setTitle('✅ | Ticket claimed')
               .setColor('#2C2F33')
               .setDescription(`${member} has claimed the ticket`)
-              .setFooter({ text: `${interaction.guild.name}` })
   
             interaction.reply({ embeds: [Embed] });
 
 
 
           interaction.reply({
-            embeds: [Embed.setTitle('Ticket Closed 🔒'
+            embeds: [Embed.
+              setTitle('Ticket Closed 🔒'
             )
               .setDescription(`Ticket Closed `)
-              .setColor('#2C2F33')
-              .setFooter({ text: `${interaction.guild.name}` })
+              .setColor('#2C2F33') 
             ]
           });
-
-
-        
-
-
 
 
           break;
