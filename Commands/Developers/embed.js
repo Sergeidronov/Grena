@@ -3,6 +3,7 @@ const {CommandInteraction, MessageEmbed } = require("discord.js")
 module.exports = {
     name: "embed",
     description: "Generate a custom embed!",
+    permission: "ADMINISTRATOR",
     options: [
         {
             name: "generate",

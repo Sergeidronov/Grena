@@ -6,17 +6,10 @@ const {
 
 
 
-
-
-
-
-
-
-
 // Member Got Role
 client.on("guildMemberRoleAdd", (member, role) => {
 
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
+    const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
     const MemberRoleAdd = new MessageEmbed()
         .setTitle('Пользователь Получил Роль!')
         .setColor('#2F3136')
@@ -31,7 +24,7 @@ client.on("guildMemberRoleAdd", (member, role) => {
 // Member Lost Role
 client.on("guildMemberRoleRemove", (member, role) => {
 
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
+    const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
     const MemberRoleRemove = new MessageEmbed()
         .setTitle('Пользователь потерял роль!')
         .setColor('#2F3136')
