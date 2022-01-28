@@ -3,7 +3,7 @@ const { CommandInteraction, MessageEmbed, MessageActionRow, MessageSelectMenu, M
 module.exports = {
     name: 'helpdesk',
     description: 'setup help desk',
-    permissions: "ADMINISTRATOR",
+    permission: "ADMINISTRATOR",
     /**
      * 
      * @param {CommandInteraction} interaction 
