@@ -86,7 +86,7 @@ module.exports = {
             )
               .setDescription(`Ticket Closed \n[TRANSCRIPTS](${Message.url})`)
               .setColor('#2C2F33')
-              .setFooter({ text: `${interaction.guild.name}`, iconURL: `${interaction.guild.iconURL({ dynamic: true })}` })
+              .setFooter({ text: `${interaction.guild.name}` })
             ]
           });
 
