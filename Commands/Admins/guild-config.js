@@ -168,7 +168,7 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
         .setColor('#2F3136')
         .setDescription(`Сообщение изменено \`${oldContent}\` на \`${newContent}\``)
         .setTimestamp()
-        .setFooter({text: `${member.id}`})
+        .setFooter({text: `${user.id}`})
 
     return LogChannel.send({
         embeds: [MessageEdited]
