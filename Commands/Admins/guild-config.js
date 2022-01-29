@@ -133,7 +133,7 @@ client.on("guildMemberNicknameUpdate", (member, oldNickname, newNickname) => {
 
 client.on("messageDelete", (message) => {
     if(message.author.bot) return;
-        let happen = Math.floor(new Date().getTime()/1000.0)
+        
         const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
     const Log = new MessageEmbed()
         .setColor('#36393f')
@@ -143,11 +143,7 @@ client.on("messageDelete", (message) => {
             name: 'Контент',
             value: `${message.content ? message.content : "None"}`.slice(0, 4096),
             inline: false
-        }, {
-            name: 'Выполненное действие',
-            value: `(<t:${happen}:R>)`,
-            inline: false
-        })
+        }, )
 
         if(message.attachments.size >= 1) {
             Log.addField(`Attachments:`, `${message.attachments.map(a => a.url)}`, true)
