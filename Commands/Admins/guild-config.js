@@ -87,8 +87,7 @@ module.exports = {
     const MemberRoleAdd = new MessageEmbed()
         .setTitle('Пользователь получил роль!')
         .setColor('#2F3136')
-        .setDescription(`${member.user} получил роль ${role}`)
-        .setTimestamp
+        .setDescription(`**${member.user}** получил роль ${role}`);
 
     return LogChannel.send({
         embeds: [MemberRoleAdd]
@@ -103,7 +102,7 @@ client.on("guildMemberRoleRemove", (member, role) => {
     const MemberRoleRemove = new MessageEmbed()
         .setTitle('Пользователь потерял роль!')
         .setColor('#2F3136')
-        .setDescription(`${member.user} потерял роль ${role}`);
+        .setDescription(`**${member.user} потерял роль ${role}`);
 
     return LogChannel.send({
         embeds: [MemberRoleRemove]
