@@ -87,8 +87,7 @@ module.exports = {
     const MemberRoleAdd = new MessageEmbed()
         .setTitle('Пользователь получил роль!')
         .setColor('#2F3136')
-        .setDescription(`${member.user}`)
-        .setDescription(`получил роль ${role}`)
+        .setDescription(`${member.user} получил роль ${role}`)
         .setTimestamp
 
     return LogChannel.send({
