@@ -89,6 +89,7 @@ module.exports = {
         .setColor('#2F3136')
         .setDescription(`**${member.user}** получил роль ${role}`)
         .setTimestamp()
+        .setFooter({text: `${message.author.id}`})
 
     return LogChannel.send({
         embeds: [MemberRoleAdd]
@@ -105,6 +106,7 @@ client.on("guildMemberRoleRemove", (member, role) => {
         .setColor('#2F3136')
         .setDescription(`**${member.user}** потерял роль ${role} `)
         .setTimestamp()
+        .setFooter({text: `${message.author.id}`})
 
     return LogChannel.send({
         embeds: [MemberRoleRemove]
@@ -119,6 +121,7 @@ client.on("guildMemberNicknameUpdate", (member, oldNickname, newNickname) => {
     const MemberNicknameUpdate = new MessageEmbed()
         .setTitle('Никнейм обновлен')
         .setColor('#2F3136')
+        .setFooter({text: `${message.author.id}`})
         .setDescription(`${member.user.tag} сменил ник с \`${oldNickname}\` на \`${newNickname}\``)
         .setTimestamp()
         
@@ -165,6 +168,7 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
         .setColor('#2F3136')
         .setDescription(`Сообщение изменено \`${oldContent}\` на \`${newContent}\``)
         .setTimestamp()
+        .setFooter({text: `${message.author.id}`})
 
     return LogChannel.send({
         embeds: [MessageEdited]
@@ -180,7 +184,8 @@ client.on("userUsernameUpdate", (user, oldUsername, newUsername) => {
     const Username = new MessageEmbed()
         .setTitle('Никнейм обновлен')
         .setColor('#2F3136')
-        .setDescription(`${user.tag} обновил свой никнейм с ${oldUsername} на ${newUsername}`);
+        .setDescription(`${user.tag} обновил свой никнейм с ${oldUsername} на ${newUsername}`)
+        .setFooter({text: `${message.author.id}`})
 
     return LogChannel.send({
         embeds: [Username]
