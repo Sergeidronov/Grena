@@ -102,7 +102,13 @@ client.on("guildMemberRoleRemove", (member, role) => {
     const MemberRoleRemove = new MessageEmbed()
         .setTitle('Пользователь потерял роль!')
         .setColor('#2F3136')
-        .setDescription(`**${member.user} потерял роль ${role}`);
+        .addFields(
+            { name: `**${member.user}**`, value: `** потерял роль ${role}` },
+            { name: '\u200B', value: '\u200B' },
+            { name: 'Inline field title', value: 'Some value here', inline: true },
+            { name: 'Inline field title', value: 'Some value here', inline: true },
+        )
+        
 
     return LogChannel.send({
         embeds: [MemberRoleRemove]
