@@ -130,11 +130,49 @@ client.on("guildMemberNicknameUpdate", (member, oldNickname, newNickname) => {
         embeds: [MemberNicknameUpdate]
     });
 
+});
+
+
+// Message Update
+
+client.on("messageContentEdited", (message, oldContent, newContent) => {
+    if(message.author.bot) return;
+    const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
+    const MessageEdited = new MessageEmbed()
+        .setTitle('Сообщение изменено')
+        .setColor('#2F3136')
+        .setFooter({text: `${message.author.id}`})
+        .setTimestamp()
+        .addFields(
+        {
+            name: "Отправитель",
+            value: `${message.author}`
+        },
+        {
+            name: "Канал",
+            value: `${message.channel}`
+
+        },
+        {
+            name: `До изменения`,
+            value: `${oldContent}`,
+        },
+        {
+            name: 'После изменения',
+            value: `${newContent}`.slice(0, 4096),
+        },
+        )
+       
+
+    return LogChannel.send({
+        embeds: [MessageEdited]
+    });
+
 })
 
 // MesageDelete
 
-client.on("messageDelete", (message, oldContent, newContent) => {
+client.on("messageContentDelete", (message, oldContent, newContent) => {
     if(message.author.bot) return;
         
         const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
@@ -164,43 +202,7 @@ client.on("messageDelete", (message, oldContent, newContent) => {
 
         return LogChannel.send({
             embeds: [Log]
-        })
-} )
-
-// Message Update
-
-client.on("messageContentEdited", (message, oldContent, newContent) => {
-    if(message.author.bot) return;
-    const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
-    const MessageEdited = new MessageEmbed()
-        .setTitle('Сообщение изменено')
-        .setColor('#2F3136')
-        .setTimestamp()
-        .addFields(
-        {
-            name: "Отправитель",
-            value: `${message.author}`
-        },
-        {
-            name: "Канал",
-            value: `${message.channel}`
-
-        },
-        {
-            name: `До изменения`,
-            value: `${oldContent}`,
-        },
-        {
-            name: 'После изменения',
-            value: `${newContent}`.slice(0, 4096),
-        },
-        )
-        .setFooter({text: `${message.author.id}`})
-
-    return LogChannel.send({
-        embeds: [MessageEdited]
-    });
-
+        });
 })
 
 
