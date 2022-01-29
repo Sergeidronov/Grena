@@ -1,10 +1,5 @@
-const {
-    CommandInteraction,
-    MessageEmbed
-} = require("discord.js");
-const 
-    ms
-= require("ms");
+const {   CommandInteraction,   MessageEmbed} = require("discord.js");
+const ms = require("ms");
 
 module.exports = {
     name: "timeout",
