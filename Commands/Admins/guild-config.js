@@ -125,6 +125,31 @@ client.on("guildMemberNicknameUpdate", (member, oldNickname, newNickname) => {
 
 })
 
+
+
+client.on("messageDelete", (message) => {
+    const Log = new MessageEmbed()
+        .setColor('#36393f')
+        .setDescription(`A Message by ${message.author.tag} was deleted`)
+        .addFields({
+            name: 'Content',
+            value: `${message.content ? message.content : "None"}`.slice(0, 4096),
+            inline: false
+        }, {
+            name: 'Action performed',
+            value: `(<t:${happen}:R>)`,
+            inline: false
+        })
+
+        if(message.attachments.size >= 1) {
+            Log.addField(`Attachments:`, `${message.attachments.map(a => a.url)}`, true)
+        }
+
+        return LogChannel.send({
+            embeds: [Log]
+        })
+} )
+
 client.on("messageContentEdited", (message, oldContent, newContent) => {
 
     const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
