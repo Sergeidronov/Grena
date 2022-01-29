@@ -173,13 +173,10 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
         .setColor('#2F3136')
 
         .setTimestamp()
-        .addFields({
-            name: `Сообщение изменено`,
-            value: `${oldContent}}`,
-        },
+        .addFields(
         {
             name: `с`,
-            value: `${oldContent}}`,
+            value: `${oldContent}`,
         },
         {
             name: 'на',
