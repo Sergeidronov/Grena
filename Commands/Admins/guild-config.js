@@ -143,13 +143,14 @@ client.on("messageDelete", (message) => {
         .setDescription(`**Сообщение удалено**`)
         .setFooter({text: `${message.author.id}`})
         .setTimestamp()
-        .addFields({
+        .addFields(
+        {
             name: `Пользователь`,
             value: `${message.author}`,
         },
         {
             name: `Канал`,
-            vale: `${message.channel}`,
+            vale: `${message.channelId}`,
         },
         {
             name: 'Содержимое',
@@ -169,12 +170,11 @@ client.on("messageDelete", (message) => {
 // Message Update
 
 client.on("messageContentEdited", (message, oldContent, newContent) => {
-
+    if(message.author.bot) return;
     const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
     const MessageEdited = new MessageEmbed()
         .setTitle('Сообщение изменено')
         .setColor('#2F3136')
-
         .setTimestamp()
         .addFields(
         {
@@ -194,7 +194,7 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
             name: 'После изменения',
             value: `${newContent}`.slice(0, 4096),
         },
-         )
+        )
         .setFooter({text: `${message.author.id}`})
 
     return LogChannel.send({
