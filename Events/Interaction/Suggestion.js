@@ -35,7 +35,7 @@ module.exports = {
                 break;
                 case "suggest-decline": {
                     Embed.fields[2] = {name:"Статус", value: "Отклонено", inline: true};
-                    message.edit({embeds: [Embed.setColor("GREEN")]});
+                    message.edit({embeds: [Embed.setColor("RED")]});
                     return interaction.reply({content: "Предложения отклонено", components: [], ephemeral: true})
 
                 }
