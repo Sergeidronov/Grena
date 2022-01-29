@@ -102,7 +102,7 @@ client.on("guildMemberRoleRemove", (member, role) => {
     const MemberRoleRemove = new MessageEmbed()
         .setTitle('Пользователь потерял роль!')
         .setColor('#2F3136')
-        .setDescription(`**${member.user}** потерял роль ${role} ${username}`)
+        .setDescription(`**${member.user}** потерял роль ${role} `)
         .setTimestamp
 
     return LogChannel.send({
@@ -134,13 +134,13 @@ client.on("messageDelete", (message) => {
         const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
     const Log = new MessageEmbed()
         .setColor('#36393f')
-        .setDescription(`A Message by ${message.author.tag} was deleted`)
+        .setDescription(`Сообщение ${message.author.tag} удалено`)
         .addFields({
-            name: 'Content',
+            name: 'Контент',
             value: `${message.content ? message.content : "None"}`.slice(0, 4096),
             inline: false
         }, {
-            name: 'Action performed',
+            name: 'Выполненное действие',
             value: `(<t:${happen}:R>)`,
             inline: false
         })
@@ -160,9 +160,9 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
 
     const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
     const MessageEdited = new MessageEmbed()
-        .setTitle('Message Edited')
+        .setTitle('Сообщение изменено')
         .setColor('#2F3136')
-        .setDescription(`Message Edited from \`${oldContent}\` to \`${newContent}\``);
+        .setDescription(`Сообщение  \*\*\`${oldContent}\` изменено на \`${newContent}\``);
 
     return LogChannel.send({
         embeds: [MessageEdited]
@@ -184,10 +184,6 @@ client.on("userUsernameUpdate", (user, oldUsername, newUsername) => {
         embeds: [Username]
     });
 })
-
-
-
-
 
     }
 }
