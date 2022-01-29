@@ -140,14 +140,18 @@ client.on("messageDelete", (message) => {
         const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
     const Log = new MessageEmbed()
         .setColor('#36393f')
-        .setDescription(`Сообщение ${message.author.tag} удалено`)
+        .setDescription(`**Сообщение удалено**`)
         .setTimestamp()
-        .setFooter({text: `${message.author.id}`})
         .addFields({
+            name: `Пользователь`,
+            value: `${message.author.tag}`,
+        },
+        {
             name: 'Контент',
             value: `${message.content ? message.content : "None"}`.slice(0, 4096),
             inline: false
-        }, )
+        },
+         )
 
         if(message.attachments.size >= 1) {
             Log.addField(`Attachments:`, `${message.attachments.map(a => a.url)}`, true)
@@ -166,7 +170,7 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
     const MessageEdited = new MessageEmbed()
         .setTitle('Сообщение изменено')
         .setColor('#2F3136')
-        .setDescription(`Сообщение изменено \`${oldContent}\` на \`${newContent}\``)
+        .setDescription(`Сообщение изменено с \`${oldContent}\` на \`${newContent}\``)
         .setTimestamp()
         .setFooter({text: `${message.author.id}`})
 
