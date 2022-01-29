@@ -145,10 +145,14 @@ client.on("messageDelete", (message) => {
         .setTimestamp()
         .addFields({
             name: `Пользователь`,
-            value: `${message.author.tag}`,
+            value: `${message.author}`,
         },
         {
-            name: 'Контент',
+            name: `Канал`,
+            vale: `${message.channel}`,
+        },
+        {
+            name: 'Содержимое',
             value: `${message.content ? message.content : "None"}`.slice(0, 4096),
             inline: false
         },
