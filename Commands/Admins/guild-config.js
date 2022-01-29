@@ -125,39 +125,18 @@ client.on("guildMemberNicknameUpdate", (member, oldNickname, newNickname) => {
 
 })
 
-// Member Joined
-client.on("guildMemberEntered", (member) => {
+client.on("messageContentEdited", (message, oldContent, newContent) => {
 
     const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
-    const MemberJoined = new MessageEmbed()
-        .setTitle('Пользователь присоединился')
+    const MessageEdited = new MessageEmbed()
+        .setTitle('Message Edited')
         .setColor('#2F3136')
-        .setDescription(`${member.user.tag} присоединился!`);
+        .setDescription(`Message Edited from \`${oldContent}\` to \`${newContent}\``);
 
     return LogChannel.send({
-        embeds: [MemberJoined]
+        embeds: [MessageEdited]
     });
 
-})
-
-// Member add
-client.on("GuildMemberAdd", (guild, client) => {
-
-    const embed = new MessageEmbed()
-    .setTitle('Left a  Guild')//u can change "Guild" to "Server"
-    .setAuthor({name:`${client.user.tag}`, iconURL:client.user.displayAvatarURL()})
-    .setColor('RED')
-    .addField('**Guild Info**', ` \`${guild.name} (${guild.id})\``, true)
-    .addField('**Owner Info**', `<@${guild.ownerId}>`, true)
-    .addField('**Server Member Count**', ` \`${guild.memberCount}\``, true)
-    .addField('**Total Servers**', ` \`${client.guilds.cache.size}\``, true)
-    .addField('**Total Member count**', ` \`${client.users.cache.size}\``, true)
-    .setTimestamp()
-    .setThumbnail(guild.iconURL({ dynamic: true }));
-    
-    return LogChannel.send({
-        embeds: [embed]
-    })
 })
 
 
