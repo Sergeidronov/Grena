@@ -175,11 +175,20 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
         .setTimestamp()
         .addFields(
         {
-            name: `с`,
+            name: "Отправитель",
+            value: `${message.author}`
+        },
+        {
+            name: "Канал",
+            value: `${message.channel}`
+
+        },
+        {
+            name: `До изменения`,
             value: `${oldContent}`,
         },
         {
-            name: 'на',
+            name: 'После изменения',
             value: `${newContent}`.slice(0, 4096),
         },
          )
