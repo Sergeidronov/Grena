@@ -33,7 +33,7 @@ module.exports = {
 
         Welcome.send({embeds: [WelcomeEmbed]});
         
-          const data = await DB.findOne({Guild: guild.id})
+          const data = await DB.findOne({Guild: guild.id});
           if(!data) return;
 
           const channel = member.guild.channels.cache.get(data.Channel);
@@ -50,7 +50,7 @@ module.exports = {
           .setFooter({text: 'This action was performed automatically from me'})
           .setTimestamp()
         
-        const dm = new MessageEmbed()
+        const DMEmbeds = new MessageEmbed()
         
           
         .setTitle(`Kicked From ${member.guild.name}!`)
@@ -63,9 +63,9 @@ module.exports = {
             {
                 name: "Created", value: `<t:${parseInt(member.user.createdTimestamp / 1000)}:R>`
             }
-        )
+        );
         if(difference < timeSpan) {
-            await member.send({embeds: [dm]})
+            await member.send({embeds: [DMEmbeds]})
             await member.kick(reason)
             await channel.send({embeds: [embed]})  
         
