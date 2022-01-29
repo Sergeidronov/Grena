@@ -2,7 +2,7 @@ const { CommandInteraction, Client, MessageEmbed, MessageActionRow, MessageButto
 
 module.exports = {
 	name: 'help',
-	description: 'Feeling lost ❓',
+	description: 'Есть вопросы ❓',
 	/**
 	 * 
 	 * @param {CommandInteraction} interaction 
@@ -10,39 +10,39 @@ module.exports = {
 	 */
 	async execute(interaction, client) {
 		const help = new MessageEmbed()
-			.setTitle('<:generalChat:934476109989425252> Guardian Help Menu')
+			.setTitle('<:generalChat:934476109989425252> Grenka Help Menu')
 			.setColor('BLUE')
 			.setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
-			.setDescription('To see all my cmds press the buttons below')
+			.setDescription("Что бы посмотреть все мои команды, нажмите на кнопки ниже")
 			.setFields(
 				{
-					name: '<:info:935072188233547806> Info',
-					value: `\`7 Information cmds\``,
+					name: '<:info:935072188233547806> Информация',
+					value: `\`7 Информационных команда\``,
 					inline: true
 				}, {
-				name: '<:util:935089387040022579> Utility',
-				value: `\`3 Utility cmds\``,
+				name: '<:util:935089387040022579> Служба',
+				value: `\`3 Служебных команды\``,
 				inline: true
 			}, {
-				name: '<:premium:929433743599489044> Premium',
-				value: `\`2 Premium cmds\``,
+				name: '<:premium:929433743599489044> Премиум',
+				value: `\`2 Премиум команды\``,
 				inline: true
 			}, {
-				name: '<:Ticket:935077407554146345> Ticket',
+				name: '<:Ticket:935077407554146345> Тикет',
 				value: `\`3 Ticket cmds\``,
 				inline: true
 			}, {
-				name: '<:moderation:935075898862993439> Moderation',
-				value: `\`10 Moderation cmds\``,
+				name: '<:moderation:935075898862993439> Модерация',
+				value: `\`10 Модераторских команд\``,
 				inline: true
 			}, {
-				name: '<:utility:935073407387725924> Configuration',
-				value: `\`2 Configuration cmds\``,
+				name: '<:utility:935073407387725924> Конфигурация',
+				value: `\`2 Конфигурационные команды\``,
 				inline: true
 			}
 			)
 			.setTimestamp()
-			.setFooter({ text: 'Thank you for choosing guardian' })
+			.setFooter({ text: 'Спасибо, что выбрали нас' })
 
 		const embed1 = new MessageEmbed()
 			.setTitle('Information Commands')
@@ -124,8 +124,8 @@ module.exports = {
 				new MessageButton()
 					.setStyle('LINK')
 					.setEmoji('930143460277751808')
-					.setURL('https://discord.com/api/oauth2/authorize?client_id=912773129183563776&permissions=1099917896758&scope=bot%20applications.commands')
-					.setLabel('Invite Guardian')
+					.setURL('https://discord.com/api/oauth2/authorize?client_id=928621769827442708&permissions=8&scope=bot%20applications.commands')
+					.setLabel('Invite Grenka')
 			)
 
 		const row4 = new MessageActionRow()
