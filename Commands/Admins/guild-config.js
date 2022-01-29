@@ -137,8 +137,9 @@ client.on("messageDelete", (message) => {
         const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
     const Log = new MessageEmbed()
         .setColor('#36393f')
-        .setDescription(`Сообщение ${message.author.tag} [${message.author.id}] удалено`)
+        .setDescription(`Сообщение ${message.author.tag} удалено`)
         .setTimestamp()
+        .setFooter({text: `${message.author.id}`})
         .addFields({
             name: 'Контент',
             value: `${message.content ? message.content : "None"}`.slice(0, 4096),
