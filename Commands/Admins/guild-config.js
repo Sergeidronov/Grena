@@ -87,7 +87,7 @@ module.exports = {
     const MemberRoleAdd = new MessageEmbed()
         .setTitle('Пользователь Получил Роль!')
         .setColor('#2F3136')
-        .setDescription(`**${member.user.tag}** получил роль \`${role.name}\``);
+        .setDescription(`**${member.user.tag}** получил роль <@${role}>`);
 
     return LogChannel.send({
         embeds: [MemberRoleAdd]
@@ -125,7 +125,7 @@ client.on("guildMemberNicknameUpdate", (member, oldNickname, newNickname) => {
 
 })
 
-
+// MesageDelete
 
 client.on("messageDelete", (message) => {
     if(message.author.bot) return;
@@ -152,6 +152,8 @@ client.on("messageDelete", (message) => {
             embeds: [Log]
         })
 } )
+
+// Message Update
 
 client.on("messageContentEdited", (message, oldContent, newContent) => {
 
