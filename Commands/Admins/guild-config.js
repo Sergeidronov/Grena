@@ -87,7 +87,8 @@ module.exports = {
     const MemberRoleAdd = new MessageEmbed()
         .setTitle('Пользователь получил роль!')
         .setColor('#2F3136')
-        .setDescription(`**${member.user}** получил роль ${role}`);
+        .setDescription(`**${member.user}** получил роль ${role}`)
+        .setTimestamp()
 
     return LogChannel.send({
         embeds: [MemberRoleAdd]
@@ -103,6 +104,7 @@ client.on("guildMemberRoleRemove", (member, role) => {
         .setTitle('Пользователь потерял роль!')
         .setColor('#2F3136')
         .setDescription(`**${member.user}** потерял роль ${role} `)
+        .setTimestamp()
 
     return LogChannel.send({
         embeds: [MemberRoleRemove]
@@ -117,7 +119,9 @@ client.on("guildMemberNicknameUpdate", (member, oldNickname, newNickname) => {
     const MemberNicknameUpdate = new MessageEmbed()
         .setTitle('Никнейм обновлен')
         .setColor('#2F3136')
-        .setDescription(`${member.user.tag} сменил ник с \`${oldNickname}\` на \`${newNickname}\``);
+        .setDescription(`${member.user.tag} сменил ник с \`${oldNickname}\` на \`${newNickname}\``)
+        .setTimestamp()
+        
 
     return LogChannel.send({
         embeds: [MemberNicknameUpdate]
@@ -134,6 +138,7 @@ client.on("messageDelete", (message) => {
     const Log = new MessageEmbed()
         .setColor('#36393f')
         .setDescription(`Сообщение ${message.author.tag} удалено`)
+        .setTimestamp()
         .addFields({
             name: 'Контент',
             value: `${message.content ? message.content : "None"}`.slice(0, 4096),
@@ -161,7 +166,8 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
     const MessageEdited = new MessageEmbed()
         .setTitle('Сообщение изменено')
         .setColor('#2F3136')
-        .setDescription(`Сообщение изменено \`${oldContent}\` на \`${newContent}\``);
+        .setDescription(`Сообщение изменено \`${oldContent}\` на \`${newContent}\``)
+        .setTimestamp()
 
     return LogChannel.send({
         embeds: [MessageEdited]
