@@ -141,6 +141,7 @@ client.on("messageDelete", (message) => {
     const Log = new MessageEmbed()
         .setColor('#36393f')
         .setDescription(`**Сообщение удалено**`)
+        .setFooter({text: `${message.author.id}`})
         .setTimestamp()
         .addFields({
             name: `Пользователь`,
