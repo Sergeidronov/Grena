@@ -85,9 +85,10 @@ module.exports = {
 
     const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
     const MemberRoleAdd = new MessageEmbed()
-        .setTitle('Пользователь Получил Роль!')
+        .setTitle('Пользователь получил роль!')
         .setColor('#2F3136')
-        .setDescription(`**${member.user.tag}** получил роль ${role}`);
+        .setDescription(`${member.user} получил роль ${role}`)
+        .setTimestamp
 
     return LogChannel.send({
         embeds: [MemberRoleAdd]
@@ -102,7 +103,8 @@ client.on("guildMemberRoleRemove", (member, role) => {
     const MemberRoleRemove = new MessageEmbed()
         .setTitle('Пользователь потерял роль!')
         .setColor('#2F3136')
-        .setDescription(`**${member.user}** потерял роль ${role}`);
+        .setDescription(`${member.user} потерял роль ${role}`)
+        .setTimestamp
 
     return LogChannel.send({
         embeds: [MemberRoleRemove]
