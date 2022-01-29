@@ -39,6 +39,7 @@ module.exports = {
      * 
      * @param {CommandInteraction} interaction 
      * @param {Client} client 
+     * @param {Guild} guild
      */
     async execute(interaction, client) {
         const sub = interaction.options.getSubcommand('server-id', 'welcome', 'logs');
@@ -135,7 +136,7 @@ client.on("guildMemberNicknameUpdate", (member, oldNickname, newNickname) => {
 
 // MesageDelete
 
-client.on("messageContentDelete", (message, oldContent, newContent) => {
+client.on("messageDelete", (message) => {
     if(message.author.bot) return;
         
         const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
@@ -148,10 +149,6 @@ client.on("messageContentDelete", (message, oldContent, newContent) => {
         {
             name: `Пользователь`,
             value: `${message.author}`
-        },
-        {
-            name: `Канал`,
-            vale: `${message.channel}`
         },
         {
             name: 'Содержимое',
@@ -184,11 +181,6 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
             value: `${message.author}`
         },
         {
-            name: "Канал",
-            value: `${message.channel}`
-
-        },
-        {
             name: `До изменения`,
             value: `${oldContent}`,
         },
@@ -205,6 +197,34 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
 
 })
 
+// Username Updated
+client.on("guildCreate", (guild, client) => {
+    const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
+
+    const embed = new MessageEmbed()
+    .setTitle('Joined a new Guild')//u can change "Guild" to "Server"
+    .setAuthor({name:`${client.user.tag}`, iconURL:client.user.displayAvatarURL()})
+    .setColor('GREEN')
+    .addField('**Guild Info**', ` \`${guild.name} (${guild.id})\``, true)
+    .addField('**Owner Info**', `<@${guild.ownerId}>`, true)
+    .addField('**Server Member Count**', ` \`${guild.memberCount}\``, true)
+    .addField('**Total Servers**', ` \`${client.guilds.cache.size}\``, true)
+    .addField('**Total Member count**', ` \`${client.users.cache.size}\``, true)
+    .setTimestamp()
+    .setThumbnail(guild.iconURL({ dynamic: true }));
+    
+    
+  
+    Owner.send({embeds: [embed]});
+
+
+    return LogChannel.send({
+        embeds: [embed]
+    });
+})
+
+
+
 
 // Username Updated
 client.on("userUsernameUpdate", (user, oldUsername, newUsername) => {
@@ -220,7 +240,6 @@ client.on("userUsernameUpdate", (user, oldUsername, newUsername) => {
         embeds: [Username]
     });
 })
-
 
 
 
