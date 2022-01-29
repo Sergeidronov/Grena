@@ -150,7 +150,7 @@ client.on("messageDelete", (message) => {
         },
         {
             name: `Канал`,
-            vale: `${channel}`
+            vale: `${message.channelId}`
         },
         {
             name: 'Содержимое',
