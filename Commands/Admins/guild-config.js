@@ -1,4 +1,4 @@
-const { MessageEmbed, CommandInteraction } = require('discord.js');
+const { MessageEmbed, CommandInteraction, Client, Guild } = require('discord.js');
 const db = require('quick.db');
 const client = require('../../Structures/bot');;
 
