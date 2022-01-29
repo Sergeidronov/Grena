@@ -130,7 +130,7 @@ client.on("guildMemberNicknameUpdate", (member, oldNickname, newNickname) => {
 client.on("messageDelete", (message) => {
     if(message.author.bot) return;
         let happen = Math.floor(new Date().getTime()/1000.0)
-    const LogChannel = client.channels.cache.get('928629275010170921'); // Replace with your channel id
+        const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
     const Log = new MessageEmbed()
         .setColor('#36393f')
         .setDescription(`A Message by ${message.author.tag} was deleted`)
