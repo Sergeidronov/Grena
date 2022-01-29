@@ -134,7 +134,7 @@ client.on("guildMemberNicknameUpdate", (member, oldNickname, newNickname) => {
 
 // MesageDelete
 
-client.on("messageDelete", (message) => {
+client.on("messageDelete", (message, oldContent, newContent) => {
     if(message.author.bot) return;
         
         const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
@@ -150,7 +150,7 @@ client.on("messageDelete", (message) => {
         },
         {
             name: `Канал`,
-            vale: `${message.channelId}`
+            vale: `${message.channel}`
         },
         {
             name: 'Содержимое',
