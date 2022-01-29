@@ -214,8 +214,6 @@ client.on("guildCreate", (guild, client) => {
     .setThumbnail(guild.iconURL({ dynamic: true }));
     
     
-  
-    Owner.send({embeds: [embed]});
 
 
     return LogChannel.send({
