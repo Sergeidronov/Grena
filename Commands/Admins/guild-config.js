@@ -197,32 +197,6 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
 
 })
 
-// Username Updated
-client.on("guildCreate", (guild, client) => {
-    const LogChannel = interaction.options.getChannel('logs-channel'); // Replace with your channel id
-
-    const embed = new MessageEmbed()
-    .setTitle('Joined a new Guild')//u can change "Guild" to "Server"
-    .setAuthor({name:`${client.user.tag}`, iconURL:client.user.displayAvatarURL()})
-    .setColor('GREEN')
-    .addField('**Guild Info**', ` \`${guild.name} (${guild.id})\``, true)
-    .addField('**Owner Info**', `<@${guild.ownerId}>`, true)
-    .addField('**Server Member Count**', ` \`${guild.memberCount}\``, true)
-    .addField('**Total Servers**', ` \`${client.guilds.cache.size}\``, true)
-    .addField('**Total Member count**', ` \`${client.users.cache.size}\``, true)
-    .setTimestamp()
-    .setThumbnail(guild.iconURL({ dynamic: true }));
-    
-    
-
-
-    return LogChannel.send({
-        embeds: [embed]
-    });
-})
-
-
-
 
 // Username Updated
 client.on("userUsernameUpdate", (user, oldUsername, newUsername) => {
