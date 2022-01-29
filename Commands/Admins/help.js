@@ -1,14 +1,14 @@
 const { MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu } = require("discord.js");
 
 module.exports = {
-    name: "test",
+    name: "ping",
     description: "Shows the bot's status",
 
 
     async execute(interaction) {
         if (!interaction.isCommand()) return;
 
-	if (interaction.commandName === 'test') {
+	if (interaction.commandName === 'ping') {
 		const row = new MessageActionRow()
 			.addComponents(
 				// ...
