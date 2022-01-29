@@ -162,7 +162,7 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
     const MessageEdited = new MessageEmbed()
         .setTitle('Сообщение изменено')
         .setColor('#2F3136')
-        .setDescription(`Сообщение  \`${oldContent}\` изменено на \`${newContent}\``);
+        .setDescription(`Сообщение изменено \`${oldContent}\` на \`${newContent}\``);
 
     return LogChannel.send({
         embeds: [MessageEdited]
@@ -184,6 +184,10 @@ client.on("userUsernameUpdate", (user, oldUsername, newUsername) => {
         embeds: [Username]
     });
 })
+
+
+
+
 
     }
 }
