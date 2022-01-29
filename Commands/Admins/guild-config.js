@@ -171,8 +171,21 @@ client.on("messageContentEdited", (message, oldContent, newContent) => {
     const MessageEdited = new MessageEmbed()
         .setTitle('Сообщение изменено')
         .setColor('#2F3136')
-        .setDescription(`Сообщение изменено с \`${oldContent}\` на \`${newContent}\``)
+
         .setTimestamp()
+        .addFields({
+            name: `Сообщение изменено`,
+            value: `${oldContent}}`,
+        },
+        {
+            name: `с`,
+            value: `${oldContent}}`,
+        },
+        {
+            name: 'на',
+            value: `${newContent}`.slice(0, 4096),
+        },
+         )
         .setFooter({text: `${message.author.id}`})
 
     return LogChannel.send({
