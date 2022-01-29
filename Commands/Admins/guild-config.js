@@ -147,11 +147,13 @@ client.on("messageDelete", (message) => {
             name: `Пользователь`,
             value: `${message.author}`,
         },
-
+        {
+            name: `Канал`,
+            vale: `${message.channel}`,
+        },
         {
             name: 'Содержимое',
             value: `${message.content ? message.content : "None"}`.slice(0, 4096),
-            inline: false
         },
          )
 
