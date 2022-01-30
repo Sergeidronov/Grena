@@ -2,6 +2,7 @@ const { MessageEmbed, MessageActionRow, MessageButton, CommandInteraction } = re
 module.exports = {
     name: "invite",
     description: "Invite me to your server!",
+    permission: "ADMINISTRATOR",
 
     /**
      * 
