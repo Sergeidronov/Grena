@@ -33,13 +33,12 @@ module.exports = {
             .setColor("AQUA")
             .setTitle("Poll 📊")
             .setDescription(poll)
-            .setFooter("Нажмите на эмодзи для описания вашего мнения👍, 👎, 🤷‍♂️ .")
+            .setFooter("Нажмите на эмодзи 👍, 👎, для описания вашего мнения.")
             .setTimestamp()
 
         const sendMessage = await client.channels.cache.get(gChannel.id).send({embeds: [pollEmbed]});
         sendMessage.react("👍")
         sendMessage.react("👎")
-        sendMessage.react("🤷‍♂️️")
 
         interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`Голосование успешно создано ${gChannel} ✅`)],ephemeral: true})
     }
