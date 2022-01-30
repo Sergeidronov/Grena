@@ -2,19 +2,19 @@ const { CommandInteraction, MessageEmbed, Message } = require("discord.js");
 
 module.exports = {
     name: "poll",
-    description: "Create a poll",
+    description: "Создание голосования",
     usage: "/poll",
     permission: "ADMINISTRATOR",
     options: [
       {
           name: "poll",
-          description: "Describe the poll you want to make.",
+          description: "Опишите опрос, который вы хотите провести.",
           type: "STRING",
           required: true
       }, 
       {
         name: "channel",
-        description: "Select a channel to send the message to.",
+        description: "Выберите канал для отправки сообщения.",
         type: "CHANNEL",
         channelTypes: ["GUILD_TEXT"],
       },
@@ -33,7 +33,7 @@ module.exports = {
             .setColor("AQUA")
             .setTitle("Poll 📊")
             .setDescription(poll)
-            .setFooter("Please react with the 👍, 👎, 🤷‍♂️ based on your opinion.")
+            .setFooter("Нажмите на эмодзи для описания вашего мнения👍, 👎, 🤷‍♂️ .")
             .setTimestamp()
 
         const sendMessage = await client.channels.cache.get(gChannel.id).send({embeds: [pollEmbed]});
@@ -41,6 +41,6 @@ module.exports = {
         sendMessage.react("👎")
         sendMessage.react("🤷‍♂️️")
 
-        interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`The poll was successfully sent to ${gChannel} ✅`)],ephemeral: true})
+        interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`Голосование успешно создано ${gChannel} ✅`)],ephemeral: true})
     }
 }
