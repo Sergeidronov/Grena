@@ -3,6 +3,7 @@ const { CommandInteraction, Client, MessageEmbed, MessageActionRow, MessageButto
 module.exports = {
 	name: 'bot',
 	description: 'Есть вопросы ❓',
+	permission: "ADMINISTRATOR",
 	/**
 	 * 
 	 * @param {CommandInteraction} interaction 
