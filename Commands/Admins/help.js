@@ -1,7 +1,7 @@
 const { CommandInteraction, Client, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 module.exports = {
-	name: 'helpbot',
+	name: 'bot',
 	description: 'Есть вопросы ❓',
 	/**
 	 * 
