@@ -4,6 +4,7 @@ const { connection } = require("mongoose");
 module.exports = {
     name: "status",
     description: "Shows the bot's status",
+    permission: "ADMINISTRATOR",
     /**
      * 
      * @param {CommandInteraction} interaction 
