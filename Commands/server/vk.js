@@ -14,7 +14,7 @@ module.exports = {
 
         const Vk = new MessageEmbed()
         .setColor("WHITE")
-        .setFooter({text: "<https://vk.com/sff_server>"})
+        .setFooter({text: "[test] (https://vk.com/sff_server)"})
        
 
         interaction.reply({ embeds: [Vk], ephemeral: true });
