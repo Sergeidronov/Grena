@@ -2,7 +2,7 @@ const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: "vk",
-    description: "Посмотреть вк сервера",
+    description: "Ссылка на группу вк",
     /**
      * 
      * @param {CommandInteraction} interaction 
@@ -15,9 +15,7 @@ module.exports = {
         const Vk = new MessageEmbed()
         .setColor("WHITE")
         .setTitle("*Группа ВК*")
-        .addField(
-            {name: "https://vk.com/sff_server"}
-            )
+        .setDescription('https://vk.com/sff_server')
         interaction.reply({ embeds: [Vk], ephemeral: true });
     }
 }
