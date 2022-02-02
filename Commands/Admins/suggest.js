@@ -44,8 +44,8 @@ module.exports = {
 
         const Buttons = new MessageActionRow();
         Buttons.addComponents(
-            new MessageButton().setCustomId("suggest-accept").setLabel("✅ Accept").setStyle("PRIMARY"),
-            new MessageButton().setCustomId("suggest-decline").setLabel("⛔ Decline").setStyle("PRIMARY")
+            new MessageButton().setCustomId("suggest-accept").setLabel("✅ Принять").setStyle("PRIMARY"),
+            new MessageButton().setCustomId("suggest-decline").setLabel("⛔ Отклонить").setStyle("PRIMARY")
 
         )
 
