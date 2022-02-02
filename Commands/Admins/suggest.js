@@ -4,22 +4,20 @@ const DB = require("../../Memory/Schems/suggestdbs");
 module.exports = {
     name: "suggest",
     description: "Suggest",
-    permission: "ADMINISTRATOR",
     options: [
         {
-            name: "type",
-            description: "Выберите тип",
+            name: "сервер",
+            description: "test",
             type: "STRING",
             required: true,
             choices: [
-                {name: "Command", value: "Command"},
-                {name: "Event Listener", value: "Event Listener"},
-                {name: "System", value: "System"},
-                {name: "Other", value: "Other"}
+                {name: "RP", value: "RP"},
+                {name: "BW", value: "BW"},
+                {name: "Discord", value: "Discord"}
             ]
         },
         {
-            name: "suggestion",
+            name: "предложение",
             description: "Describe",
             type: "STRING",
             required: true
@@ -31,16 +29,16 @@ module.exports = {
     async execute(interaction) {
         const {options, guildId, member, user} = interaction;
 
-        const Type = options.getString("type");
-        const Suggestion = options.getString("suggestion");
+        const Type2 = options.getString("сервер");
+        const Suggestion = options.getString("предложение");
         
         const Embed = new MessageEmbed()
         .setColor("RED")
         .setAuthor(user.tag, user.displayAvatarURL({dynamic: true}))
         .addFields(
             {name: "Предложение:", value: Suggestion, inline: false},
-            {name: "Тип:", value: Type, inline: true},
-            {name: "Статус:", value: "Рассматривается", inline: true}
+            {name: "Статус:", value: "Рассматривается", inline: true},
+            {name: "Сервер:", value: Type2, inline: true}
         )
         .setTimestamp()
 
@@ -58,7 +56,6 @@ module.exports = {
             await DB.create({GuildID: guildId, MessageID: M.id, Details: [
                 {
                     MemberID: member.id,
-                    Type: Type,
                     Suggestion: Suggestion
                 }
             ]})
