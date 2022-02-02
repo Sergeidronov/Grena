@@ -42,11 +42,10 @@ module.exports = {
       .setAuthor({ name: `${Target.user.tag}`, iconURL: `${Target.user.displayAvatarURL({ dynamic: true })}` })
       .setThumbnail(`${Target.displayAvatarURL({ dynamic: true })}`)
       .setColor("WHITE")
-      .addField("ЮзерАйди", `${Target.id}`, false)
+      .addField("Айди", `${Target.id}`, false)
       .addField("Участник сервера с", `<t:${parseInt(Target.joinedTimestamp / 1000)}:R>`, false)
       .addField("Аккаунт создан", `<t:${parseInt(Target.user.createdTimestamp / 1000)}:R>`, false)
-      .addField(`Никнейм : `, `**${Target.nickname || `Default`}**`, true)
-      .addField(`Присутствие : `, `**${Target.presence?.status || `Оффлайн`}**`, false)
+      .addField(`Никнейм `, `**${Target.nickname || `Default`}**`, true)
   const Sm = await interaction.reply({ embeds: [Response], components: [main], fetchReply:true });
 
     const collector = Sm.createMessageComponentCollector();
