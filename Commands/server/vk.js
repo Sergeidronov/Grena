@@ -15,9 +15,9 @@ module.exports = {
         const Vk = new MessageEmbed()
         .setColor("WHITE")
         .setTitle("*Группа ВК*")
-        .addField("https://vk.com/sff_server")
-       
-
+        .addField(
+            {name: "https://vk.com/sff_server"}
+            )
         interaction.reply({ embeds: [Vk], ephemeral: true });
     }
 }
