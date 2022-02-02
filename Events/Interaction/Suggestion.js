@@ -11,7 +11,7 @@ module.exports = {
         const   {guildId, customId, message} = interaction;
         if (!["suggest-accept", "suggest-decline"].includes(customId)) return;
         if(!interaction.member.permissions.has("ADMINISTRATOR"))
-        return interaction.reply({content: "Недостаточно прав для использования", ephemeral: true})
+        return interaction.reply({content: "⛔ Недостаточно прав для использования", ephemeral: true})
         ;
 
         
