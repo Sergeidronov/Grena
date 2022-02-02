@@ -9,6 +9,7 @@ const queueDB = new Map();
 module.exports = {
     name: "music",
     description: "Подключается к текущему голосовому каналу, если пользователь находится в одном из них.",
+    permission: "ADMINISTRATOR",
     options: [{
             name: "play",
             description: "▶️ Поставьте свою песню в очередь.",
