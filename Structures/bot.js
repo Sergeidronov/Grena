@@ -10,6 +10,8 @@ const { Permissions } = require('discord.js');
 const DiscordDB = require('simple-discord.db');
 const fs = require('fs');
 const ms = require(`ms`);
+const Discord = require('discord.js')
+
 
 
 
@@ -24,6 +26,8 @@ client.commands = new Collection();
 ["Events", "Commands"].forEach(handler => {
     require(`./Handlers/${handler}`)(client, PG, Ascii);
 });
+
+
 
 
 
