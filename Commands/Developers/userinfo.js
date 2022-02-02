@@ -3,6 +3,7 @@ const { Client, MessageEmbed, MessageActionRow, MessageButton, CommandInteractio
 module.exports = {
   name: "userinfo",
   description: "Отображает информацию о цели.",
+  permission: "ADMINISTRATOR",
   options: [
     {
       name: "target",
@@ -45,7 +46,6 @@ module.exports = {
       .addField("Айди", `${Target.id}`, false)
       .addField("Участник сервера с", `<t:${parseInt(Target.joinedTimestamp / 1000)}:R>`, false)
       .addField("Аккаунт создан", `<t:${parseInt(Target.user.createdTimestamp / 1000)}:R>`, false)
-      .addField(`Никнейм `, `**${Target.nickname || `Default`}**`, true)
   const Sm = await interaction.reply({ embeds: [Response], components: [main], fetchReply:true });
 
     const collector = Sm.createMessageComponentCollector();
