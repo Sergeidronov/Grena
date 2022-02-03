@@ -4,8 +4,8 @@ const {
     MessageActionRow, 
     MessageButton
 } = require('discord.js');
-const DB = require('../../Memory/Schems/TicketDB');
-const TicketSetupData = require('../../Memory/Schems/TicketSetupDB');
+const DB = require('../../Memory/Schems/TicketDB2');
+const TicketSetupData = require('../../Memory/Schems/TicketSetupDB2');
 
 const wait = require('util').promisify(setTimeout);
 
@@ -24,7 +24,7 @@ module.exports = {
         if(!Data) return;
 
 
-      if(!["ticketdiscord"].includes(customId)) return;
+      if(!["ticketbw"].includes(customId)) return;
 
      const data = DB.findOne({ GuildID: guild.id })
 const ID = ((await data.countDocuments()) + 1).toString();    
@@ -63,22 +63,28 @@ if(h) return interaction.reply({content: "> **Лимит билетов дост
             .setAuthor(({name: `${member.user.username}`, iconURL: `${member.displayAvatarURL({ dynamic: true })}`}))
             .setTitle("Форма подачи жалобы:")
             .setDescription(`
-            1. Ваш Ник на сервере
-            2. Ник Администратора и его SteamID
-            3. Какое было нарушение было замечено со стороны Администратора
-            4. Доказательства (Доказательства обязательно должны быть предоставлены в жалобе)`)
+            1. Дискорд нарушителя
+            2. Пункт правил которые были нарушены/Описание нарушения
+            3. Доказательства (Скрин,видео и т.д)
+
+            Если нарушение не критичное, модерация сервера может его отклонить.
+            
+            `)
+
+            
+            
             .setColor('#2C2F33')
     
         
             const Buttons = new MessageActionRow();
             Buttons.addComponents(
                 new MessageButton()
-                .setCustomId('claim')
+                .setCustomId('claim1')
                 .setLabel('Принять')
                 .setStyle('PRIMARY')
                 .setEmoji('🔒'),
                 new MessageButton()
-                .setCustomId('close')
+                .setCustomId('close1')
                 .setLabel('Закрыть')
                 .setStyle('SECONDARY')
                 .setEmoji('🔒')

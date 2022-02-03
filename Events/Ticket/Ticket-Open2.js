@@ -1,6 +1,6 @@
 const { ButtonInteraction, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-const DB = require('../../Memory/Schems/TicketDB');
-const TicketSetupData = require('../../Memory/Schems/TicketSetupDB');
+const DB = require('../../Memory/Schems/TicketDB2');
+const TicketSetupData = require('../../Memory/Schems/TicketSetupDB2');
 
 module.exports = {
   name: 'interactionCreate',
@@ -13,7 +13,7 @@ module.exports = {
 
     const { guild, customId, channel, member } = interaction;
 
-    if (!["create"].includes(customId)) return;
+    if (!["create1"].includes(customId)) return;
 
    
   
@@ -25,7 +25,7 @@ module.exports = {
     const Buttons1 = new MessageActionRow()
       .addComponents(
         new MessageButton()
-          .setCustomId('ticketdiscord')
+          .setCustomId('ticketbw')
           .setLabel('Открыть')
           .setStyle('DANGER'),
       );
