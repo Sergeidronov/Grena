@@ -29,7 +29,7 @@ module.exports = {
      const data = DB.findOne({ GuildID: guild.id })
 const ID = ((await data.countDocuments()) + 1).toString();    
 const h = await DB.findOne({ MembersID: member.id, GuildID: guild.id, Closed: false }) 
-if(h) return interaction.reply({content: "> **Лимит жалоб достигнут, у вас уже открыта жалоба", ephemeral: true})
+if(h) return interaction.reply({content: ">Лимит жалоб достигнут, у вас уже открыта жалоба", ephemeral: true})
         await guild.channels
         .create(`${customId + '-' + ID }` ,{
             type: 'GUILD_TEXT',
