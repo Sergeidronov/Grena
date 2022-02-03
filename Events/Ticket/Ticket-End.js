@@ -34,7 +34,7 @@ module.exports = {
           .setStyle('SECONDARY')
       );
       
-    const Me = await interaction.reply({ content: "Вы уверены, что хотели бы закрыть эту жалобу?", components: [Buttons] })
+    const Me = await interaction.reply({ content: "Вы уверены, что хотите закрыть эту жалобу?", components: [Buttons] })
 
 
   }
