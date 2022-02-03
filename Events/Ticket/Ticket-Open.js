@@ -26,7 +26,7 @@ module.exports = {
       .addComponents(
         new MessageButton()
           .setCustomId('ticketdiscord')
-          .setLabel('Открыть')
+          .setLabel('Создать')
           .setStyle('DANGER'),
       );
       

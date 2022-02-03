@@ -26,7 +26,7 @@ module.exports = {
       .addComponents(
         new MessageButton()
           .setCustomId('ticketbw')
-          .setLabel('Открыть')
+          .setLabel('Создать')
           .setStyle('DANGER'),
       );
       
