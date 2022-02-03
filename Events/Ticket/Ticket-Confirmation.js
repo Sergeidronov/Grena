@@ -50,7 +50,7 @@ const {
         switch (customId) {
           case "rip":
             if (data.Closed == true)
-              return interaction.reply({ embeds: [Embed.setDescription("Этот билет уже открыт")], ephemeral: true })
+              return interaction.reply({ embeds: [Embed.setDescription("Эта жалоба уже открыта")], ephemeral: true })
             await DB.updateOne({ ChannelID: channel.id }, { Closed: true })
             data.MembersID.forEach((m) => {
               channel.permissionOverwrites.edit(m, {
@@ -61,7 +61,7 @@ const {
   
     
             interaction.reply({embeds: [new MessageEmbed()
-              .setDescription(`Этот билет закрыл ${interaction.user}`)
+              .setDescription(`Эту жалобу закрыл ${interaction.user}`)
   ]}) 
   
     setTimeout(() => { message.delete() }, 2);

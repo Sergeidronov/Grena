@@ -33,7 +33,7 @@ module.exports = {
       
 
     const Me1 = await interaction.reply({ 
-    content: "Вы уверены, что хотите открыть этот билет?", 
+    content: "Вы уверены, что хотите создать жалобу?", 
     components: [Buttons1],
     ephemeral: true})
 

@@ -33,7 +33,7 @@ module.exports = {
 
     DB.findOne({ ChannelID: channel.id }, async (err, docs) => {
       if (err) throw err;
-      if (!docs) return interaction.reply({ content: 'Вы не можете создать другой тикет, пожалуйста, закройте текущий или используйте тот же билет.', ephemeral: true });
+      if (!docs) return interaction.reply({ content: 'Вы не можете создать другую жалобу, пожалуйста, закройте текущие или используйте тот же билет.', ephemeral: true });
 
       switch (customId) {
         case 'del1':
@@ -49,9 +49,9 @@ module.exports = {
             .get(TicketSetup.Transcripts)
             .send({
               embeds: [
-                Embed.setTitle(`Тикет закрыт`).addFields([
+                Embed.setTitle(`Жалоба закрыта`).addFields([
                   {
-                    name: "Тикет айди",
+                    name: "Айди жалобы",
                     value: `${docs.TicketID}`,
                     inline: true,
                   },
@@ -82,9 +82,9 @@ module.exports = {
 
 
           interaction.reply({
-            embeds: [Embed.setTitle('Тикет закрыт 🔒'
+            embeds: [Embed.setTitle('Жалоба закрыта 🔒'
             )
-              .setDescription(`Тикет закрыт \n[TRANSCRIPTS](${Message.url})`)
+              .setDescription(`Жалоба закрыта \n[TRANSCRIPTS](${Message.url})`)
               .setColor('#2C2F33')
               .setFooter({ text: `${interaction.guild.name}` })
             ]
@@ -97,7 +97,7 @@ module.exports = {
         case 'cl1':
           if (docs.Claimed == true)
             return interaction.reply({
-              content: `❌ | Этот билет уже был принят <@${docs.ClaimeBy}>`,
+              content: `❌ | Эта жалоба уже была принята <@${docs.ClaimeBy}>`,
               ephemeral: true,
             });
 
@@ -107,9 +107,9 @@ module.exports = {
           );
           Embed
             .setAuthor(({ name: `${member.user.username}` }))
-            .setTitle('✅ | Тикет принят.')
+            .setTitle('✅ | Жалоба принята.')
             .setColor('#2C2F33')
-            .setDescription(`${member} принял тикет`)
+            .setDescription(`${member} принял жалобу`)
             .setFooter({ text: `${interaction.guild.name}` })
 
           interaction.reply({ embeds: [Embed] });
@@ -117,7 +117,7 @@ module.exports = {
           break;
            case 'oen1':
            if(docs.Closed == false)
-           return interaction.reply("Этот билет уже открыт")
+           return interaction.reply("эта жалоба уже открыта")
 
           await DB.updateOne({ ChannelID: channel.id }, { Closed: false })
           docs.MembersID.forEach((m) => {
@@ -127,17 +127,17 @@ module.exports = {
           })
 
           const GD = new MessageEmbed()
-            .setDescription(`Билет был открыт ${interaction.user}`)
+            .setDescription(`Жалоба была открыта ${interaction.user}`)
 
 
 
-          await interaction.reply({ embeds: [Embed.setDescription(`Этот билет теперь открыт ${interaction.user}`)] })
+          await interaction.reply({ embeds: [Embed.setDescription(`Эта жалоба теперь открыта ${interaction.user}`)] })
           setTimeout(() => { message.delete() }, 2);
           break;
         case 'claim1':
           if (docs.Claimed == true)
             return interaction.reply({
-              content: `❌ | Этот билет уже был принят <@${docs.ClaimeBy}>`,
+              content: `❌ | Эта жалоба уже была открыта <@${docs.ClaimeBy}>`,
               ephemeral: true,
             });
         
@@ -146,9 +146,9 @@ module.exports = {
             { Claimed: true, ClaimedBy: interaction.user.id }
           );
           Embed
-            .setTitle('✅ | Тикет принят')
+            .setTitle('✅ | Жалоба принята')
             .setColor('#2C2F33')
-            .setDescription(`${member} принял этот тикет`)
+            .setDescription(`${member} принял эту жалобу`)
         
           interaction.reply({ embeds: [Embed] });
 
