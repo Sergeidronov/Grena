@@ -24,7 +24,7 @@ module.exports = {
         );
       })
       .then(() => {
-        client.login(token);
+        client.login(config.token);
         console.log("[Client] Ready");
       });
   },
