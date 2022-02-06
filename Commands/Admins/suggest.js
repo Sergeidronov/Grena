@@ -37,11 +37,11 @@ module.exports = {
             type: "STRING",
             required: true,
             choices: [
-                {name: "1-4ч", value: "1"},
-                {name: "5-10ч", value: "2"},
-                {name: "10-15ч", value: "3"},
-                {name: "15-20ч", value: "4"},
-                {name: "20-24ч", value: "5"},
+                {name: "1-4ч", value: "1-4ч"},
+                {name: "5-10ч", value: "5-10ч"},
+                {name: "10-15ч", value: "10-15ч"},
+                {name: "15-20ч", value: "15-20ч"},
+                {name: "20-24ч", value: "20-24ч"},
             ],
         },
     ],
@@ -53,7 +53,7 @@ module.exports = {
 
         const Type1 = options.getString("1");
         const Type2 = options.getString("2");
-        const typ3 = options.getString("3");
+        const Suggestion = options.getString("3");
 
         const Embed = new MessageEmbed()
         .setColor("RED")
@@ -61,7 +61,7 @@ module.exports = {
         .addFields(
             {name: "Оценка знаний в использовании дискорда:", value: Type1, inline: false},
             {name: "Оценка знаний и понимания правил дискорд сервера", value: Type2, inline: false},
-            {name: "Суточный онлайн в дискорде", value: typ3, inline: false},
+            {name: "Суточный онлайн в дискорде", value: Suggestion, inline: false},
             {name: "Статус:", value: "Рассматривается", inline: false},
             
         )
@@ -81,7 +81,7 @@ module.exports = {
             await DB.create({GuildID: guildId, MessageID: M.id, Details: [
                 {
                     MemberID: member.id,
-                    typ3: typ3
+                    Suggestion: Suggestion
                 }
             ]})
 
