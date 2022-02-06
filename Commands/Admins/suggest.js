@@ -81,7 +81,7 @@ module.exports = {
             await DB.create({GuildID: guildId, MessageID: M.id, Details: [
                 {
                     MemberID: member.id,
-                    typ3: typ3,
+                    typ3: typ3
                 }
             ]})
 
