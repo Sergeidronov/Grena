@@ -27,14 +27,14 @@ module.exports = {
 
             switch(customId) {
                 case "suggest-accept": {
-                    Embed.fields[2] = {name:"Статус", value: "Принято", inline: true};
+                    Embed.fields[3] = {name:"Статус", value: "Принято", inline: true};
                     message.edit({embeds: [Embed.setColor("GREEN")]});
                     return interaction.reply({content: "✅ Предложения принято", components: [], ephemeral: true})
 
                 }
                 break;
                 case "suggest-decline": {
-                    Embed.fields[2] = {name:"Статус", value: "Отклонено", inline: true};
+                    Embed.fields[3] = {name:"Статус", value: "Отклонено", inline: true};
                     message.edit({embeds: [Embed.setColor("RED")]});
                     return interaction.reply({content: "⛔ Предложения отклонено", components: [], ephemeral: true})
 
