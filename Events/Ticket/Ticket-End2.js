@@ -13,7 +13,7 @@ module.exports = {
 
     const { guild, customId, channel, member } = interaction;
 
-    if (!["close1"].includes(customId)) return;
+    if (!["del1"].includes(customId)) return;
 
    
   
