@@ -28,13 +28,9 @@ module.exports = {
           .setCustomId('rip')
           .setLabel('Закрыть')
           .setStyle('DANGER'),
-        new MessageButton()
-          .setCustomId('rp')
-          .setLabel('Отменить')
-          .setStyle('SECONDARY')
       );
       
-    const Me = await interaction.reply({ content: "Вы уверены, что хотите закрыть эту жалобу?", components: [Buttons] })
+    const Me = await interaction.reply({ content: "Вы уверены, что хотите закрыть эту жалобу?", components: [Buttons], ephemeral: true })
 
 
   }

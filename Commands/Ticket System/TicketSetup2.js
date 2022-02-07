@@ -71,7 +71,8 @@ module.exports = {
      **Для подачи жалобы нажмите на**  📬
      `)
      .setFooter({text: "За создание ложной жалобы вы можете получить наказание."})
-     .setColor("#36393f")
+     .setColor("GREEN")
+
      const Buttons = new MessageActionRow()
      .addComponents(
        new MessageButton()

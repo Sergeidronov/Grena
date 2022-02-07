@@ -28,14 +28,12 @@ module.exports = {
           .setCustomId('rip1')
           .setLabel('Закрыть')
           .setStyle('DANGER'),
-        new MessageButton()
-          .setCustomId('rp1')
-          .setLabel('Отменить')
-          .setStyle('SECONDARY')
       );
       
-    const Me = await interaction.reply({ content: "Вы уверены, что хотите закрыть эту жалобу?", components: [Buttons] })
+     
+    const Me = await interaction.reply({ content: "Вы уверены, что хотите закрыть эту жалобу?", components: [Buttons], ephemeral: true })
 
 
+  
   }
 }

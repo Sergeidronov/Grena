@@ -60,20 +60,16 @@ if(h) return interaction.reply({content: ">Лимит жалоб достигн�
             });
       
             const Embed = new MessageEmbed()
-            .setAuthor(({name: `${member.user.username}`, iconURL: `${member.displayAvatarURL({ dynamic: true })}`}))
+            .setAuthor(({name: `${member.user.username} [${member.user.id}]`, iconURL: `${member.displayAvatarURL({ dynamic: true })}`}))
             .setTitle("Форма подачи жалобы:")
             .setDescription(`
-            1. Дискорд нарушителя
-            2. Пункт правил которые были нарушены/Описание нарушения
-            3. Доказательства (Скрин,видео и т.д)
+            **1. Ваш Ник на сервере**
+            **2. Ник Администратора и его SteamID**
+            **3. Какое было нарушение было замечено со стороны Администратора**
+            **4. Доказательства (Скрин,видео)**`)
+            .setFooter({text: "Если нарушение не критичное, модерация сервера может его отклонить."})
+            .setColor('GREEN')
 
-            Если нарушение не критичное, модерация сервера может его отклонить.
-            
-            `)
-
-            
-            
-            .setColor('#2C2F33')
     
         
             const Buttons = new MessageActionRow();
@@ -84,9 +80,9 @@ if(h) return interaction.reply({content: ">Лимит жалоб достигн�
                 .setStyle('PRIMARY')
                 .setEmoji('🔒'),
                 new MessageButton()
-                .setCustomId('close1')
+                .setCustomId('del1')
                 .setLabel('Закрыть')
-                .setStyle('SECONDARY')
+                .setStyle('DANGER')
                 .setEmoji('🔒')
             );
     await interaction.deferReply({ ephemeral: true });
@@ -94,7 +90,7 @@ if(h) return interaction.reply({content: ">Лимит жалоб достигн�
     await wait (1000)
             channel.send({content: `${member} `, embeds: [Embed], components: [Buttons]});
     
-           await interaction.editReply({content: `${member} ${channel}`, ephemeral: true})
+           await interaction.editReply({content: `${member} вы можете оставить свою жалобу в канале ${channel}`, ephemeral: true})
 
         });
         

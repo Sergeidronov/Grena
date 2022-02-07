@@ -14,7 +14,7 @@ module.exports = {
     if (!interaction.isButton()) return;
     const { guild, customId, channel, member, message } = interaction;
 
-    if (!['cl1', 'oen1', 'del1', `claim1` ].includes(customId)) return;
+    if (!['cl1', 'del1', `claim1` ].includes(customId)) return;
 
     const TicketSetup = await TicketSetupData.findOne({ GuildID: guild.id });
     if (!TicketSetup)
@@ -43,13 +43,13 @@ module.exports = {
             fileName: `ticket - ${docs.TicketID}.html`,
           });
           
-          await DB.updateOne({ Channel: channel.id }, { Deleted: true });
+          await DB.updateOne({ Channel: channel.id }, { Deleted: true, Closed: true });
 
           const Message = await guild.channels.cache
             .get(TicketSetup.Transcripts)
             .send({
               embeds: [
-                Embed.setTitle(`Жалоба закрыта`).addFields([
+                Embed.setTitle(`Жалоба закрыта`).setColor("GREEN").addFields([
                   {
                     name: "Айди жалобы",
                     value: `${docs.TicketID}`,
@@ -85,7 +85,7 @@ module.exports = {
             embeds: [Embed.setTitle('Жалоба закрыта 🔒'
             )
               .setDescription(`Жалоба закрыта \n[TRANSCRIPTS](${Message.url})`)
-              .setColor('#2C2F33')
+              .setColor('GREEN')
               .setFooter({ text: `${interaction.guild.name}` })
             ]
           });
@@ -97,7 +97,7 @@ module.exports = {
         case 'cl1':
           if (docs.Claimed == true)
             return interaction.reply({
-              content: `❌ | Эта жалоба уже была принята <@${docs.ClaimeBy}>`,
+              content: `❌ | Эта жалоба уже была принята `,
               ephemeral: true,
             });
 
@@ -107,33 +107,15 @@ module.exports = {
           );
           Embed
             .setAuthor(({ name: `${member.user.username}` }))
-            .setTitle('✅ | Жалоба принята.')
-            .setColor('#2C2F33')
+            .setTitle('✅ Жалоба принята.')
+            .setColor(`GREEN`)
             .setDescription(`${member} принял жалобу`)
             .setFooter({ text: `${interaction.guild.name}` })
 
           interaction.reply({ embeds: [Embed] });
 
           break;
-           case 'oen1':
-           if(docs.Closed == false)
-           return interaction.reply("эта жалоба уже открыта")
 
-          await DB.updateOne({ ChannelID: channel.id }, { Closed: false })
-          docs.MembersID.forEach((m) => {
-            channel.permissionOverwrites.edit(m, {
-              VIEW_CHANNEL: true,
-            })
-          })
-
-          const GD = new MessageEmbed()
-            .setDescription(`Жалоба была открыта ${interaction.user}`)
-
-
-
-          await interaction.reply({ embeds: [Embed.setDescription(`Эта жалоба теперь открыта ${interaction.user}`)] })
-          setTimeout(() => { message.delete() }, 2);
-          break;
         case 'claim1':
           if (docs.Claimed == true)
             return interaction.reply({
@@ -146,8 +128,8 @@ module.exports = {
             { Claimed: true, ClaimedBy: interaction.user.id }
           );
           Embed
-            .setTitle('✅ | Жалоба принята')
-            .setColor('#2C2F33')
+            .setTitle('✅ Жалоба принята')
+            .setColor(`GREEN`)
             .setDescription(`${member} принял эту жалобу`)
         
           interaction.reply({ embeds: [Embed] });
