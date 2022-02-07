@@ -36,7 +36,7 @@ module.exports = {
       if (!docs) return interaction.reply({ content: 'Вы не можете создать другую жалобу, пожалуйста, закройте текущие или используйте тот же билет.', ephemeral: true });
 
       switch (customId) {
-        case 'del1':
+        case 'rip1':
           const attachment = await createTranscript(channel, {
             limit: -1,
             returnBuffer: false,
