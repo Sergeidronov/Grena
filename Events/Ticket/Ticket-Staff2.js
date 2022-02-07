@@ -14,7 +14,7 @@ module.exports = {
     if (!interaction.isButton()) return;
     const { guild, customId, channel, member, message } = interaction;
 
-    if (!['cl1', 'del1', `claim1` ].includes(customId)) return;
+    if (!['cl1', 'rp1', `claim1` ].includes(customId)) return;
 
     const TicketSetup = await TicketSetupData.findOne({ GuildID: guild.id });
     if (!TicketSetup)
@@ -36,7 +36,7 @@ module.exports = {
       if (!docs) return interaction.reply({ content: 'Вы не можете создать другую жалобу, пожалуйста, закройте текущие или используйте тот же билет.', ephemeral: true });
 
       switch (customId) {
-        case 'rip1':
+        case 'rp1':
           const attachment = await createTranscript(channel, {
             limit: -1,
             returnBuffer: false,

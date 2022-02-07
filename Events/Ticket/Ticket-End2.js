@@ -13,7 +13,7 @@ module.exports = {
 
     const { guild, customId, channel, member } = interaction;
 
-    if (!["del1"].includes(customId)) return;
+    if (!["close1"].includes(customId)) return;
 
    
   
@@ -25,7 +25,7 @@ module.exports = {
     const Buttons = new MessageActionRow()
       .addComponents(
         new MessageButton()
-          .setCustomId('rip1')
+          .setCustomId('rp1')
           .setLabel('Закрыть')
           .setStyle('DANGER'),
       );

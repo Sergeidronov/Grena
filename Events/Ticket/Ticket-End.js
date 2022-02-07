@@ -25,7 +25,7 @@ module.exports = {
     const Buttons = new MessageActionRow()
       .addComponents(
         new MessageButton()
-          .setCustomId('rip')
+          .setCustomId('rp')
           .setLabel('Закрыть')
           .setStyle('DANGER'),
       );
