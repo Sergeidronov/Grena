@@ -1,35 +1,46 @@
-const { MessageEmbed } = require("discord.js");
+// Logs whenever an emoji is created, uses audit logs and client basic event
+
+const { Client, MessageEmbed, Emoji } = require("discord.js");
 const LogsSetupData = require("../../Memory/Schems/LogsSetupDB");
 
 module.exports = {
   name: "emojiCreate",
-  async execute(emoji) {
-    const { guild } = emoji;
-    if (!emoji.guild) return;
-
+  /**
+   * @param {Emoji} emoji
+   */
+  async execute(emoji, client) {
     const Data = await LogsSetupData.findOne({
       GuildID: emoji.guild.id,
     });
     if (!Data) return;
+    
+    const logChannel = emoji.guild.channels.cache.get(Data.LogsChannel); 
+    const logs = await emoji.guild.fetchAuditLogs({
+      limit: 1,
+      type: "EMOJI_CREATE"
+    })
+    const log = logs.entries.first(); // Fetches the logs and takes the last entry of the type "EMOJI_CREATE"
 
-    if (emoji) {
-      let emb = new MessageEmbed()
-        .setDescription(`🆕 **Server emoji created!**`)
-        .setFields({
-          name: "Added Emoji",
-          value: `${emoji} :${emoji.name}:`,
-          inline: true,
-        })
-        .setColor("#43b581")
-        .setFooter({ text: `Emoji ID: ${emoji.id}` })
-        .setTimestamp();
+    if (log) { // If there is a corresponding entry creates the embed
+      const emojiCreateEmbed = new MessageEmbed()
+        .setTitle("<:icons_createemoji:866943416474796062> Было Создано Эмодзи")
+        .setColor("GREEN")
+        .setDescription(`> Эмодзи \`${emoji.name}\` было создано \`${log.executor.tag}\``)
+        .setImage(emoji.url)
+        .setTimestamp()
+        .setFooter(emoji.guild.name)
 
-      await guild.channels.cache
-        .get(Data.LogsChannel)
-        .send({ embeds: [emb] })
-        .catch((error) => {
-          console.log(error);
-        });
+      await logChannel.createWebhook(emoji.guild.name, {// Creates a webhook in the logging channel specified before
+        avatar: emoji.guild.iconURL({ format: "png" })
+      }).then(webhook => {
+        webhook.send({ // Sends the embed through the webhook
+          embeds: [emojiCreateEmbed]
+        }).then(() => webhook.delete().catch(() => { })) // Deletes the webhook and catches the error if any
+      });
     }
   },
 };
+
+
+// Code created by 刀ტ乃ტのၦ#0001 on discord
+// Licence: MIT

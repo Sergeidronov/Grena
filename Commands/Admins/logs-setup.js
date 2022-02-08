@@ -1,8 +1,8 @@
 const { CommandInteraction, MessageEmbed } = require("discord.js");
-const DB = require("../../Memory/Schems/LogsSetupDB");
+const DB = require("../../Memory/Schems/LogsSetupDB"); // The path to the DB most likely is wrong, input the right one
 
 module.exports = {
-  name: "logs",
+  name: "log",
   description: "Setup or reset the logs channel",
   permission: "ADMINISTRATOR",
   options: [
@@ -27,10 +27,9 @@ module.exports = {
     },
   ],
   /**
-   *
    * @param {GuildMember} member
    * @param {CommandInteraction} interaction
-   */
+   */ 
   async execute(interaction) {
     try {
       const options = interaction.options;

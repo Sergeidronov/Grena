@@ -1,58 +1,51 @@
-const { MessageEmbed } = require("discord.js");
+// Logs whenever a role is deleted
+
+const { MessageEmbed, Role, Permissions, Client } = require("discord.js");
 const LogsSetupData = require("../../Memory/Schems/LogsSetupDB");
 
 module.exports = {
   name: "roleDelete",
+  /**
+   * @param {Role} role
+   */
   async execute(role, client) {
-    const { guild } = role;
-    if (!role.guild) return;
-
     const Data = await LogsSetupData.findOne({
       GuildID: role.guild.id,
     });
     if (!Data) return;
+    
+    const logChannel = role.guild.channels.cache.get(Data.LogsChannel); 
+    const logs = await role.guild.fetchAuditLogs({
+      limit: 1,
+      type: "ROLE_DELETE"
+    })
+    const log = logs.entries.first(); // Fetches the logs and takes the last entry
 
-    if (role) {
-      let emb = new MessageEmbed()
-        .setDescription(`🗑 **Role deleted: ${role.name}**`)
-        .setFields(
-          {
-            name: "Color",
-            value: `[${
-              role.hexColor
-            }](https://colorpicker.me/#${role.color.toString(16)})`,
-            inline: true,
-          },
-          {
-            name: "Hoisted",
-            value: `${role.hoist}`,
-            inline: true,
-          },
-          {
-            name: "Position",
-            value: `${role.position}`,
-            inline: true,
-          },
-          {
-            name: "Permissions",
-            value: `${role.permissions
-              .toArray()
-              .join(", ")
-              .toLowerCase()
-              .replaceAll("_", " ")}`,
-            inline: true,
-          }
-        )
-        .setColor("#f04947")
-        .setFooter({ text: `Role ID: ${role.id}` })
-        .setTimestamp();
+    const roleCreateEmbed = new MessageEmbed()
+      .setTitle("<:icons_deleterole:866943415895851018> Роль удалена")
+      .setColor("RED")
+      .setTimestamp()
+      .setFooter(role.guild.name)
 
-      await guild.channels.cache
-        .get(Data.LogsChannel)
-        .send({ embeds: [emb] })
-        .catch((error) => {
-          console.log(error);
-        });
+
+    if (log) { // If entry first entry is existing executes code
+      roleCreateEmbed.setDescription(`> Роль \`${role.name}\` удалена \`${log.executor.tag}\``)
+
+      await createAndDeleteWebhook(roleCreateEmbed) // executes the function bellow with as parameter the embed name
     }
-  },
-};
+
+    async function createAndDeleteWebhook(embedName) {
+      await logChannel.createWebhook(role.guild.name, { // Creates a webhook in the logging channel specified before
+        avatar: role.guild.iconURL({ format: "png" })
+      }).then(webhook => {
+        webhook.send({ // Sends the embed through the webhook
+          embeds: [embedName]
+        }).then(() => webhook.delete().catch(() => { })) // Deletes the webhook and catches the error if any
+      });
+    }
+  }
+}
+
+
+// Code created by 刀ტ乃ტのၦ#0001 on discord
+// Licence: MIT
