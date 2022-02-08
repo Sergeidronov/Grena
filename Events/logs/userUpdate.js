@@ -18,7 +18,7 @@ module.exports = {
     });
     if (!Data) return;
     
-    const guild = client.guilds.cache.get(guild.id) // Enter your guild ID 
+    const guild = client.guilds.cache.get("ID") // Enter your guild ID 
     const logChannel = guild.channels.cache.get(Data.LogsChannel);
 
     const userUpdateEmbed = new MessageEmbed()

@@ -38,7 +38,7 @@ module.exports = {
             value: `<#${invite.channelId}>`
           },
           {
-            name: "Истекает в",
+            name: "Истекает",
             value: invite.maxAge != 0 ? `<t:${parseInt(invite.expiresTimestamp / 1000)}:R>` : "Никогда не истекает"
           },
           {

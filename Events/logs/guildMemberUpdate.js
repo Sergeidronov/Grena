@@ -25,7 +25,7 @@ module.exports = {
       if (oldMember.roles.cache.size == newMember.roles.cache.size) return // If number of roles member has didnt change return
       const memberRoleUpdateEmbed = new MessageEmbed()
         .setTitle("<:icons_updatemember:866943416256167936> Для участника была добавлена/удалена одна или несколько ролей")
-        .setDescription(`> Следующие роли были добавлены / удалены ${oldMember} \`${log.executor.tag}\``)
+        .setDescription(`> \`${log.executor.tag}\` добавляет / удаляет роли ${oldMember}`)
         .setTimestamp()
         .setFooter(oldMember.guild.name)
 
