@@ -1,45 +1,57 @@
-const { CommandInteraction, MessageEmbed, Message } = require("discord.js");
+const   { Client, Intents, MessageEmbed, MessageActionRow, MessageButton} = require('discord.js'),
+        client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES ] });
+        client.db = require("quick.db");
+
+
+   
 
 module.exports = {
-    name: "poll",
-    description: "Создание голосования",
-    usage: "/poll",
-    permission: "ADMINISTRATOR",
-    options: [
-      {
-          name: "poll",
-          description: "Опишите опрос, который вы хотите провести.",
-          type: "STRING",
-          required: true
-      }, 
-      {
-        name: "channel",
-        description: "Выберите канал для отправки сообщения.",
-        type: "CHANNEL",
-        channelTypes: ["GUILD_TEXT"],
-      },
-    ],
-    /**
-     * @param {CommandInteraction} interaction
+            name: "poll",
+            description: "Создание голосования",
+            permission: "ADMINISTRATOR",
+            options: [
+                {
+                    name: "time",
+                    description: "Время голосования в минутах",
+                    type: "INTEGER",
+                    required: true
+                }, {
+                    name: "question",
+                    description: "Вопрос",
+                    type: "STRING",
+                    required: true
+                }, {
+                    name: "answer1",
+                    description: "Ответ 1",
+                    type: "STRING",
+                    required: true
+                }, {
+                    name: "answer2",
+                    description: "Ответ 2",
+                    type: "STRING",
+                    required: true
+                }, {
+                    name: "answer3",
+                    description: "Ответ 3",
+                    type: "STRING"
+                }, {
+                    name: "answer4",
+                    description: "Ответ 4",
+                    type: "STRING"
+                }, {
+                    name: "answer5",
+                    description: "Ответ 5",
+                    type: "STRING"
+                }
+            ],
+            
+     /**
+     * @param {interactionCreate} interaction
      */
-    async execute(interaction, client) {
+      async execute(interaction) {
+
         
-        const { options } = interaction;
+      
+}
 
-        const poll = options.getString("poll");
-        const gChannel = options.getChannel("channel") || interaction.channel;
-
-        const pollEmbed = new MessageEmbed()
-            .setColor("AQUA")
-            .setTitle("Poll 📊")
-            .setDescription(poll)
-            .setFooter("Нажмите на эмодзи 👍, 👎, для описания вашего мнения.")
-            .setTimestamp()
-
-        const sendMessage = await client.channels.cache.get(gChannel.id).send({embeds: [pollEmbed]});
-        sendMessage.react("👍")
-        sendMessage.react("👎")
-
-        interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`Голосование успешно создано ${gChannel} ✅`)],ephemeral: true})
-    }
 }

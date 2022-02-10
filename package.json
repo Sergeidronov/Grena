@@ -2,7 +2,7 @@
   "dependencies": {
     "@discordjs/voice": "^0.7.5",
     "ascii-table": "^0.0.9",
-    "chalk": "^5.0.0",
+    "chalk": "^2.4.1",
     "common-tags": "^1.8.2",
     "crypto-js": "^4.1.1",
     "discord-buttons": "^4.0.0-deprecated",
