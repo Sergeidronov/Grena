@@ -24,7 +24,7 @@ module.exports = {
         const suggestion = await suggestDB.findOne({GuildID: interaction.guild.id, MessageID: interaction.message.id})
     
         if(!suggestion)
-          return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Этот [suggestion](${interaction.message.url}) не был найден в базе данных.`)], ephemeral: true});
+          return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Это предложение(${interaction.message.url}) не был найден в базе данных.`)], ephemeral: true});
 
         if(suggestion.InUse) {
             return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Пожалуйста, подождите, пока кто-то другой в настоящее время пытается повысить / понизить голос.`)], ephemeral: true});
@@ -55,20 +55,20 @@ module.exports = {
             case "suggestion-upvote":
                 if(suggestion.UpvotesMembers.includes(interaction.member.id)) {
 
-                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы уже проголосовали за это [suggestion](${interaction.message.url}).`)], ephemeral: true});
+                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы уже проголосовали за это предложение(${interaction.message.url}).`)], ephemeral: true});
 
                 } else if(suggestion.DownvotesMembers.includes(interaction.member.id)) {
                     suggestion.DownvotesMembers.splice(suggestion.DownvotesMembers.indexOf(interaction.member.id, 1))
 
                     suggestion.UpvotesMembers.push(interaction.member.id)
 
-                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`✅ Вы проголосовали против этого [suggestion](${interaction.message.url}).`)], ephemeral: true});
+                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`✅ Вы проголосовали за это предложение(${interaction.message.url}).`)], ephemeral: true});
 
                 } else {
 
                     suggestion.UpvotesMembers.push(interaction.member.id)
 
-                    interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`✅ Вы проголосовали против этого [suggestion](${interaction.message.url}).`)], ephemeral: true});
+                    interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`❌ Вы проголосовали против этого предложения(${interaction.message.url}).`)], ephemeral: true});
                 }                
             break;
 
@@ -82,13 +82,13 @@ module.exports = {
 
                     suggestion.DownvotesMembers.push(interaction.member.id)
 
-                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`✅ Вы отклонили это предложение [suggestion](${interaction.message.url}).`)], ephemeral: true});
+                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы отклонили это предложение [suggestion](${interaction.message.url}).`)], ephemeral: true});
 
                 } else {  
 
                     suggestion.DownvotesMembers.push(interaction.member.id)
 
-                    interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`✅ Вы отклонили это предложение [suggestion](${interaction.message.url}).`)], ephemeral: true});
+                    interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`❌ Вы отклонили это предложение [suggestion](${interaction.message.url}).`)], ephemeral: true});
                 }
             break;
         }
