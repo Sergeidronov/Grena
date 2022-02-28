@@ -93,9 +93,9 @@ module.exports = {
             break;
         }
 
-        Embed.fields[3] = {name: "Upvotes", value: `${suggestion.UpvotesMembers.length}`, inline: true};
-        Embed.fields[4] = {name: "Downvotes", value: `${suggestion.DownvotesMembers.length}`, inline: true};
-        Embed.fields[5] = {name: "Overall votes", value: `${suggestion.UpvotesMembers.length-suggestion.DownvotesMembers.length}`, inline: true};
+        Embed.fields[3] = {name: "За", value: `${suggestion.UpvotesMembers.length}`, inline: true};
+        Embed.fields[4] = {name: "Против", value: `${suggestion.DownvotesMembers.length}`, inline: true};
+        Embed.fields[5] = {name: "Всего голосов", value: `${suggestion.UpvotesMembers.length-suggestion.DownvotesMembers.length}`, inline: true};
 
         await interaction.message.edit({embeds: [Embed]})
 
