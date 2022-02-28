@@ -90,7 +90,7 @@ module.exports = {
     
     switch(interaction.options.getSubcommand()) {
       case "accept":
-        Embed.fields[1] = {name: "Статус", value: "Accepted", inline: true};
+        Embed.fields[1] = {name: "Статус", value: "Accepted", inline: false};
         Embed.fields[2] = {name: "Причина", value: `${reason}`, inline: true}
         message.edit({embeds: [Embed.setColor("GREEN")], content: `<@${suggestion.MemberID}>`, components: []});
 
@@ -102,7 +102,7 @@ module.exports = {
       break;
 
       case "decline":
-        Embed.fields[1] = {name: "Статус", value: "Declined", inline: true};
+        Embed.fields[1] = {name: "Статус", value: "Declined", inline: false};
         Embed.fields[2] = {name: "Причина", value: `${reason}`, inline: true}
         message.edit({embeds: [Embed.setColor("RED")], content: `<@${suggestion.MemberID}>`, components: []});
 
