@@ -4,42 +4,24 @@ const suggestSetupDB = require("../../Memory/Schems/suggestSetupDB");
 
 module.exports = {
   name: "suggest",
-  description: "Create a suggestion.",
+  description: "Создание предложения.",
   usage: "/suggest",
   options: [
     {
-      name: "type",
-      description: "Select a type.",
+      name: "тип",
+      description: "Тип предложения",
       required: true,
       type: "STRING",
-      choices: [
-        {
-          name: "Command",
-          value: "Command",
-        },
-        {
-          name: "Event",
-          value: "Event",
-        },
-        {
-          name: "System",
-          value: "System",
-        },
-        {
-          name: "Other",
-          value: "Other",
-        },
-      ],
     },
     {
-      name: "suggestion",
-      description: "Describe your suggestion.",
+      name: "предложение",
+      description: "Опишите свое предложение.",
       type: "STRING",
       required: true,
     },
     {
-      name: "dm",
-      description: "Set whether the bot will DM you, once your suggestion has been declined or accepted.",
+      name: "оповещение",
+      description: "Будет ли бот отправлять вам сообщения, как только ваше предложение будет отклонено или принято.",
       type: "BOOLEAN",
       required: true,
     }
@@ -66,9 +48,9 @@ module.exports = {
     if(suggestionsSetup.ChannelID === "None")
       return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Канал предложения не был настроен.`)]})
 
-    const type = options.getString("type");
-    const suggestion = options.getString("suggestion");
-    const DM = options.getBoolean("dm")
+    const type = options.getString("тип");
+    const suggestion = options.getString("предложение");
+    const DM = options.getBoolean("оповещение")
     
     const Embed = new MessageEmbed()
       .setColor("ORANGE")
@@ -87,8 +69,8 @@ module.exports = {
     
     const buttons = new MessageActionRow()
     buttons.addComponents(
-      new MessageButton().setCustomId("suggestion-upvote").setLabel(`Голос за`).setStyle("PRIMARY").setEmoji(`✅`),
-      new MessageButton().setCustomId("suggestion-downvote").setLabel(`Голос против`).setStyle("DANGER").setEmoji(`❌`)
+      new MessageButton().setCustomId("suggestion-upvote").setLabel(`За`).setStyle("PRIMARY").setEmoji(`✅`),
+      new MessageButton().setCustomId("suggestion-downvote").setLabel(`Против`).setStyle("DANGER").setEmoji(`❌`)
     )
 
     try {
