@@ -8,19 +8,37 @@ module.exports = {
   usage: "/suggest",
   options: [
     {
-      name: "тип",
+      name: "type",
       description: "Select a type.",
       required: true,
       type: "STRING",
+      choices: [
+        {
+          name: "Command",
+          value: "Command",
+        },
+        {
+          name: "Event",
+          value: "Event",
+        },
+        {
+          name: "System",
+          value: "System",
+        },
+        {
+          name: "Other",
+          value: "Other",
+        },
+      ],
     },
     {
-      name: "предложение",
+      name: "suggest",
       description: "Describe your suggestion.",
       type: "STRING",
       required: true,
     },
     {
-      name: "оповещение",
+      name: "powest",
       description: "Установите, будет ли бот отправлять вам сообщения, как только ваше предложение будет отклонено или принято.",
       type: "BOOLEAN",
       required: true,
@@ -48,9 +66,9 @@ module.exports = {
     if(suggestionsSetup.ChannelID === "None")
       return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Канал предложения не был настроен.`)]})
 
-    const type = options.getString("тип");
-    const suggestion = options.getString("предложение");
-    const DM = options.getBoolean("оповещение")
+    const type = options.getString("type");
+    const suggestion = options.getString("suggest");
+    const DM = options.getBoolean("powest")
     
     const Embed = new MessageEmbed()
       .setColor("ORANGE")
