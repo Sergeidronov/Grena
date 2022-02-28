@@ -7,30 +7,30 @@ module.exports = {
     options: [
         {
             name: "title",
-            description: "Choisi le titre de l'embed",
+            description: "Выбор вставки",
             type: "STRING",
             required: false
         },
         {
             name: "description",
-            description: "Choisi la description de l'embed",
+            description: "Выбор описания вставки",
             type: "STRING",
             required: false
         },
         {
             name: "footer",
-            description: "Choisi le footer de l'embed",
+            description: "Выбор нижнего колонтитула вставки",
             type: "STRING",
         },
         {
             name: "color",
-            description: "Choisi la couleur de l'embed",
+            description: "Выбор цвета",
             type: "STRING",
             required: false
         },
         {
             name: "channel",
-            description: "Sélectionner le salon ou l'embed sera envoyer",
+            description: "Выбор канала",
             type: "CHANNEL",
             channelTypes: ["GUILD_TEXT"]
         }
