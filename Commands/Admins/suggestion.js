@@ -108,14 +108,14 @@ module.exports = {
 
         if(suggestion.DM) {
           const member = client.users.cache.get(suggestion.MemberID);
-          member.send({embeds: [new MessageEmbed().setColor("RED").setTitle("Suggestion 💡").setDescription(`❌ Ваше предложение было отклонено.`).addFields({name: "Suggestion", value: `[link](${message.url})`, inline: true}, {name: "Guild", value: `${interaction.guild.name}`, inline: true}, {name: "Reason", value: `${reason}`, inline: true})]}).catch(() => null)
+          member.send({embeds: [new MessageEmbed().setColor("RED").setTitle("Suggestion 💡").setDescription(`❌ Ваше предложение было отклонено.`).addFields({name: "Предложение", value: `[link](${message.url})`, inline: true}, {name: "Сервер", value: `${interaction.guild.name}`, inline: true}, {name: "Причина", value: `${reason}`, inline: true})]}).catch(() => null)
         }
-        return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ [Suggestion](${message.url}) отклоненный.`)], ephemeral: true})
+        return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ предлложение отклонено.`)], ephemeral: true})
       break;
       
       case "delete":
         if(!suggestSetup.AllowOwnSuggestionDelete && !suggestionManager) {
-          return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы не можете удалить это [suggestion](${message.url})`)]})
+          return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы не можете удалить это предложение`)]})
         } else if (suggestionManager) {
           await message.delete()
           return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ Это предложение было удалено.`)]})
