@@ -67,8 +67,8 @@ module.exports = {
       return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Канал предложения не был настроен.`)]})
 
     const type = options.getString("type");
-    const suggestion = options.getString("suggest");
-    const DM = options.getBoolean("powest")
+    const suggestion = options.getString("suggestion");
+    const DM = options.getBoolean("dm")
     
     const Embed = new MessageEmbed()
       .setColor("ORANGE")
