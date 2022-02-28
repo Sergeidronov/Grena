@@ -7,6 +7,7 @@ module.exports = {
   description: "Создание предложения.",
   usage: "/suggest",
   options: [
+    
     {
       name: "предложение",
       description: "Опишите свое предложение.",
@@ -42,13 +43,14 @@ module.exports = {
     if(suggestionsSetup.ChannelID === "None")
       return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Канал предложения не был настроен.`)]})
 
+
     const suggestion = options.getString("предложение");
     const DM = options.getBoolean("оповещение")
     
     const Embed = new MessageEmbed()
       .setColor("ORANGE")
       .setAuthor({name: `${user.tag}`, iconURL: `${user.displayAvatarURL({dynamic: true})}`}, )
-      .setDescription(`**Предложение:**\n${suggestion}`)
+      .setDescription(`**Предложение**\n${suggestion}`)
       .addFields(
         {name: "Статус", value: "🕐 Ожидание", inline: true},
         {name: "Причина", value: "Ожидание", inline: false},
@@ -56,7 +58,7 @@ module.exports = {
       .addFields(
         {name: "За", value: "0", inline: true},
         {name: "Против", value: "0", inline: true},
-        {name: "Всего голосов", value: "0", inline: true},
+        {name: "Голоса", value: "0", inline: true},
       )
     
     const buttons = new MessageActionRow()
