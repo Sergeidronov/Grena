@@ -8,12 +8,6 @@ module.exports = {
   usage: "/suggest",
   options: [
     {
-      name: "тип",
-      description: "Тип предложения",
-      required: true,
-      type: "STRING",
-    },
-    {
       name: "предложение",
       description: "Опишите свое предложение.",
       type: "STRING",
@@ -48,7 +42,6 @@ module.exports = {
     if(suggestionsSetup.ChannelID === "None")
       return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Канал предложения не был настроен.`)]})
 
-    const type = options.getString("тип");
     const suggestion = options.getString("предложение");
     const DM = options.getBoolean("оповещение")
     
@@ -57,9 +50,8 @@ module.exports = {
       .setAuthor({name: `${user.tag}`, iconURL: `${user.displayAvatarURL({dynamic: true})}`}, )
       .setDescription(`**Предложение:**\n${suggestion}`)
       .addFields(
-        {name: "Тип", value: type, inline: true},
         {name: "Статус", value: "🕐 Ожидание", inline: true},
-        {name: "Причина", value: "Ожидание", inline: true},
+        {name: "Причина", value: "Ожидание", inline: false},
       )
       .addFields(
         {name: "За", value: "0", inline: true},
@@ -79,7 +71,6 @@ module.exports = {
       await suggestDB.create({GuildID: guildId, MessageID: M.id, Details: [
         {
           MemberID: member.id,
-          Type: type,
           Suggestion: suggestion,
         }],
         MemberID: member.id,
