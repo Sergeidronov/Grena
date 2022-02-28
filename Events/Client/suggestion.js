@@ -15,7 +15,6 @@ module.exports = {
 
         const suggestionsSetup = await suggestSetupDB.findOne({ GuildID: interaction.guildId });
         var suggestionsChannel;
-    S
         if(!suggestionsSetup) {
           return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ This server has not setup the suggestion system.`)]})
         } else {
