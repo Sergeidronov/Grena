@@ -61,6 +61,7 @@ module.exports = {
         {name: "Причина", value: "Ожидание", inline: false},
       )
       .addFields(
+        {name: "Тип", value: type, inline: true},
         {name: "За", value: "0", inline: true},
         {name: "Против", value: "0", inline: true},
         {name: "Голоса", value: "0", inline: true},
