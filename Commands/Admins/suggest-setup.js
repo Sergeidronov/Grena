@@ -3,60 +3,60 @@ const DB = require("../../Memory/Schems/suggestSetupDB");
 
 module.exports = {
   name: "suggest-setup",
-  description: "Set up the channel to where suggestions are sent.",
+  description: "Настройте канал, по которому будут отправляться предложения.",
   usage: "/suggest-setup",
   permission: "ADMINISTRATOR",
   options: [
     {
         name: "help",
-        description: "Display the help embed.",
+        description: "Отобразите встроенную справку.",
         type: "SUB_COMMAND",
     },
     {
         name: "config",
-        description: "Display the config for this guild.",
+        description: "Отобразите конфигурацию для этой гильдии.",
         type: "SUB_COMMAND",
     },
     {
         name: "create",
-        description: "Create the setup required to use this suggestion system.",
+        description: "Создайте настройки, необходимые для использования этой системы предложений.",
         type: "SUB_COMMAND",
     },
     {
         name: "set-channel",
-        description: "Set the channel where suggestions will be sent.",
+        description: "Установите канал, по которому будут отправляться предложения.",
         type: "SUB_COMMAND",
         options: [
-            {name: "channel", description: "The channel where suggestions will be sent.", type: "CHANNEL", channelTypes: ["GUILD_TEXT"], required: true}
+            {name: "channel", description: "Канал, по которому будут отправляться предложения.", type: "CHANNEL", channelTypes: ["GUILD_TEXT"], required: true}
         ]
     },
     {
         name: "reset",
-        description: "Reset the suggestion system.",
+        description: "Сбросьте систему предложений.",
         type: "SUB_COMMAND",
     },
     {
         name: "enable",
-        description: "Enable the suggestion system.",
+        description: "Включите систему предложений.",
         type: "SUB_COMMAND",
     },
     {
         name: "disable",
-        description: "Disable the suggestion system.",
+        description: "Отключите систему предложений.",
         type: "SUB_COMMAND",
     },
     {
         name: "suggestion-managers",
-        description: "The roles which can accept/decline/delete suggestions.",
+        description: "Роли, которые могут принимать / отклонять / удалять предложения.",
         type: "SUB_COMMAND",
         options: [
-            {name: "option", description: "View role managers | Add/Remove a role manager", type: "STRING", choices: [{name: "view", value: "view"}, {name: "add", value: "add"}, {name: "remove", value: "remove"}], required: true},
-            {name: "role", description: "Role which you want to add/remove.", type: "ROLE", required: false},
+            {name: "option", description: "Просмотр менеджеров ролей | Добавление/Удаление менеджера ролей.", type: "STRING", choices: [{name: "view", value: "view"}, {name: "add", value: "add"}, {name: "remove", value: "remove"}], required: true},
+            {name: "role", description: "Роль, которую вы хотите добавить/удалить.", type: "ROLE", required: false},
         ]
     },
     {
         name: "allow-own-suggestion-delete",
-        description: "State whether members can delete their own suggestions.",
+        description: "разрешить-собственное-предложение-удалить.",
         type: "SUB_COMMAND",
         options: [
             {name: "true-or-false", description: "true/false", type: "BOOLEAN", required: true},

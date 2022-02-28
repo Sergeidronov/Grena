@@ -54,7 +54,7 @@ module.exports = {
         .setDescription(description)
         .setFooter(footer)
         
-        interaction.reply({ content : "Votre embed a été envoyé !", ephemeral : true})
+        interaction.reply({ content : "Ваша вставка была отправлена !", ephemeral : true})
         channel.send({ embeds: [embed] })
         
     }
