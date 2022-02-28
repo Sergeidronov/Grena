@@ -1,93 +1,115 @@
-const {CommandInteraction, MessageEmbed, MessageActionRow, MessageButton} = require("discord.js");
-const DB = require("../../Memory/Schems/suggestdbs");
+const { CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const suggestDB = require("../../Memory/Schems/SuggestDB");
+const suggestSetupDB = require("../../Memory/Schems/suggestSetupDB");
 
 module.exports = {
-    name: "suggest",
-    description: "Suggest",
-    options: [
+  name: "suggest",
+  description: "Create a suggestion.",
+  usage: "/suggest",
+  options: [
+    {
+      name: "type",
+      description: "Select a type.",
+      required: true,
+      type: "STRING",
+      choices: [
         {
-            name: "1",
-            description: "Оцените ваши знания в использовании дискорда (0/5)",
-            type: "STRING",
-            required: true,
-            choices: [
-                {name: "1", value: "1"},
-                {name: "2", value: "2"},
-                {name: "3", value: "3"},
-                {name: "4", value: "4"},
-                {name: "5", value: "5"},
-            ],
+          name: "Command",
+          value: "Command",
         },
         {
-            name: "2",
-            description: "Оцените ваше знание и понимание правил нашего дискорд сервера (0/5)",
-            type: "STRING",
-            required: true,
-            choices: [
-                {name: "1", value: "1"},
-                {name: "2", value: "2"},
-                {name: "3", value: "3"},
-                {name: "4", value: "4"},
-                {name: "5", value: "5"},
-            ],
+          name: "Event",
+          value: "Event",
         },
         {
-            name: "3",
-            description: "Ваш суточный онлайн в дискорде",
-            type: "STRING",
-            required: true,
-            choices: [
-                {name: "1-4ч", value: "1-4ч"},
-                {name: "5-10ч", value: "5-10ч"},
-                {name: "10-15ч", value: "10-15ч"},
-                {name: "15-20ч", value: "15-20ч"},
-                {name: "20-24ч", value: "20-24ч"},
-            ],
+          name: "System",
+          value: "System",
         },
-    ],
-    /**
-     * @param {CommandInteraction} interaction
-     */
-    async execute(interaction) {
-        const {options, guildId, member, user} = interaction;
-
-        const Type1 = options.getString("1");
-        const Type2 = options.getString("2");
-        const Suggestion = options.getString("3");
-
-        const Embed = new MessageEmbed()
-        .setColor("RED")
-        .setAuthor(user.tag, user.displayAvatarURL({dynamic: true}))
-        .addFields(
-            {name: "Оценка знаний в использовании дискорда:", value: Type1, inline: false},
-            {name: "Оценка знаний и понимания правил дискорд сервера", value: Type2, inline: false},
-            {name: "Суточный онлайн в дискорде", value: Suggestion, inline: false},
-            {name: "Статус:", value: "Рассматривается", inline: false},
-            
-        )
-        .setTimestamp()
-
-        const Buttons = new MessageActionRow();
-        Buttons.addComponents(
-            new MessageButton().setCustomId("suggest-accept").setLabel("✅ Принять").setStyle("PRIMARY"),
-            new MessageButton().setCustomId("suggest-decline").setLabel("⛔ Отклонить").setStyle("PRIMARY")
-
-        )
-
-        try {
-
-            const M = await interaction.reply({embeds: [Embed], components: [Buttons], fetchReply: true});
-            
-            await DB.create({GuildID: guildId, MessageID: M.id, Details: [
-                {
-                    MemberID: member.id,
-                    Suggestion: Suggestion
-                }
-            ]})
-
-        } catch (err) {
-            console.log(err);
-        }
-
+        {
+          name: "Other",
+          value: "Other",
+        },
+      ],
+    },
+    {
+      name: "suggestion",
+      description: "Describe your suggestion.",
+      type: "STRING",
+      required: true,
+    },
+    {
+      name: "dm",
+      description: "Set whether the bot will DM you, once your suggestion has been declined or accepted.",
+      type: "BOOLEAN",
+      required: true,
     }
+  ],
+  /**
+   *
+   * @param {CommandInteraction} interaction
+   */
+  async execute(interaction, client) {
+    const { options, guildId, member, user } = interaction;
+
+    const suggestionsSetup = await suggestSetupDB.findOne({ GuildID: guildId });
+    var suggestionsChannel;
+
+    if(!suggestionsSetup) {
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ This server has not setup the suggestion system.`)]})
+    } else {
+      suggestionsChannel = interaction.guild.channels.cache.get(suggestionsSetup.ChannelID)
+    }
+
+    if(suggestionsSetup.Disabled)
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Suggestions are currently disabled.`)]})
+
+    if(suggestionsSetup.ChannelID === "None")
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ The suggestion channel hasn't been set.`)]})
+
+    const type = options.getString("type");
+    const suggestion = options.getString("suggestion");
+    const DM = options.getBoolean("dm")
+    
+    const Embed = new MessageEmbed()
+      .setColor("ORANGE")
+      .setAuthor({name: `${user.tag}`, iconURL: `${user.displayAvatarURL({dynamic: true})}`}, )
+      .setDescription(`**Suggestion:**\n${suggestion}`)
+      .addFields(
+        {name: "Type", value: type, inline: true},
+        {name: "Status", value: "🕐 Pending", inline: true},
+        {name: "Reason", value: "Pending", inline: true},
+      )
+      .addFields(
+        {name: "Upvotes", value: "0", inline: true},
+        {name: "Downvotes", value: "0", inline: true},
+        {name: "Overall votes", value: "0", inline: true},
+      )
+    
+    const buttons = new MessageActionRow()
+    buttons.addComponents(
+      new MessageButton().setCustomId("suggestion-upvote").setLabel(`Upvote`).setStyle("PRIMARY").setEmoji(`${client.emojisObj.upvote}`),
+      new MessageButton().setCustomId("suggestion-downvote").setLabel(`Downvote`).setStyle("DANGER").setEmoji(`${client.emojisObj.downvote}`)
+    )
+
+    try {
+      const M = await suggestionsChannel.send({embeds: [Embed], components: [buttons]});
+
+      await suggestDB.create({GuildID: guildId, MessageID: M.id, Details: [
+        {
+          MemberID: member.id,
+          Type: type,
+          Suggestion: suggestion,
+        }],
+        MemberID: member.id,
+        DM: DM,
+        UpvotesMembers: [],
+        DownvotesMembers: [],
+        InUse: false,
+      })
+      interaction.reply({embeds: [new MessageEmbed().setColor("ORANGE").setDescription(`✅ Your [suggestion](${M.url}) was successfully created and sent to ${suggestionsChannel}`)]})
+    } catch (err) {
+      console.log(err);
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ An error occured.`)]})     
+    }
+  }
 }
