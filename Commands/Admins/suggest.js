@@ -32,14 +32,14 @@ module.exports = {
       ],
     },
     {
-      name: "suggest",
+      name: "suggestion",
       description: "Describe your suggestion.",
       type: "STRING",
       required: true,
     },
     {
-      name: "powest",
-      description: "Установите, будет ли бот отправлять вам сообщения, как только ваше предложение будет отклонено или принято.",
+      name: "dm",
+      description: "Set whether the bot will DM you, once your suggestion has been declined or accepted.",
       type: "BOOLEAN",
       required: true,
     }
