@@ -57,14 +57,14 @@ module.exports = {
       .setAuthor({name: `${user.tag}`, iconURL: `${user.displayAvatarURL({dynamic: true})}`}, )
       .setDescription(`**Предложение:**\n${suggestion}`)
       .addFields(
-        {name: "Type", value: type, inline: true},
-        {name: "Status", value: "🕐 Ожидание", inline: true},
-        {name: "Reason", value: "Ожидание", inline: true},
+        {name: "Тип", value: type, inline: true},
+        {name: "Статус", value: "🕐 Ожидание", inline: true},
+        {name: "Причина", value: "Ожидание", inline: true},
       )
       .addFields(
-        {name: "Upvotes", value: "0", inline: true},
-        {name: "Downvotes", value: "0", inline: true},
-        {name: "Overall votes", value: "0", inline: true},
+        {name: "За", value: "0", inline: true},
+        {name: "Против", value: "0", inline: true},
+        {name: "Всего голосов", value: "0", inline: true},
       )
     
     const buttons = new MessageActionRow()
@@ -88,7 +88,7 @@ module.exports = {
         DownvotesMembers: [],
         InUse: false,
       })
-      interaction.reply({embeds: [new MessageEmbed().setColor("ORANGE").setDescription(`✅ Ваше [suggestion](${M.url}) был успешно создано и отправлен в ${suggestionsChannel}`)]})
+      interaction.reply({embeds: [new MessageEmbed().setColor("ORANGE").setDescription(`✅ Ваше [suggestion](${M.url}) было успешно создано и отправлен в ${suggestionsChannel}`)]})
     } catch (err) {
       console.log(err);
       return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Произошла ошибка.`)]})     

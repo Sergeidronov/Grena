@@ -4,33 +4,33 @@ const suggestDB = require("../../Memory/Schems/SuggestDB");
 
 module.exports = {
   name: "suggestion",
-  description: "Accept or decline a suggestion.",
+  description: "Примите или отклоните предложение.",
   usage: "/suggestion",
   options: [
     {
       name: "accept",
-      description: "Accept a suggestion.",
+      description: "Примите предложение.",
       type: "SUB_COMMAND",
       options: [
-        {name: "message-id", description: "The message id of the suggestion you want to accept.", type: "STRING", required: true},
-        {name: "reason", description: "The reason why this suggestion was accepted.", type: "STRING", required: true}
+        {name: "message-id", description: "Идентификатор сообщения предложения, которое вы хотите принять.", type: "STRING", required: true},
+        {name: "reason", description: "Причина, по которой это предложение было принято.", type: "STRING", required: true}
       ]
     },
     {
       name: "decline",
-      description: "Decline a suggestion.",
+      description: "Отклоните предложение.",
       type: "SUB_COMMAND",
       options: [
-        {name: "message-id", description: "The message id of the suggestion you want to decline.", type: "STRING", required: true},
-        {name: "reason", description: "The reason why this suggestion was declined.", type: "STRING", required: true}
+        {name: "message-id", description: "Идентификатор сообщения предложения, которое вы хотите отклонить.", type: "STRING", required: true},
+        {name: "reason", description: "Причина, по которой это предложение было отклонено.", type: "STRING", required: true}
       ]
     },
     {
       name: "delete",
-      description: "Delete a suggestion.",
+      description: "Удалить предложение.",
       type: "SUB_COMMAND",
       options: [
-        {name: "message-id", description: "The message id of the suggestion you want to decline.", type: "STRING", required: true},
+        {name: "message-id", description: "Идентификатор сообщения предложения, которое вы хотите отклонить.", type: "STRING", required: true},
       ]
     },
   ],
@@ -45,14 +45,14 @@ module.exports = {
 
     if(reason) {
       if(reason.length > 1024)
-      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Your reason can't be longer than 1024 characters.`)], ephemeral: true})
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Ваша причина не может быть длиннее 1024 символов.`)], ephemeral: true})
     }
     
     const suggestSetup = await suggestSetupDB.findOne({ GuildID: interaction.guildId });
     var suggestionsChannel;
 
     if(!suggestSetup) {
-      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ This server has not setup the suggestion system.`)]})
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Этот сервер не настроил систему предложений.`)]})
     } else {
       suggestionsChannel = interaction.guild.channels.cache.get(suggestSetup.ChannelID)
     }
@@ -60,7 +60,7 @@ module.exports = {
     if(interaction.options.getSubcommand() != "delete") {
       if(suggestSetup.SuggestionManagers.length <= 0 || !suggestSetup.SuggestionManagers) {
         if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR))
-          return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ You are not a suggestion manager.`)], ephemeral: true});
+          return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы не являетесь менеджером по предложениям.`)], ephemeral: true});
       } else {
         for (var i = 0; i < suggestSetup.SuggestionManagers.length; i++) {
           if (!interaction.member.roles.cache.has(suggestSetup.SuggestionManagers[i])) 
@@ -70,7 +70,7 @@ module.exports = {
             var suggestionManager = true;
       }
       if(!suggestionManager)
-        return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ You are not a suggestion manager.`)], ephemeral: true});
+        return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы не являетесь менеджером по предложениям`)], ephemeral: true});
       }
     }
 
@@ -78,53 +78,53 @@ module.exports = {
     const suggestion = await suggestDB.findOne({GuildID: interaction.guild.id, MessageID: messageId});
 
     if(!suggestion)
-      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ This suggestion was not found in the database.`)], ephemeral: true})
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Это предложение не было найдено в базе данных.`)], ephemeral: true})
 
     const message = await suggestionsChannel.messages.fetch(messageId)
 
     if(!message)
-      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ This message was not found.`)], ephemeral: true})
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Это сообщение не было найдено.`)], ephemeral: true})
 
     const Embed = message.embeds[0];
     if(!Embed) return;
     
     switch(interaction.options.getSubcommand()) {
       case "accept":
-        Embed.fields[1] = {name: "Status", value: "Accepted", inline: true};
-        Embed.fields[2] = {name: "Reason", value: `${reason}`, inline: true}
+        Embed.fields[1] = {name: "Статус", value: "Accepted", inline: true};
+        Embed.fields[2] = {name: "Причина", value: `${reason}`, inline: true}
         message.edit({embeds: [Embed.setColor("GREEN")], content: `<@${suggestion.MemberID}>`, components: []});
 
         if(suggestion.DM) {
           const member = client.users.cache.get(suggestion.MemberID);
-          member.send({embeds: [new MessageEmbed().setColor("GREEN").setTitle("Suggestion 💡").setDescription(`✅ Your suggestion was accepted.`).addFields({name: "Suggestion", value: `[link](${message.url})`, inline: true}, {name: "Guild", value: `${interaction.guild.name}`, inline: true}, {name: "Reason", value: `${reason}`, inline: true})]}).catch(() => null)
+          member.send({embeds: [new MessageEmbed().setColor("GREEN").setTitle("Suggestion 💡").setDescription(`✅ Ваше предложение было принято.`).addFields({name: "Suggestion", value: `[link](${message.url})`, inline: true}, {name: "Guild", value: `${interaction.guild.name}`, inline: true}, {name: "Reason", value: `${reason}`, inline: true})]}).catch(() => null)
         }
-        return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ [Suggestion](${message.url}) was accepted.`)], ephemeral: true})
+        return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ [Suggestion](${message.url}) было принято.`)], ephemeral: true})
       break;
 
       case "decline":
-        Embed.fields[1] = {name: "Status", value: "Declined", inline: true};
-        Embed.fields[2] = {name: "Reason", value: `${reason}`, inline: true}
+        Embed.fields[1] = {name: "Статус", value: "Declined", inline: true};
+        Embed.fields[2] = {name: "Причина", value: `${reason}`, inline: true}
         message.edit({embeds: [Embed.setColor("RED")], content: `<@${suggestion.MemberID}>`, components: []});
 
         if(suggestion.DM) {
           const member = client.users.cache.get(suggestion.MemberID);
-          member.send({embeds: [new MessageEmbed().setColor("RED").setTitle("Suggestion 💡").setDescription(`❌ Your suggestion was declined.`).addFields({name: "Suggestion", value: `[link](${message.url})`, inline: true}, {name: "Guild", value: `${interaction.guild.name}`, inline: true}, {name: "Reason", value: `${reason}`, inline: true})]}).catch(() => null)
+          member.send({embeds: [new MessageEmbed().setColor("RED").setTitle("Suggestion 💡").setDescription(`❌ Ваше предложение было отклонено.`).addFields({name: "Suggestion", value: `[link](${message.url})`, inline: true}, {name: "Guild", value: `${interaction.guild.name}`, inline: true}, {name: "Reason", value: `${reason}`, inline: true})]}).catch(() => null)
         }
-        return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ [Suggestion](${message.url}) declined.`)], ephemeral: true})
+        return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ [Suggestion](${message.url}) отклоненный.`)], ephemeral: true})
       break;
       
       case "delete":
         if(!suggestSetup.AllowOwnSuggestionDelete && !suggestionManager) {
-          return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ You cannot delete this [suggestion](${message.url})`)]})
+          return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы не можете удалить это [suggestion](${message.url})`)]})
         } else if (suggestionManager) {
           await message.delete()
-          return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ This suggestion was deleted.`)]})
+          return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ Это предложение было удалено.`)]})
         } else if(suggestSetup.AllowOwnSuggestionDelete) {
           if(suggestion.MemberID === interaction.member.id) {
             await message.delete()
-            return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ Your suggestion was deleted.`)]})  
+            return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ Ваше предложение было удалено.`)]})  
           } else {
-            return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ This isn't your suggestion.`)]})  
+            return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Это не ваше предложение.`)]})  
           }
           
         }
