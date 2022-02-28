@@ -8,38 +8,20 @@ module.exports = {
   usage: "/suggest",
   options: [
     {
-      name: "type",
+      name: "тип",
       description: "Select a type.",
       required: true,
       type: "STRING",
-      choices: [
-        {
-          name: "Command",
-          value: "Command",
-        },
-        {
-          name: "Event",
-          value: "Event",
-        },
-        {
-          name: "System",
-          value: "System",
-        },
-        {
-          name: "Other",
-          value: "Other",
-        },
-      ],
     },
     {
-      name: "suggestion",
+      name: "предложение",
       description: "Describe your suggestion.",
       type: "STRING",
       required: true,
     },
     {
-      name: "dm",
-      description: "Set whether the bot will DM you, once your suggestion has been declined or accepted.",
+      name: "оповещение",
+      description: "Установите, будет ли бот отправлять вам сообщения, как только ваше предложение будет отклонено или принято.",
       type: "BOOLEAN",
       required: true,
     }
@@ -55,29 +37,29 @@ module.exports = {
     var suggestionsChannel;
 
     if(!suggestionsSetup) {
-      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ This server has not setup the suggestion system.`)]})
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Этот сервер не настроил систему предложений.`)]})
     } else {
       suggestionsChannel = interaction.guild.channels.cache.get(suggestionsSetup.ChannelID)
     }
 
     if(suggestionsSetup.Disabled)
-      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Suggestions are currently disabled.`)]})
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Предложения в настоящее время отключены.`)]})
 
     if(suggestionsSetup.ChannelID === "None")
-      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ The suggestion channel hasn't been set.`)]})
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Канал предложения не был настроен.`)]})
 
-    const type = options.getString("type");
-    const suggestion = options.getString("suggestion");
-    const DM = options.getBoolean("dm")
+    const type = options.getString("тип");
+    const suggestion = options.getString("предложение");
+    const DM = options.getBoolean("оповещение")
     
     const Embed = new MessageEmbed()
       .setColor("ORANGE")
       .setAuthor({name: `${user.tag}`, iconURL: `${user.displayAvatarURL({dynamic: true})}`}, )
-      .setDescription(`**Suggestion:**\n${suggestion}`)
+      .setDescription(`**Предложение:**\n${suggestion}`)
       .addFields(
         {name: "Type", value: type, inline: true},
-        {name: "Status", value: "🕐 Pending", inline: true},
-        {name: "Reason", value: "Pending", inline: true},
+        {name: "Status", value: "🕐 Ожидание", inline: true},
+        {name: "Reason", value: "Ожидание", inline: true},
       )
       .addFields(
         {name: "Upvotes", value: "0", inline: true},
@@ -87,8 +69,8 @@ module.exports = {
     
     const buttons = new MessageActionRow()
     buttons.addComponents(
-      new MessageButton().setCustomId("suggestion-upvote").setLabel(`Upvote`).setStyle("PRIMARY").setEmoji(`✅`),
-      new MessageButton().setCustomId("suggestion-downvote").setLabel(`Downvote`).setStyle("DANGER").setEmoji(`❌`)
+      new MessageButton().setCustomId("suggestion-upvote").setLabel(`Голос за`).setStyle("PRIMARY").setEmoji(`✅`),
+      new MessageButton().setCustomId("suggestion-downvote").setLabel(`Голос против`).setStyle("DANGER").setEmoji(`❌`)
     )
 
     try {
@@ -106,10 +88,10 @@ module.exports = {
         DownvotesMembers: [],
         InUse: false,
       })
-      interaction.reply({embeds: [new MessageEmbed().setColor("ORANGE").setDescription(`✅ Your [suggestion](${M.url}) was successfully created and sent to ${suggestionsChannel}`)]})
+      interaction.reply({embeds: [new MessageEmbed().setColor("ORANGE").setDescription(`✅ Ваше [suggestion](${M.url}) был успешно создано и отправлен в ${suggestionsChannel}`)]})
     } catch (err) {
       console.log(err);
-      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ An error occured.`)]})     
+      return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Произошла ошибка.`)]})     
     }
   }
 }
