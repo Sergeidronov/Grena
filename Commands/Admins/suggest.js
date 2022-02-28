@@ -89,7 +89,7 @@ module.exports = {
         DownvotesMembers: [],
         InUse: false,
       })
-      interaction.reply({embeds: [new MessageEmbed().setColor("ORANGE").setDescription(`✅ Ваше предложение (${M.url}) было успешно создано и отправлен в ${suggestionsChannel}`)]})
+      interaction.reply({embeds: [new MessageEmbed().setColor("ORANGE").setDescription(`✅ Ваше предложение было успешно создано и отправлен в ${suggestionsChannel}`)], ephemeral: true})
     } catch (err) {
       console.log(err);
       return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Произошла ошибка.`)]})     

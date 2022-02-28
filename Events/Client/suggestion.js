@@ -45,7 +45,7 @@ module.exports = {
 
             await suggestion.save()
 
-            return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы каким-то образом появились как в повышающих, так и в понижающих голосах, так что ваши голоса были сброшены.`)], ephemeral: true});
+            return interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы каким-то образом появились как в голосах за, так и в голосах против , так что ваши голоса были сброшены.`)], ephemeral: true});
         }
         
         const Embed = interaction.message.embeds[0];
@@ -55,40 +55,40 @@ module.exports = {
             case "suggestion-upvote":
                 if(suggestion.UpvotesMembers.includes(interaction.member.id)) {
 
-                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы уже проголосовали за это предложение).`)], ephemeral: true});
+                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы уже проголосовали за это предложение.`)], ephemeral: true});
 
                 } else if(suggestion.DownvotesMembers.includes(interaction.member.id)) {
                     suggestion.DownvotesMembers.splice(suggestion.DownvotesMembers.indexOf(interaction.member.id, 1))
 
                     suggestion.UpvotesMembers.push(interaction.member.id)
 
-                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`✅ Вы проголосовали за это предложение).`)], ephemeral: true});
+                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`✅ Вы проголосовали за это предложение.`)], ephemeral: true});
 
                 } else {
 
                     suggestion.UpvotesMembers.push(interaction.member.id)
 
-                    interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`❌ Вы проголосовали против этого предложения).`)], ephemeral: true});
+                    interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`❌ Вы проголосовали против этого предложения.`)], ephemeral: true});
                 }                
             break;
 
             case "suggestion-downvote":
                 if(suggestion.DownvotesMembers.includes(interaction.member.id)) {
     
-                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы уже проголосовали против этого ).`)], ephemeral: true});
+                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы уже проголосовали против этого.`)], ephemeral: true});
 
                 } else if(suggestion.UpvotesMembers.includes(interaction.member.id)) { 
                     suggestion.UpvotesMembers.splice(suggestion.UpvotesMembers.indexOf(interaction.member.id, 1))
 
                     suggestion.DownvotesMembers.push(interaction.member.id)
 
-                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы отклонили это предложение ).`)], ephemeral: true});
+                    interaction.reply({embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Вы проголосовали против этого предложения.`)], ephemeral: true});
 
                 } else {  
 
                     suggestion.DownvotesMembers.push(interaction.member.id)
 
-                    interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`❌ Вы отклонили это предложение ).`)], ephemeral: true});
+                    interaction.reply({embeds: [new MessageEmbed().setColor("GREEN").setDescription(`❌ Вы проголосовали против этого предложения.`)], ephemeral: true});
                 }
             break;
         }
