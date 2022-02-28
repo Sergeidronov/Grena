@@ -87,8 +87,8 @@ module.exports = {
     
     const buttons = new MessageActionRow()
     buttons.addComponents(
-      new MessageButton().setCustomId("suggestion-upvote").setLabel(`Upvote`).setStyle("PRIMARY").setEmoji(`${client.emojisObj.upvote}`),
-      new MessageButton().setCustomId("suggestion-downvote").setLabel(`Downvote`).setStyle("DANGER").setEmoji(`${client.emojisObj.downvote}`)
+      new MessageButton().setCustomId("suggestion-upvote").setLabel(`Upvote`).setStyle("PRIMARY").setEmoji(`✅`),
+      new MessageButton().setCustomId("suggestion-downvote").setLabel(`Downvote`).setStyle("DANGER").setEmoji(`❌`)
     )
 
     try {
