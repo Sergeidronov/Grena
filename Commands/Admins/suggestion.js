@@ -90,25 +90,25 @@ module.exports = {
     
     switch(interaction.options.getSubcommand()) {
       case "accept":
-        Embed.fields[1] = {name: "Статус", value: "Accepted", inline: false};
-        Embed.fields[2] = {name: "Причина", value: `${reason}`, inline: true}
+        Embed.fields[1] = {name: "Статус", value: "Accepted", inline: true};
+        Embed.fields[2] = {name: "Причина", value: `${reason}`, inline: false}
         message.edit({embeds: [Embed.setColor("GREEN")], content: `<@${suggestion.MemberID}>`, components: []});
 
         if(suggestion.DM) {
           const member = client.users.cache.get(suggestion.MemberID);
-          member.send({embeds: [new MessageEmbed().setColor("GREEN").setTitle("Suggestion 💡").setDescription(`✅ Ваше предложение было принято.`).addFields({name: "Предложение", value: `[link](${message.url})`, inline: true}, {name: "Сервер", value: `${interaction.guild.name}`, inline: true}, {name: "Причина", value: `${reason}`, inline: true})]}).catch(() => null)
+          member.send({embeds: [new MessageEmbed().setColor("GREEN").setTitle("Предложение 💡").setDescription(`✅ Ваше предложение было принято.`).addFields({name: "Предложение", value: `[link](${message.url})`, inline: true}, {name: "Сервер", value: `${interaction.guild.name}`, inline: true}, {name: "Причина", value: `${reason}`, inline: true})]}).catch(() => null)
         }
         return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ [Suggestion](${message.url}) было принято.`)], ephemeral: true})
       break;
 
       case "decline":
-        Embed.fields[1] = {name: "Статус", value: "Declined", inline: false};
-        Embed.fields[2] = {name: "Причина", value: `${reason}`, inline: true}
+        Embed.fields[1] = {name: "Статус", value: "Declined", inline: true};
+        Embed.fields[2] = {name: "Причина", value: `${reason}`, inline: false}
         message.edit({embeds: [Embed.setColor("RED")], content: `<@${suggestion.MemberID}>`, components: []});
 
         if(suggestion.DM) {
           const member = client.users.cache.get(suggestion.MemberID);
-          member.send({embeds: [new MessageEmbed().setColor("RED").setTitle("Suggestion 💡").setDescription(`❌ Ваше предложение было отклонено.`).addFields({name: "Предложение", value: `[link](${message.url})`, inline: true}, {name: "Сервер", value: `${interaction.guild.name}`, inline: true}, {name: "Причина", value: `${reason}`, inline: true})]}).catch(() => null)
+          member.send({embeds: [new MessageEmbed().setColor("RED").setTitle("Предложение 💡").setDescription(`❌ Ваше предложение было отклонено.`).addFields({name: "Предложение", value: `[link](${message.url})`, inline: true}, {name: "Сервер", value: `${interaction.guild.name}`, inline: true}, {name: "Причина", value: `${reason}`, inline: true})]}).catch(() => null)
         }
         return interaction.reply({embeds: [new MessageEmbed().setColor("AQUA").setDescription(`✅ предлложение отклонено.`)], ephemeral: true})
       break;
