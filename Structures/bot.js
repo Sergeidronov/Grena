@@ -22,6 +22,7 @@ const Discord = require('discord.js')
 client.applicationCommands = [];
 client.aliases = new Collection()
 client.commands = new Collection();
+client.voiceGenerator = new Collection();
 
 ["Events", "Commands"].forEach(handler => {
     require(`./Handlers/${handler}`)(client, PG, Ascii);
