@@ -27,7 +27,7 @@ client.commands = new Collection();
     require(`./Handlers/${handler}`)(client, PG, Ascii);
 });
 
-
+client.voiceGenerator = new Collection()
 
 
 
