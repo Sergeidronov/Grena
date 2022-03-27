@@ -2,6 +2,9 @@ const   { Client, Intents, MessageEmbed, MessageActionRow, MessageButton} = requ
         client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES ] });
         client.db = require("quick.db");
 
+
+   
+
 module.exports = {
             name: "poll",
             description: "Создание голосования",
