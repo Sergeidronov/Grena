@@ -43,7 +43,7 @@ module.exports = {
                     name.setName(channelName);
                     name1.setName(channelPlayer);
 
-            }, 60)}}
+            }, 60000)}}
 
 
 //made by Ｈｘｐｅ　（望み ）#8806
