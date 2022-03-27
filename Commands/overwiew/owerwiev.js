@@ -15,11 +15,6 @@ module.exports = {
             description: 'choose a channel for channel count',
             type: 'CHANNEL',
             required: true,
-        }, {
-            name: 'emoji',
-            description: 'choose a channel for emoji count',
-            type: 'CHANNEL',
-            required: true,
         }
 ],
     async execute(interaction) {
@@ -30,15 +25,13 @@ module.exports = {
 
         const member = interaction.options.getChannel('member')
         const channel = interaction.options.getChannel('channel')
-        const emoji = interaction.options.getChannel('emoji')
 
         const name = interaction.guild.channels.cache.get(member.id)
         const name1 = interaction.guild.channels.cache.get(channel.id)
-        const name2 = interaction.guild.channels.cache.get(emoji.id)
 
         const aaa = new MessageEmbed()
         .setColor('GREEN')
-        .setDescription(`A guild overview has begun and will renew every 10 minutes`)
+        .setDescription(`Обзор гильдии начался и будет постоянно обновляться`)
 
         interaction.reply({ embeds: [aaa] })
 
@@ -46,13 +39,11 @@ module.exports = {
 
                     const channelName = `👤 Members: ${memberCount}`;
                     const channelPlayer = `📊 Channels: ${channels.cache.size}`;
-                    const channelIp = `😇 Emoji's: ${stickers.cache.size + emojis.cache.size}`;
 
                     name.setName(channelName);
                     name1.setName(channelPlayer);
-                    name2.setName(channelIp);
 
-            }, 600000)}}
+            }, 60)}}
 
 
 //made by Ｈｘｐｅ　（望み ）#8806
