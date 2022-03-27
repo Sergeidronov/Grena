@@ -1,10 +1,10 @@
 const { MessageEmbed, CommandInteraction, MessageActionRow, MessageButton } = require("discord.js");
 
-const channelID = '957570512593248296' // PUT YOUR CHANNEL ID HERE. THE EMBED WILL BE SENT TO THIS CHANNEL FOR CONTROLLING VOICE ROOMS WITH BUTTONS.
+const channelID = '957584962448687134' // PUT YOUR CHANNEL ID HERE. THE EMBED WILL BE SENT TO THIS CHANNEL FOR CONTROLLING VOICE ROOMS WITH BUTTONS.
 
 module.exports = {
   name: "vcsetup",
-  description: "Setup Voice Rooms.",
+  description: "Настройка Голосовых Комнат.",
   permission: "ADMINISTRATOR",
 
   /**
@@ -18,32 +18,32 @@ module.exports = {
     
     const Embed = new MessageEmbed()
     .setColor("BLUE")
-    .setAuthor({name: "🔊 Voice Rooms"})
-    .setDescription(`Use custom voice rooms to have a separate voice channel just for you and your friends!
+    .setAuthor({name: "🔊 Голосовые комнаты"})
+    .setDescription(`Используйте пользовательские голосовые комнаты, чтобы иметь отдельный голосовой канал только для вас и ваших друзей!
     
-    ▫ ️Use the \`/vc\` command to configure your voice room.`)
-    .setFooter({text: `Use the buttons below to control your voice room.`, iconURL: `${client.user.displayAvatarURL({dynamic: true, size: 512})}`})
-
+    ▫ ️Используйте команду \`/vc\` для настройки вашей голосовой комнаты.`)
+    .setFooter({text: `Используйте кнопки ниже, чтобы управлять своей голосовой комнатой.`, iconURL: `${client.user.displayAvatarURL({dynamic: true, size: 512})}`})
+    
     const Buttons = new MessageActionRow();
     Buttons.addComponents(
     new MessageButton()
       .setCustomId("hide")
-      .setLabel("Hide")
+      .setLabel("Скрыть комнату")
       .setStyle("DANGER")
       .setEmoji("⛔"),
     new MessageButton()
       .setCustomId("unhide")
-      .setLabel("Unhide")
+      .setLabel("Показать комнату")
       .setStyle("PRIMARY")
       .setEmoji("👁️"),
     new MessageButton()
       .setCustomId("public")
-      .setLabel("Public")
+      .setLabel("Сделать публично")
       .setStyle("SUCCESS")
       .setEmoji("🔓"),
     new MessageButton()
       .setCustomId("private")
-      .setLabel("Private")
+      .setLabel("Сделать приватно")
       .setStyle("PRIMARY")
       .setEmoji("🔒"),
     );
@@ -52,18 +52,18 @@ module.exports = {
     Buttons2.addComponents(
     new MessageButton()
       .setCustomId("increase")
-      .setLabel("Increase Limit")
+      .setLabel("Увеличить Лимит")
       .setStyle("SECONDARY")
       .setEmoji("➕"),
     new MessageButton()
       .setCustomId("decrease")
-      .setLabel("Decrease Limit")
+      .setLabel("Уменьшить лимит")
       .setStyle("SECONDARY")
       .setEmoji("➖"),
     );
 
     await guild.channels.cache.get(`${channelID}`).send({embeds: [Embed], components: [Buttons,Buttons2]});
 
-    interaction.reply({ content: "Voice rooms setup complete.", epheneram: true})
+    interaction.reply({ content: "Настройка голосовых комнат завершена.", epheneram: true})
   }
 }
