@@ -11,6 +11,7 @@
     "discord-logs": "^2.0.1",
     "discord-rich-presence": "^0.0.8",
     "discord-rpc": "^4.0.1",
+    "discord-welcome-card": "^4.6.0",
     "discord.js": "^13.6.0",
     "discord.js-pagination": "^1.0.3",
     "express": "^4.17.2",
