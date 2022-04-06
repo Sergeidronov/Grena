@@ -27,6 +27,7 @@ client.commands = new Collection();
     require(`./Handlers/${handler}`)(client, PG, Ascii);
 });
 
+require("./Handlers/Anti-Crash")(client);
 client.voiceGenerator = new Collection()
 
 
